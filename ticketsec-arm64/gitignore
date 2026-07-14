@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Models & Data (keep structure, ignore large files if needed)
+# We actually want to commit small models, but ignore temp files
+*.log
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (keep JSON, ignore PNG if regenerable)
+# results/*.png
