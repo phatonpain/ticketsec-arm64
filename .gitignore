@@ -9,6 +9,8 @@ scripts/screenshot_p1.py
 scripts/screenshot_p1_selenium.mjs
 scripts/test_write.txt
 scripts/remove_var_fallbacks.py
+audit/HANDOFF_P1.md
+audit/RUBRIC_P1.md
 *.log
 .vitest_*.log
 working_tree.diff
