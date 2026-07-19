@@ -1,14 +1,14 @@
 {
   "status": "COMPLETE",
-  "generated_at": "2026-07-19T06:55:12.423849+00:00",
+  "generated_at": "2026-07-19T22:09:10.281027+00:00",
   "host": "local development machine",
   "endpoint": "http://127.0.0.1:8000/predict",
   "sample_count": 100,
-  "p50_ms": 0.207,
-  "p95_ms": 0.316,
+  "p50_ms": 0.249,
+  "p95_ms": 0.525,
   "model_load_s": null,
-  "per_request_inference_p50_ms": 0.207,
-  "per_request_inference_p95_ms": 0.316,
+  "per_request_inference_p50_ms": 0.249,
+  "per_request_inference_p95_ms": 0.525,
   "measurement_protocol": {
     "per_request": "Sequential 100 canonical POST /predict calls with payloads spanning the six categories. p50/p95 computed from processing_time_ms.",
     "model_load": "sudo systemctl restart ticketsec, then curl /health in a loop until 200. Load time = restart-to-healthy interval.",
@@ -17,67 +17,67 @@
   "raw_responses_sample": [
     {
       "predicted_category": "Phishing",
-      "confidence": 0.582792,
-      "processing_time_ms": 0.2621,
+      "confidence": 0.991355,
+      "processing_time_ms": 0.2986,
       "probabilities": {
-        "Phishing": 0.5827917965830595,
-        "Malware": 0.10038716196436939,
-        "Unauthorized Access": 0.05975237772237692,
-        "Data Breach": 0.06606163731125538,
-        "DDoS": 0.04154778582531533,
-        "False Positive": 0.1494592405936235
+        "Phishing": 0.9913551090322008,
+        "Malware": 0.0015053907225516332,
+        "Unauthorized Access": 0.00022192098278622574,
+        "Data Breach": 0.0003214123095725528,
+        "DDoS": 5.8060904139520444e-05,
+        "False Positive": 0.006538106048749309
       }
     },
     {
       "predicted_category": "Malware",
-      "confidence": 0.424923,
-      "processing_time_ms": 0.2507,
+      "confidence": 0.957418,
+      "processing_time_ms": 0.3798,
       "probabilities": {
-        "Phishing": 0.11911519670513847,
-        "Malware": 0.42492282259691805,
-        "Unauthorized Access": 0.09201685956233543,
-        "Data Breach": 0.12125646390995513,
-        "DDoS": 0.1403289829415146,
-        "False Positive": 0.1023596742841383
+        "Phishing": 0.008768706576361758,
+        "Malware": 0.9574177258479751,
+        "Unauthorized Access": 0.00338285672242088,
+        "Data Breach": 0.009364582591668296,
+        "DDoS": 0.016054369498006277,
+        "False Positive": 0.005011758763567713
       }
     },
     {
       "predicted_category": "Unauthorized Access",
-      "confidence": 0.412676,
-      "processing_time_ms": 0.205,
+      "confidence": 0.941951,
+      "processing_time_ms": 0.3051,
       "probabilities": {
-        "Phishing": 0.10165212227663306,
-        "Malware": 0.16449516889084004,
-        "Unauthorized Access": 0.41267648031803605,
-        "Data Breach": 0.08975739710213693,
-        "DDoS": 0.10761473992753967,
-        "False Positive": 0.1238040914848142
+        "Phishing": 0.005353843583152149,
+        "Malware": 0.031624143589974715,
+        "Unauthorized Access": 0.9419508429942473,
+        "Data Breach": 0.0033824638681032447,
+        "DDoS": 0.006607137470148313,
+        "False Positive": 0.011081568494374291
       }
     },
     {
       "predicted_category": "Data Breach",
-      "confidence": 0.574662,
-      "processing_time_ms": 0.3003,
+      "confidence": 0.995088,
+      "processing_time_ms": 0.2797,
       "probabilities": {
-        "Phishing": 0.07174260700516084,
-        "Malware": 0.08569151652778635,
-        "Unauthorized Access": 0.10773771680183063,
-        "Data Breach": 0.574662429849433,
-        "DDoS": 0.09045811472957985,
-        "False Positive": 0.06970761508620932
+        "Phishing": 0.0004606940601443168,
+        "Malware": 0.0008874387319441227,
+        "Unauthorized Access": 0.0020655637537588096,
+        "Data Breach": 0.9950883656375982,
+        "DDoS": 0.0010836532814584713,
+        "False Positive": 0.0004142845350961075
       }
     },
     {
       "predicted_category": "DDoS",
-      "confidence": 0.562983,
-      "processing_time_ms": 0.2333,
+      "confidence": 0.99282,
+      "processing_time_ms": 0.8956,
       "probabilities": {
-        "Phishing": 0.06571740167458343,
-        "Malware": 0.12895627849129748,
-        "Unauthorized Access": 0.0734193940893267,
-        "Data Breach": 0.07340773393156126,
-        "DDoS": 0.5629830537003984,
-        "False Positive": 0.09551613811283274
+        "Phishing": 0.0003587147932995307,
+        "Malware": 0.00431570670744592,
+        "Unauthorized Access": 0.0005399484410550083,
+        "Data Breach": 0.0005396323734704419,
+        "DDoS": 0.9928203971380755,
+        "False Positive": 0.0014256005466536839
       }
     }
   ],

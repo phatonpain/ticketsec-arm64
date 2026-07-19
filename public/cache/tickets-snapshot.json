@@ -3,60 +3,60 @@
     "id": "TKT-8501",
     "subject": "suspicious email asking for bank credentials",
     "category": "Phishing",
-    "confidence": 0.315952,
+    "confidence": 0.794479,
     "status": "Resolved",
     "assignedTo": "Auto",
     "minutesAgo": 3,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   },
   {
     "id": "TKT-8502",
     "subject": "trojan horse detected in downloaded file",
     "category": "Malware",
-    "confidence": 0.746043,
+    "confidence": 0.999702,
     "status": "Escalated",
     "assignedTo": "Security Team",
     "minutesAgo": 6,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   },
   {
     "id": "TKT-8503",
     "subject": "multiple failed login attempts from unknown IP",
     "category": "Unauthorized Access",
-    "confidence": 0.519662,
+    "confidence": 0.988961,
     "status": "Pending",
     "assignedTo": "NOC",
     "minutesAgo": 9,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   },
   {
     "id": "TKT-8504",
     "subject": "customer database export without approval",
     "category": "Data Breach",
-    "confidence": 0.464722,
+    "confidence": 0.96695,
     "status": "Resolved",
     "assignedTo": "Auto",
     "minutesAgo": 12,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   },
   {
     "id": "TKT-8505",
     "subject": "DDoS attack pattern detected on edge router",
     "category": "DDoS",
-    "confidence": 0.327878,
+    "confidence": 0.694069,
     "status": "Escalated",
     "assignedTo": "Security Team",
     "minutesAgo": 15,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   },
   {
     "id": "TKT-8506",
     "subject": "routine vulnerability scan flagged as incident",
     "category": "False Positive",
-    "confidence": 0.550818,
+    "confidence": 0.992015,
     "status": "Pending",
     "assignedTo": "NOC",
     "minutesAgo": 18,
-    "generatedAt": "2026-07-19T18:08:14Z"
+    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
   }
 ]

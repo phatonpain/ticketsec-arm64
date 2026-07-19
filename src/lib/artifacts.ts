@@ -12,6 +12,7 @@ import latencyT4gJson from '../../model/latency_t4g_micro.json';
 import probeResultsJson from '../../model/probe_results.json';
 import artifactMetaJson from '../../model/artifact_meta.json';
 import quantizationMd from '../../model/quantization.md?raw';
+import calibrationJson from '../../model/calibration.json';
 
 export interface PerClassMetric {
   precision: number;
@@ -104,6 +105,29 @@ export interface QuantizationInfo {
   delta?: number;
 }
 
+export interface SampleConfidence {
+  predicted_category: string;
+  confidence: number;
+  probabilities: Record<string, number>;
+}
+
+export interface CalibrationArtifact {
+  status: string;
+  ready: boolean;
+  generatedAt?: string;
+  sha256?: string;
+  eceBefore?: number;
+  eceAfter?: number;
+  brierBefore?: number;
+  brierAfter?: number;
+  temperature?: number;
+  assessment?: string;
+  sampleConfidences?: {
+    before: Record<string, SampleConfidence>;
+    after: Record<string, SampleConfidence>;
+  };
+}
+
 /**
  * Normalize artifact status values across the ML pipeline.
  * Generators may emit 'OK' (older scripts) or 'COMPLETE' (current scripts).
@@ -193,6 +217,24 @@ function modelMetaArtifact(): ModelMetaArtifact {
   };
 }
 
+function calibrationArtifact(): CalibrationArtifact {
+  const raw = calibrationJson as Record<string, unknown>;
+  const status = String(raw.status ?? 'PENDING');
+  return {
+    status,
+    ready: isArtifactReady(status),
+    generatedAt: raw.generated_at as string | undefined,
+    sha256: raw.artifact_sha256 as string | undefined,
+    eceBefore: raw.ece_before as number | undefined,
+    eceAfter: raw.ece_after as number | undefined,
+    brierBefore: raw.brier_before as number | undefined,
+    brierAfter: raw.brier_after as number | undefined,
+    temperature: raw.temperature as number | undefined,
+    assessment: raw.calibration_assessment as string | undefined,
+    sampleConfidences: raw.sample_confidences as CalibrationArtifact['sampleConfidences'],
+  };
+}
+
 function extractArtifactSize(md: string): string {
   const match = md.match(/INT8 ONNX.*?\|\s*([\d.,]+\s*bytes)\s*\|/i);
   if (match) return match[1].trim();
@@ -223,4 +265,5 @@ export const artifacts = {
   probes: probeArtifact(),
   modelMeta: modelMetaArtifact(),
   quantization: extractQuantizationInfo(quantizationMd),
+  calibration: calibrationArtifact(),
 };

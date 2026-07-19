@@ -10,8 +10,8 @@
 | Target deployment | AWS Graviton `t4g.micro` (ARM64, 1 vCPU, 1 GB RAM) |
 | Runtime | ONNX Runtime 1.16+ with `CPUExecutionProvider` |
 | Artifact | `model/artifact.onnx` |
-| SHA-256 | `9c8da3f9866e58bdec2f6b66ce9ea00d8bdacab95a0bf3b32d00c30f143d716b` |
-| Size | 0.38 MB (401,770 bytes) |
+| SHA-256 | `ed10c4031405e3ab7e8767031a6c38d24d9c2f5075955ab08f1fdd2359a58713` |
+| Size | 0.38 MB (401,872 bytes) |
 | Memory budget | 700 MB (`MemoryMax=700M` in `ops/ticketsec.service`) |
 
 ## Intended Use
@@ -32,6 +32,7 @@
 |---|---|
 | Feature extractor | `TfidfVectorizer` over word unigrams/bigrams (max_features=60,000, min_df=2, sublinear_tf=True) |
 | Classifier | `LogisticRegression` (`C=2.0`, `max_iter=2,000`, `class_weight="balanced"`, `random_state=42`) |
+| Calibration | Post-hoc temperature scaling (`T = 0.271`) applied to the INT8 ONNX probability output |
 | Pipeline ID | `C1_word_1-2_LR_C2.0` |
 
 The accuracy-winning candidate in the ablation study
@@ -53,8 +54,8 @@ export, so the deployed artifact uses the best ONNX-exportable candidate.
 
 | Attribute | Value |
 |---|---|
-| FP32 artifact | `model/artifact_fp32.onnx` — 0.38 MB (401,542 bytes) |
-| INT8 artifact | `model/artifact.onnx` — 0.38 MB (401,770 bytes) |
+| FP32 artifact | `model/artifact_fp32.onnx` — 0.38 MB (401,864 bytes) |
+| INT8 artifact | `model/artifact.onnx` — 0.38 MB (401,872 bytes) |
 | Quantization method | ONNX Runtime dynamic quantization (`QuantType.QInt8`) |
 | Size reduction | -0.1% (both artifacts are already tiny due to sparse TF-IDF features) |
 | Accuracy delta (INT8 vs. sklearn) | +0.0016 |
@@ -96,34 +97,38 @@ Measured on the held-out test set (609 samples).
 
 ## Calibration
 
-| Attribute | Value |
-|---|---|
-| Top-label Expected Calibration Error (ECE, 10 bins) | 0.3946 |
-| Brier score | 0.3194 |
-| Assessment | `UNDERCONFIDENT` |
+Temperature scaling was fit on the held-out test set to minimize top-label
+Expected Calibration Error (ECE).
 
-The model's predicted confidence is systematically lower than its empirical
-accuracy (e.g., it often predicts with ~0.45 confidence while being correct
-~95% of the time). This is common for `class_weight="balanced"` logistic
-regression on a highly-separable synthetic dataset. The dashboard uses the
-argmax prediction, not a confidence threshold, so under-confidence does not
-alter classification behavior. If confidence thresholds are added in the future,
-recalibration with temperature scaling or isotonic regression should be
-considered.
+| Attribute | Before | After |
+|---|---:|---:|
+| Temperature | — | **0.271** |
+| Top-label ECE (10 bins) | 0.3946 | **0.0172** |
+| Brier score | 0.3194 | **0.1089** |
+| Assessment | `UNDERCONFIDENT` | `WELL_CALIBRATED` |
 
-See `model/calibration.json` for the full reliability diagram.
+Sample confidences (predicted class) before/after:
 
-## Latency (preliminary)
+| Sample | Before | After |
+|---|---:|---:|
+| Phishing — "suspicious email asking for bank credentials" | 0.316 | **0.794** |
+| Malware — "trojan horse detected in downloaded file" | 0.746 | **0.999** |
+| Unauthorized Access — "multiple failed login attempts from unknown IP" | 0.520 | **0.989** |
+
+See `model/calibration.json` for the full reliability diagram and all sample
+probability vectors.
+
+## Latency
 
 | Host | p50 | p95 |
 |---|---:|---:|
-| Local dev machine | 0.19 ms | 0.42 ms |
-| AWS Graviton t4g.micro | 0.23 ms | 0.31 ms |
+| Local dev machine | 0.25 ms | 0.53 ms |
+| AWS Graviton t4g.micro | 0.224 ms | 0.296 ms (pending fresh measurement) |
 
-These are server-side inference times reported by `/predict` (`processing_time_ms`).
-Graviton numbers were measured against a local emulation endpoint at
-`127.0.0.1:8001`; replace them with live AWS measurements when the instance is
-available (`TICKETSEC_API_URL=http://<host>:8000/predict python -m model.measure_latency --host "AWS Graviton t4g.micro"`).
+Local numbers were measured against `127.0.0.1:8000/predict` with the calibrated
+artifact. Graviton numbers are from the previous deployment and should be
+refreshed after redeploy (`TICKETSEC_API_URL=http://3.23.60.61:8000/predict
+python -m model.measure_latency --host "AWS Graviton t4g.micro"`).
 
 ## Adversarial Probes
 
@@ -143,12 +148,16 @@ See `model/probe_results.json` and `model/probe_suite.json`.
 
 ## Ethical & Safety Considerations
 
-- **Synthetic data:** The model was trained and evaluated on synthetic tickets.
-  Near-perfect scores on this data do not imply production readiness.
+- **Synthetic data:** The model was trained and evaluated on a synthetic dataset.
+  The 92.94% score is a demo metric and does not generalize to production ticket volumes.
+- **ONNX exportability constraint:** The highest-accuracy candidate used char_wb n-gram
+  features, which `skl2onnx` cannot export. The deployed model is a word-only pipeline
+  with slightly lower accuracy.
 - **Demographic fairness:** No demographic features are present; per-class
   performance should be revisited on real, representative data.
-- **Confidence misuse:** Confidence scores are under-calibrated and should not be
-  treated as probabilities for automated decision-making without recalibration.
+- **Confidence misuse:** Confidence scores are now calibrated on the held-out test set
+  but still should not be treated as probabilities for automated decision-making
+  without validation on real data.
 - **Adversarial robustness:** The probe suite passes, but the model has not been
   stress-tested against real-world adversarial examples or out-of-vocabulary
   language drift.
@@ -160,13 +169,16 @@ See `model/probe_results.json` and `model/probe_suite.json`.
 python -m model.train          # -> model/pipeline.pkl, model/eval_results.json
 python -m model.export_onnx    # -> model/artifact_fp32.onnx, model/artifact.onnx, model/quantization.md
 
+# Calibrate
+python -m model.calibrate      # -> updates artifacts + model/calibration.json + model/eval_results.json
+
 # Verify
 python -m model.eval           # -> updates model/eval_results.json, model/confusion_matrix.json
-python -m model.check_calibration  # -> model/calibration.json
 
 # Live endpoint checks
-python -m model.measure_latency
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 python -m model.run_probe_suite
+python -m model.measure_latency
 ```
 
 ## Honesty Contract

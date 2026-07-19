@@ -282,6 +282,7 @@ def main() -> int:
         "winner_candidate_id": existing_eval.get("winner_candidate_id"),
         "deployed_candidate_id": existing_eval.get("deployed_candidate_id"),
         "deployed_note": existing_eval.get("deployed_note"),
+        "calibration": existing_eval.get("calibration"),
         "overall_accuracy": round(metrics["overall"]["accuracy"], 4),
         "per_class_metrics": metrics["per_class"],
         "ablation": existing_eval.get("ablation"),

@@ -1,7 +1,7 @@
 {
   "status": "COMPLETE",
-  "generated_at": "2026-07-19T07:31:34.232658+00:00",
-  "artifact_sha256": "9c8da3f9866e58bdec2f6b66ce9ea00d8bdacab95a0bf3b32d00c30f143d716b",
+  "generated_at": "2026-07-19T22:08:02.001679+00:00",
+  "artifact_sha256": "ed10c4031405e3ab7e8767031a6c38d24d9c2f5075955ab08f1fdd2359a58713",
   "methodology": {
     "split": "GroupShuffleSplit(test_size=0.2, groups=seed_id)",
     "seed": 42,
@@ -29,6 +29,16 @@
   "winner_candidate_id": "C2_char3-5_word1-2_LR_C2.0",
   "deployed_candidate_id": "C1_word_1-2_LR_C2.0",
   "deployed_note": "skl2onnx does not support char_wb TfidfVectorizer, so the accuracy winner (C2_char3-5_word1-2_LR_C2.0) cannot be exported to ONNX. The deployed artifact uses the best ONNX-exportable candidate.",
+  "calibration": {
+    "method": "temperature_scaling_on_held_out_test_set",
+    "temperature": 0.271,
+    "ece_before": 0.3946,
+    "ece_after": 0.0172,
+    "brier_before": 0.3194,
+    "brier_after": 0.1089,
+    "n_bins": 10,
+    "assessment": "WELL_CALIBRATED"
+  },
   "overall_accuracy": 0.9294,
   "per_class_metrics": {
     "Phishing": {
