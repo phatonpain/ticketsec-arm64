@@ -436,8 +436,12 @@ export const ClassificationTable: React.FC = () => {
                   {allVisibleSelected ? <CheckSquare size={14} /> : someVisibleSelected ? <CheckSquare size={14} style={{ opacity: 0.6 }} /> : <Square size={14} />}
                 </button>
               </th>
-              <th scope="col" aria-sort="none" aria-label="Severity" style={{ ...thBaseStyle, width: 3, padding: 0 }} />
-              <th scope="col" aria-sort="none" aria-label="Actions" style={{ ...thBaseStyle, width: 28, padding: '6px 4px' }} />
+              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 3, padding: 0 }}>
+                <span style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>Severity</span>
+              </th>
+              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 28, padding: '6px 4px' }}>
+                <span style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>Actions</span>
+              </th>
               <SortableHeader label="Ticket ID" colKey="id" width={92} />
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 'auto', minWidth: 220 }}>Subject</th>
               <SortableHeader label="Category" colKey="category" width={160} />
