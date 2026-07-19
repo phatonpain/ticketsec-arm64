@@ -25,6 +25,7 @@ import {
 import { useActiveView, type View } from '../hooks/useActiveView';
 import { useApi } from '../hooks/useApi';
 import { useTickets } from '../hooks/useTickets';
+import { useSettings, setDensity, setReducedMotion, type Density } from '../hooks/useSettings';
 import { openSettingsDrawer } from '../hooks/useSettingsDrawer';
 import { closeCommandPalette } from '../hooks/useCommandPalette';
 import { focusTicketQuery, setTicketQuery } from '../hooks/useTicketQuery';
@@ -54,6 +55,8 @@ function buildActions(
   checkHealth: () => void,
   tickets: Ticket[],
   onOpenHelp: () => void,
+  density: Density,
+  reducedMotion: boolean,
 ): PaletteAction[] {
   const nav: PaletteAction[] = VIEWS.map(v => ({
     id: `nav-${v.view}`,
@@ -116,6 +119,20 @@ function buildActions(
 
   const actions: PaletteAction[] = [
     {
+      id: 'action-classify',
+      label: 'Classify ticket',
+      group: 'Actions',
+      icon: Zap,
+      keywords: 'classify predict live predictions ticket inference',
+      run: () => {
+        setView('predictions');
+        setTimeout(() => {
+          const textarea = document.querySelector<HTMLTextAreaElement>('#live-prediction textarea');
+          textarea?.focus();
+        }, 0);
+      },
+    },
+    {
       id: 'action-refresh',
       label: 'Refresh data',
       group: 'Actions',
@@ -146,6 +163,22 @@ function buildActions(
       icon: Settings,
       keywords: 'settings api url endpoint reduced motion density',
       run: openSettingsDrawer,
+    },
+    {
+      id: 'action-density',
+      label: density === 'compact' ? 'Switch to comfortable density' : 'Switch to compact density',
+      group: 'Actions',
+      icon: LayoutDashboard,
+      keywords: 'density compact comfortable spacing layout',
+      run: () => setDensity(density === 'compact' ? 'comfortable' : 'compact'),
+    },
+    {
+      id: 'action-reduced-motion',
+      label: reducedMotion ? 'Enable animations' : 'Disable animations',
+      group: 'Actions',
+      icon: HeartPulse,
+      keywords: 'reduced motion animation accessibility a11y',
+      run: () => setReducedMotion(!reducedMotion),
     },
     {
       id: 'action-help',
@@ -180,10 +213,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
   const { setView } = useActiveView();
   const { checkHealth } = useApi();
   const { tickets } = useTickets();
+  const { settings } = useSettings();
 
   const actions = useMemo(
-    () => buildActions(setView, checkHealth, tickets, onOpenHelp),
-    [setView, checkHealth, tickets, onOpenHelp],
+    () => buildActions(setView, checkHealth, tickets, onOpenHelp, settings.density, settings.reducedMotion),
+    [setView, checkHealth, tickets, onOpenHelp, settings.density, settings.reducedMotion],
   );
 
   const [query, setQuery] = useState('');
