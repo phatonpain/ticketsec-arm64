@@ -3,7 +3,7 @@
 Date: 2026-07-19
 Branch: `mission/v4`
 Baseline tag: `baseline-v4` → `3bc1561`
-Phase 1 commit: `faa555c`
+Phase 1 commit: `9f39f67`
 
 ## Done (file:line)
 
@@ -14,8 +14,9 @@ Phase 1 commit: `faa555c`
 ### Residual Phase 1 fixes
 
 1. **TimelineChart honest empty state** (`src/components/TimelineChart.tsx`)
-   - Added `EmptyState` with `Activity` icon, "Collecting live detections" title, and a next-step description when no ticket data exists.
-   - Added component-level coverage in `tests/components/TimelineChart.test.tsx`.
+   - Initial fix: returned `EmptyState` when `tickets.length === 0`.
+   - **Visual-verification bounce-back:** a single-day series still drew naked axes (x "Jul 18", y 0-6) because a symbol-less line chart with one point has zero visible points. Updated the condition to treat a single-day/zero-point series as empty and switched to the standard `EmptyState` copy used by `ThreatBarChart`: "Collecting live detections — Submit a ticket on Live Predictions to populate this chart."
+   - Added component-level coverage for zero-ticket, single-day, and multi-day cases in `tests/components/TimelineChart.test.tsx`.
 
 2. **ModelHealthDonut artifact wiring** (`src/components/ModelHealthDonut.tsx`, `src/lib/artifacts.ts`)
    - Donut now reads `modelMeta.sizeMb` / `memoryMaxMb` from `src/lib/artifacts.ts` instead of hard-coding the footprint.
@@ -56,8 +57,9 @@ Phase 1 commit: `faa555c`
 
 - `npm run lint` → **0 warnings, 0 errors**
 - `npm run build` → 0 errors; main chunk **309.75 kB** / gzip 90.06 kB (< 600 kB)
-- `npx vitest run` → **172/172 passed**
-- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 20:24:14Z` (recorded in `TEST_RESULTS_v4.md`)
+- `npx vitest run` → **173/173 passed**
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 21:04:55Z` (recorded in `TEST_RESULTS_v4.md`)  
+  *(The `21:04:55Z` run passed G1-G7/G8 functional checks; the only red line was the expected G8 "uncommitted changes" marker because the evidence file itself was being written.)*
   - G1 build + chunk budget, G2 lint, G3 vitest, G4 axe (5 routes), G6 secrets scan, G8 tree clean
 
 ## Open items for Phase 2 / later phases
@@ -78,4 +80,5 @@ Phase 1 commit: `faa555c`
 ## Context notes for compaction
 
 - Preserve: `audit/STATE_MAP_v4.md`, `audit/RUBRIC_P1.md`, this HANDOFF, `TEST_RESULTS_v4.md`, Honesty Contract.
-- The latest green commit before Phase 2 work is `faa555c`.
+- The latest green commit before Phase 2 work is `9f39f67`.
+- Verified 1366 px screenshot: `screenshots/p1/threat-analytics.png` shows the standard `EmptyState` in the "Detections Over Time" panel instead of naked axes.
