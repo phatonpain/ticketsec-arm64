@@ -449,7 +449,7 @@ export const ClassificationTable: React.FC = () => {
               <SortableHeader label="Confidence" colKey="confidence" width={120} />
               <SortableHeader label="Status" colKey="status" width={96} />
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 120 }}>Assigned To</th>
-              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 72 }}>Source</th>
+              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 96 }}>Source</th>
               <SortableHeader label="Time" colKey="time" width={84} />
             </tr>
           </thead>
@@ -646,7 +646,7 @@ export const ClassificationTable: React.FC = () => {
                       <td style={{ ...tdStyle, width: 120 }} title={row.assignedTo}>
                         {row.assignedTo}
                       </td>
-                      <td style={{ ...tdStyle, width: 72 }}>
+                      <td style={{ ...tdStyle, width: 96, overflow: 'visible', textOverflow: 'clip' }}>
                         {row.source === 'cache' && (
                           <span
                             style={{
@@ -663,6 +663,24 @@ export const ClassificationTable: React.FC = () => {
                             }}
                           >
                             Cached
+                          </span>
+                        )}
+                        {row.source === 'live' && (
+                          <span
+                            style={{
+                              fontSize: 'var(--badge-font-size)',
+                              fontWeight: 'var(--badge-font-weight)',
+                              letterSpacing: 'var(--badge-letter-spacing)',
+                              textTransform: 'uppercase',
+                              padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+                              borderRadius: 'var(--radius-badge)',
+                              color: 'var(--color-status-ok-text)',
+                              background: 'var(--color-status-ok-bg)',
+                              border: '1px solid var(--color-status-ok-text)',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            Live
                           </span>
                         )}
                       </td>
