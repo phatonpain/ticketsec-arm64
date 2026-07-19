@@ -34,7 +34,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
           style={{
             width: 180,
             height: 14,
-            background: 'var(--tint-track, rgba(255,255,255,0.06))',
+            background: 'var(--tint-track)',
             borderRadius: 4,
           }}
         />
@@ -42,7 +42,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
           style={{
             width: 120,
             height: 10,
-            background: 'var(--tint-row, rgba(255,255,255,0.04))',
+            background: 'var(--tint-row)',
             borderRadius: 4,
             marginTop: 8,
           }}
@@ -52,7 +52,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
         style={{
           width: 56,
           height: 18,
-          background: 'var(--tint-track, rgba(255,255,255,0.06))',
+          background: 'var(--tint-track)',
           borderRadius: 4,
         }}
       />
@@ -60,7 +60,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
     <div
       style={{
         flex: 1,
-        background: 'var(--tint-row, rgba(255,255,255,0.03))',
+        background: 'var(--tint-row)',
         borderRadius: 'var(--radius-sm, 6px)',
       }}
     />

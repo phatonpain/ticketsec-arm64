@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useSyncExternalStore } from 'react';
 
 const STORAGE_KEY = 'ticketsec-settings-v1';
-const DEFAULT_API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://3.23.60.61:8000';
+export const DEFAULT_API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://3.23.60.61:8000';
 
 export type Density = 'comfortable' | 'compact';
 

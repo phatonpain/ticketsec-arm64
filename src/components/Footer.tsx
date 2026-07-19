@@ -16,6 +16,7 @@
  */
 
 import React from 'react';
+import { DEFAULT_API_BASE } from '../hooks/useSettings';
 
 const linkStyle: React.CSSProperties = {
   color: 'var(--color-link)',
@@ -40,7 +41,7 @@ export const Footer: React.FC = () => {
       <span>TicketSec Arm64 · AWS Graviton Deployment · ONNX Runtime</span>
       <span style={{ margin: '0 8px' }}>·</span>
       <a
-        href="http://3.23.60.61:8000/docs"
+        href={`${DEFAULT_API_BASE}/docs`}
         target="_blank"
         rel="noreferrer"
         title="Interactive FastAPI schema — unavailable while the API is offline"

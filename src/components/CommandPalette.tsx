@@ -284,7 +284,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        background: 'rgba(0,0,0,0.60)',
+        background: 'var(--color-overlay-backdrop)',
         paddingTop: '12vh',
       }}
       onClick={() => {

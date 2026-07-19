@@ -100,7 +100,7 @@ export const SystemMonitor: React.FC = () => {
             key={tile.label}
             style={{
               backgroundColor: 'var(--color-status-neutral-bg)',
-              border: '1px solid var(--tint-track, rgba(255,255,255,0.05))',
+              border: '1px solid var(--tint-track)',
               borderRadius: 'var(--radius-sm, 6px)',
               padding: '12px 14px',
             }}

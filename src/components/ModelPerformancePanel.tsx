@@ -73,7 +73,7 @@ interface StatRowProps {
 }
 
 const StatRow: React.FC<StatRowProps> = ({ icon: Icon, label, value, detail, sparklineData, sparklineColor, muted }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--tint-row)' }}>
     <div
       style={{
         width: 32,

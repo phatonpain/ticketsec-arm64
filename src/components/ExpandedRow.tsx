@@ -97,7 +97,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
                   style={{
                     flex: 1,
                     height: 4,
-                    background: 'var(--tint-track, rgba(255,255,255,0.06))',
+                    background: 'var(--tint-track)',
                     borderRadius: 2,
                     overflow: 'hidden',
                   }}
@@ -188,7 +188,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
           fontSize: 'var(--font-size-sm, 12px)',
           color: 'var(--text-secondary)',
           fontFamily: 'var(--font-numeric)',
-          borderTop: '1px solid var(--tint-row, rgba(255,255,255,0.03))',
+          borderTop: '1px solid var(--tint-row)',
           paddingTop: 10,
         }}
       >

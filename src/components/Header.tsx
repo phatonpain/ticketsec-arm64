@@ -539,7 +539,7 @@ export const Header: React.FC = () => {
                       key={entry.id}
                       style={{
                         padding: '10px 14px',
-                        borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))',
+                        borderBottom: '1px solid var(--tint-row)',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 4,

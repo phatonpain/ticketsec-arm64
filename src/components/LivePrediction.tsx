@@ -306,7 +306,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
                   {confidencePercent.toFixed(1)}%
                 </span>
               </div>
-              <div style={{ position: 'relative', height: 6, background: 'var(--tint-track, rgba(255,255,255,0.06))', borderRadius: 3 }}>
+              <div style={{ position: 'relative', height: 6, background: 'var(--tint-track)', borderRadius: 3 }}>
                 <div
                   style={{
                     position: 'absolute',

@@ -330,7 +330,7 @@ const AccuracySection: React.FC = () => {
             {categories.map(cat => {
               const m = typedEval.per_class_metrics![cat];
               return (
-                <tr key={cat} style={{ borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}>
+                <tr key={cat} style={{ borderBottom: '1px solid var(--tint-row)' }}>
                   <td style={tableCellStyle}>{cat}</td>
                   <td style={{ ...monoCellStyle, textAlign: 'right' }}>{m.support}</td>
                   <td style={{ ...monoCellStyle, textAlign: 'right' }}>{formatMetric(m.precision)}</td>
@@ -530,7 +530,7 @@ const ProbeSuiteSection: React.FC = () => {
             {typedProbes.results.map(r => {
               const matched = r.expected_vs_actual?.matched ?? false;
               return (
-                <tr key={r.id} style={{ borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}>
+                <tr key={r.id} style={{ borderBottom: '1px solid var(--tint-row)' }}>
                   <td style={{ ...tableCellStyle, fontFamily: 'var(--font-numeric)' }}>{r.id}</td>
                   <td style={tableCellStyle}>{r.expected_vs_actual?.expected ?? '—'}</td>
                   <td style={tableCellStyle}>{r.expected_vs_actual?.actual ?? '—'}</td>
@@ -585,7 +585,7 @@ const AblationSection: React.FC = () => {
               const deployed = row.candidate_id === typedEval.deployed_candidate_id;
               const winner = row.candidate_id === typedEval.winner_candidate_id;
               return (
-                <tr key={row.candidate_id} style={{ borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}>
+                <tr key={row.candidate_id} style={{ borderBottom: '1px solid var(--tint-row)' }}>
                   <td style={{ ...tableCellStyle, fontFamily: 'var(--font-numeric)' }}>{row.candidate_id}</td>
                   <td style={{ ...monoCellStyle, textAlign: 'right' }}>{formatAccuracy(row.overall_accuracy)}</td>
                   <td style={{ ...monoCellStyle, textAlign: 'right' }}>{formatMetric(row.min_f1)}</td>

@@ -71,6 +71,7 @@
   --color-bg-card-hover: #334155;
   --color-bg-input: #0F172A;
   --color-bg-elevated: #27324A;        /* FIXED: was #111827 — darker than card (inverted elevation; tooltips must rise) */
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.60); /* modals, drawers, command palette underlay */
 
   /* ---------- Borders ---------- */
   --color-border-default: rgba(255, 255, 255, 0.06);

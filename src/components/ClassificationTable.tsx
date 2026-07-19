@@ -470,7 +470,7 @@ export const ClassificationTable: React.FC = () => {
                 return (
                   <React.Fragment key={row.id}>
                     <tr
-                      style={{ height: 'var(--density-row-h)', borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}
+                      style={{ height: 'var(--density-row-h)', borderBottom: '1px solid var(--tint-row)' }}
                     >
                       <td style={{ ...tdStyle, width: 40, padding: '0 8px', textAlign: 'center' }}>
                         <button
@@ -608,7 +608,7 @@ export const ClassificationTable: React.FC = () => {
                             style={{
                               width: 48,
                               height: 2,
-                              background: 'var(--tint-track, rgba(255,255,255,0.06))',
+                              background: 'var(--tint-track)',
                               borderRadius: 2,
                               overflow: 'hidden',
                               display: 'inline-block',

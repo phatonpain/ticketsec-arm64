@@ -159,6 +159,7 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
             icon={BarChart2}
             title="No threat data"
             description={source === 'none' ? 'The API is offline and no cached classifications are available.' : 'Submit or load classifications to populate this chart.'}
+            nextStep={source === 'none' ? 'Wait for the API to come back or refresh the cached snapshot.' : 'Open the Live Prediction panel and submit a ticket.'}
             minHeight={180}
           />
         ) : (

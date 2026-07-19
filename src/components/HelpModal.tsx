@@ -39,7 +39,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'rgba(0,0,0,0.60)',
+        background: 'var(--color-overlay-backdrop)',
         padding: 20,
       }}
       onClick={onClose}
@@ -51,7 +51,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
           maxWidth: 420,
           background: 'var(--bg-sidebar)',
           border: '1px solid var(--border-default)',
-          borderRadius: 'var(--radius-md, 12px)',
+          borderRadius: 'var(--radius-md)',
           padding: 24,
           boxShadow: 'var(--shadow-popover, 0 16px 48px rgba(0,0,0,0.40))',
         }}

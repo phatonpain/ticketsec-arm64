@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, RotateCcw, Check, AlertCircle, Loader2 } from 'lucide-react';
-import { useSettings } from '../hooks/useSettings';
+import { useSettings, DEFAULT_API_BASE } from '../hooks/useSettings';
 import { probeApiBase } from '../hooks/useApi';
 
 interface SettingsDrawerProps {
@@ -62,7 +62,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, onClose })
         zIndex: 200,
         display: 'flex',
         justifyContent: 'flex-end',
-        background: 'rgba(0,0,0,0.50)',
+        background: 'var(--color-overlay-backdrop)',
       }}
       onClick={onClose}
       role="presentation"
@@ -118,7 +118,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, onClose })
             value={draftUrl}
             onChange={handleUrlChange}
             onBlur={handleUrlBlur}
-            placeholder="http://3.23.60.61:8000"
+            placeholder={DEFAULT_API_BASE}
             style={{
               width: '100%',
               padding: '8px 10px',
@@ -258,7 +258,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, onClose })
                 width: 18,
                 height: 18,
                 borderRadius: '50%',
-                background: '#fff',
+                background: 'var(--color-text-on-accent)',
                 transition: 'left 150ms ease',
               }}
             />
@@ -286,7 +286,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, onClose })
             Restore defaults
           </button>
           <span style={{ display: 'block', marginTop: 12, fontSize: 12, color: 'var(--text-muted)' }}>
-            TicketSec Arm64 Guardian v0.0.1
+            TicketSec Arm64 v0.0.1
           </span>
         </div>
       </div>

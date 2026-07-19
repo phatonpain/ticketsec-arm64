@@ -161,6 +161,7 @@ export const SeverityMixDonut: React.FC<SeverityMixDonutProps> = ({ tickets, sou
             icon={AlertTriangle}
             title="No severity data"
             description={source === 'none' ? 'The API is offline and no cached classifications are available.' : 'Classifications will populate this chart as they arrive.'}
+            nextStep={source === 'none' ? 'Wait for the API to come back or refresh the cached snapshot.' : 'Open the Live Prediction panel and submit a ticket.'}
             minHeight={180}
           />
         ) : (
