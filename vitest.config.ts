@@ -12,6 +12,7 @@ export default defineConfig({
     },
     globals: true,
     testTimeout: 10000,
+    fileParallelism: false,
     setupFiles: ['./tests/setup.ts'],
     exclude: ['node_modules', '_fixpack_temp', 'dist'],
   },
