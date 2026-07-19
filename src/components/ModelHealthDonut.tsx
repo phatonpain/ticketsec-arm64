@@ -83,8 +83,8 @@ export const ModelHealthDonut: React.FC = () => {
     series: [
       {
         type: 'pie',
-        radius: ['40%', '58%'],
-        center: ['30%', '50%'],
+        radius: ['42%', '56%'],
+        center: ['28%', '50%'],
         avoidLabelOverlap: false,
         label: { show: false },
         emphasis: {
@@ -107,16 +107,18 @@ export const ModelHealthDonut: React.FC = () => {
     graphic: [
       {
         type: 'text',
-        left: '30%',
+        left: '28%',
         top: '50%',
         style: {
           text: `${MODEL_INT8_MB.toFixed(2)} MB`,
           textAlign: 'center',
           textVerticalAlign: 'middle',
           fill: chartColors.textPrimary,
-          fontSize: 18,
+          fontSize: 16,
           fontWeight: 600,
           fontFamily: 'JetBrains Mono',
+          width: 80,
+          overflow: 'truncate',
         },
       },
     ],
