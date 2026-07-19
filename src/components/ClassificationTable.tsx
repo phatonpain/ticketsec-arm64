@@ -436,8 +436,8 @@ export const ClassificationTable: React.FC = () => {
                   {allVisibleSelected ? <CheckSquare size={14} /> : someVisibleSelected ? <CheckSquare size={14} style={{ opacity: 0.6 }} /> : <Square size={14} />}
                 </button>
               </th>
-              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 3, padding: 0 }} />
-              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 28, padding: '6px 4px' }} />
+              <th scope="col" aria-sort="none" aria-label="Severity" style={{ ...thBaseStyle, width: 3, padding: 0 }} />
+              <th scope="col" aria-sort="none" aria-label="Actions" style={{ ...thBaseStyle, width: 28, padding: '6px 4px' }} />
               <SortableHeader label="Ticket ID" colKey="id" width={92} />
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 'auto', minWidth: 220 }}>Subject</th>
               <SortableHeader label="Category" colKey="category" width={160} />
@@ -466,7 +466,6 @@ export const ClassificationTable: React.FC = () => {
                 return (
                   <React.Fragment key={row.id}>
                     <tr
-                      aria-expanded={expanded}
                       style={{ height: 'var(--density-row-h)', borderBottom: '1px solid var(--tint-row, rgba(255,255,255,0.03))' }}
                     >
                       <td style={{ ...tdStyle, width: 40, padding: '0 8px', textAlign: 'center' }}>
@@ -493,7 +492,9 @@ export const ClassificationTable: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => toggleExpanded(row.id)}
-                          aria-label={expanded ? `Collapse ${row.id}` : `Expand ${row.id}`}
+                          aria-expanded={expanded}
+                          aria-controls={`expanded-row-${row.id}`}
+                          aria-label={expanded ? 'Collapse row details' : 'Expand row details'}
                           title={expanded ? 'Collapse row' : 'Expand row'}
                           style={{
                             background: 'transparent',
@@ -685,6 +686,7 @@ export const ClassificationTable: React.FC = () => {
                           }}
                         >
                           <div
+                            id={`expanded-row-${row.id}`}
                             style={{
                               maxHeight: 400,
                               overflow: 'hidden',
