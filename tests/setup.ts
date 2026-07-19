@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom/vitest';
-import { beforeEach } from 'vitest';
+import { configure } from '@testing-library/react';
+import { beforeEach, vi } from 'vitest';
 import { resetSettings } from '../src/hooks/useSettings';
+
+// Make @testing-library/wait-for cooperate with vitest fake timers.
+configure({ advanceTimers: (delay) => vi.advanceTimersByTime(delay) });
 
 /**
  * In-memory localStorage polyfill for tests.

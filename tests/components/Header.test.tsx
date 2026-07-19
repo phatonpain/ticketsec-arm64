@@ -133,15 +133,36 @@ describe('notification bell (FIX-08 refuted: count IS store-derived)', () => {
 describe('time-range listbox (FIX-26: cosmetic over cached data)', () => {
   it('switches the label and issues NO data refetch (pinned current behavior)', async () => {
     const Header = await freshHeader();
-    const user = userEvent.setup();
-    render(<Header />);
-    await user.click(screen.getByRole('button', { name: /last 24 hours/i }));
-    const listbox = await screen.findByRole('listbox');
-    const before = fetchMock.calls.length;
-    await user.click(screen.getByRole('option', { name: 'Last 1 hour' }));
-    expect(screen.getByRole('button', { name: /last 1 hour/i })).toBeInTheDocument();
-    expect(listbox).not.toBeInTheDocument();
-    expect(fetchMock.calls.length).toBe(before); // no probe, no refetch
+    // Fake timers freeze the background health-check scheduler so the only
+    // fetch calls measured are those directly caused by the listbox interaction.
+    vi.useFakeTimers();
+    try {
+      render(<Header />);
+      // Flush the mount-time probe so the pill reflects the settled state.
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(0);
+      });
+
+      const trigger = screen.getByRole('button', { name: /last 24 hours/i });
+      act(() => {
+        trigger.click();
+      });
+      const listbox = screen.getByRole('listbox');
+      const before = fetchMock.calls.length;
+
+      act(() => {
+        screen.getByRole('option', { name: 'Last 1 hour' }).click();
+      });
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(0);
+      });
+
+      expect(screen.getByRole('button', { name: /last 1 hour/i })).toBeInTheDocument();
+      expect(listbox).not.toBeInTheDocument();
+      expect(fetchMock.calls.length).toBe(before); // no probe, no refetch
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 
