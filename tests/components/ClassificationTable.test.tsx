@@ -158,11 +158,11 @@ describe('sorting (local state — works)', () => {
     await screen.findByText('TKT-8471');
 
     await user.click(screen.getByRole('button', { name: /^category/i }));
-    expect(rowIds()[0]).toBe('TKT-8469'); // 'Unauthorized Access' last alphabetically → first in desc
+    await waitFor(() => expect(rowIds()[0]).toBe('TKT-8469')); // 'Unauthorized Access' last alphabetically → first in desc
 
     await user.click(screen.getByRole('button', { name: /^category/i }));
-    expect(rowIds()[0]).toBe('TKT-8468'); // 'Data Breach' first alphabetically
-    expect(screen.getByRole('columnheader', { name: /^category/i })).toHaveAttribute('aria-sort', 'ascending');
+    await waitFor(() => expect(screen.getByRole('columnheader', { name: /^category/i })).toHaveAttribute('aria-sort', 'ascending'));
+    await waitFor(() => expect(rowIds()[0]).toBe('TKT-8468')); // 'Data Breach' first alphabetically
   });
 
   it('Severity desc: Critical categories first by rank (not alphabetically)', async () => {
@@ -172,7 +172,9 @@ describe('sorting (local state — works)', () => {
 
     await user.click(screen.getByRole('button', { name: /^severity/i }));
     // critical: Phishing/Malware/Data Breach (stable, keeps time order) → high → medium → info
-    expect(rowIds()).toEqual(['TKT-8471', 'TKT-8470', 'TKT-8468', 'TKT-8469', 'TKT-8467', 'TKT-8466']);
+    await waitFor(() =>
+      expect(rowIds()).toEqual(['TKT-8471', 'TKT-8470', 'TKT-8468', 'TKT-8469', 'TKT-8467', 'TKT-8466']),
+    );
   });
 
   it('Confidence asc: lowest confidence first (numeric, not lexicographic)', async () => {
