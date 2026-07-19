@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 # scripts/gates.sh — TicketSec quality gates (machine-checkable, A5)
 # Usage: bash scripts/gates.sh  → exits non-zero on first red gate
+#
+# Windows axe setup:
+#   The axe-core CLI needs a Chrome binary and matching ChromeDriver.
+#   Defaults point to the Puppeteer Chrome 150 and the D:\chromedriver
+#   version that are known to work on this machine. Override via env:
+#     CHROME_BIN=/path/to/chrome.exe
+#     CHROMEDRIVER_PATH=/path/to/chromedriver.exe
 set -uo pipefail
+CHROME_BIN="${CHROME_BIN:-C:/Users/crust/.cache/puppeteer/chrome/win64-150.0.7871.24/chrome-win64/chrome.exe}"
+CHROMEDRIVER_PATH="${CHROMEDRIVER_PATH:-D:/chromedriver/win64-150.0.7871.24/chromedriver-win64/chromedriver.exe}"
 EVIDENCE="TEST_RESULTS_v4.md"
 STAMP=$(date -u +"%Y-%m-%d %H:%M:%SZ")
 say()  { printf '%s\n' "$*"; }
@@ -33,7 +42,9 @@ FAILS=$(echo "$TOUT" | grep -cE 'it\.fails|\.skip' || true)
   || fail "G3 vitest" "rc=$RC fails/skips=$FAILS"
 # G4 a11y (per hash route — adjust route list to the app)
 for R in dashboard detections analytics registry health; do
-  npx axe "http://localhost:5173/#/$R" --exit >/dev/null 2>&1 \
+  npx axe "http://localhost:5173/#/$R" \
+    --chrome-path "$CHROME_BIN" --chromedriver-path "$CHROMEDRIVER_PATH" \
+    --exit >/dev/null 2>&1 \
     && pass "G4 axe $R" || fail "G4 axe $R" "violations"
 done
 # G6 secrets scan
