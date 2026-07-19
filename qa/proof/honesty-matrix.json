@@ -1,0 +1,31 @@
+{
+  "live": [
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\live-Dashboard.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\live-Detections.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\live-ThreatAnalytics.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\live-ModelRegistry.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\live-SystemHealth.png"
+  ],
+  "cached": [
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\cached-Dashboard.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\cached-Detections.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\cached-ThreatAnalytics.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\cached-ModelRegistry.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\cached-SystemHealth.png"
+  ],
+  "offline": [
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\offline-Dashboard.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\offline-Detections.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\offline-ThreatAnalytics.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\offline-ModelRegistry.png",
+    "D:\\Git\\ticketsec-arm64-dashboard\\qa\\proof\\offline-SystemHealth.png"
+  ],
+  "silence": {
+    "before": [],
+    "after": [],
+    "fabricatedBefore": 0,
+    "fabricatedAfter": 0,
+    "passed": true,
+    "newEntries": []
+  }
+}

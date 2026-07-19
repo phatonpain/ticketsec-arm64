@@ -13,6 +13,8 @@ scripts/*
 !scripts/gates.sh
 !scripts/m6_axe_all.py
 !scripts/m6_webbridge_gates.py
+!scripts/contrast_sweep.py
+!scripts/qa_honesty_matrix.mjs
 audit/*
 !audit/HANDOFF_TEMPLATE.md
 !audit/HANDOFF_P1.md

@@ -46,7 +46,7 @@ const countStyle: React.CSSProperties = {
   fontFamily: 'var(--font-numeric)',
   fontVariantNumeric: 'tabular-nums',
   fontSize: 'var(--font-size-xs)',
-  color: 'var(--text-muted)',
+  color: 'var(--text-secondary)',
   minWidth: 16,
   textAlign: 'center',
 };
@@ -124,7 +124,7 @@ export const DetectionFilters: React.FC<DetectionFiltersProps> = ({ counts, acti
           aria-hidden="true"
         />
         {category}
-        <span style={{ ...countStyle, color: isActive ? color : 'var(--text-muted)' }}>{counts.category[category] ?? 0}</span>
+        <span style={{ ...countStyle, color: isActive ? color : 'var(--text-secondary)' }}>{counts.category[category] ?? 0}</span>
       </button>
     );
   };

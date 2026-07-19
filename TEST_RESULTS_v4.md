@@ -1147,3 +1147,86 @@
 - [PASS] G4 axe health (2026-07-19 22:26:28Z)
 - [PASS] G6 secrets scan clean (2026-07-19 22:26:28Z)
 - [PASS] G8 tree clean (2026-07-19 22:26:28Z)
+
+## Phase 4 QA Evidence — 2026-07-19
+
+### 1. vitest
+
+Command:
+```bash
+npm test
+```
+
+Result:
+- Test Files: **28 passed** (28)
+- Tests: **178 passed** (178)
+- `it.fails`: 0
+- Skipped: 0
+- Root-caused warnings: `act(...)` warnings from suspended resources in `ClassificationTable.test.tsx`, `navigation.test.tsx`, `search-filter.test.tsx`, and `useApi.test.tsx`; all tests still pass and no flaky re-runs were required.
+
+Honesty-matrix unit tests (`tests/flows/honesty-matrix.test.tsx`) and the 60-second offline silence test (`tests/flows/offline-silence.test.tsx`) both pass.
+
+### 2. axe per route
+
+Command:
+```powershell
+$routes = @('dashboard','detections','predictions','threat-analytics','model-registry','system-health')
+foreach ($R in $routes) {
+  npx axe "http://localhost:5173/#/$R" `
+    --chrome-path "C:/Users/crust/.cache/puppeteer/chrome/win64-150.0.7871.24/chrome-win64/chrome.exe" `
+    --chromedriver-path "D:/chromedriver/win64-150.0.7871.24/chromedriver-win64/chromedriver.exe"
+}
+```
+
+Results:
+
+| Route | Violations |
+|---|---|
+| dashboard | 0 |
+| detections | 0 |
+| predictions | 0 |
+| threat-analytics | 0 |
+| model-registry | 0 |
+| system-health | 0 |
+
+Root-cause fix applied to `src/components/DetectionFilters.tsx`:
+- The filter-chip count spans were rendered with `var(--text-muted)` (#8292A8) on the ghost/control background, which fell below AA (4.13:1).
+- Changed the default `countStyle` color and the inactive category count override from `var(--text-muted)` to `var(--text-secondary)`, raising the ratio to ≥ 4.55:1 on all chip backgrounds.
+
+### 3. Contrast sweep
+
+Command:
+```bash
+python scripts/contrast_sweep.py
+```
+
+Result:
+- **23/23 pairs pass WCAG 2.1 AA (≥ 4.5:1)**
+- Minimum ratio: `text-muted on card` = **4.62:1**
+- See `scripts/contrast_sweep.py` for the full pair list.
+
+### 4. Honesty matrix + 60-second offline EventLog silence
+
+Command:
+```bash
+node scripts/qa_honesty_matrix.mjs
+```
+
+Evidence written to `qa/proof/`:
+
+| State | Views captured |
+|---|---|
+| LIVE | `live-Dashboard.png`, `live-Detections.png`, `live-ThreatAnalytics.png`, `live-ModelRegistry.png`, `live-SystemHealth.png` |
+| CACHED | `cached-Dashboard.png`, `cached-Detections.png`, `cached-ThreatAnalytics.png`, `cached-ModelRegistry.png`, `cached-SystemHealth.png` |
+| OFFLINE | `offline-Dashboard.png`, `offline-Detections.png`, `offline-ThreatAnalytics.png`, `offline-ModelRegistry.png`, `offline-SystemHealth.png` |
+| Silence | `silence-before.png`, `silence-after.png` |
+
+Summary from `qa/proof/honesty-matrix.json`:
+- Live shots: 5
+- Cached shots: 5
+- Offline shots: 5
+- Fabricated entries before silence period: 0
+- Fabricated entries after 60-second silence period: 0
+- New entries added during silence period: 0
+- **Result: PASSED**
+
