@@ -108,7 +108,8 @@ Rewrote the file to include:
 
 ## Gate Status
 
-- `bash scripts/gates.sh` → **PENDING** (run after commit).
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 23:50:35Z`
+  (recorded in `TEST_RESULTS_v4.md`; gate-evidence commit `8cb65f6`).
 
 ## Open Items
 
