@@ -18,7 +18,7 @@
 | D4 | Empty Threat Analytics timeline rendered naked axes | `TimelineChart` had no empty state | Return `EmptyState` when `tickets.length === 0` | Screenshot `d4-threat-analytics-empty-1366.png` + flow test | ✅ Fixed |
 | D5 | Duplicate status/filter rail on Dashboard | Same probe latency / last-sync items rendered in-page and in global `Header` | Removed the 40px Dashboard rail; unique status info now lives in global `Header` tooltip | `Dashboard.test.tsx` asserts rail is gone; screenshot `d5-dashboard-1366.png` | ✅ Fixed |
 | D6 | Snapshot cache stale and lacked provenance | `public/cache/tickets-snapshot.json` was old; rows had no `generatedAt` | Ran `ops/snapshot-refresh.sh` against live `/predict`; refreshed all 6 canonical rows; added `generatedAt` per row | Snapshot updated; logged in `ops/logs/verification.log` | ✅ Fixed |
-| D7 | Stray files at `D:\` root | Old build output and misplaced governance file left outside repo | **Reported only — removal pending user approval** | No deletions performed | ⏳ Pending approval |
+| D7 | Stray files at `D:\` root | Old build output and misplaced governance file left outside repo | Removed both items after user approval | `Test-Path` confirms neither exists | ✅ Removed |
 
 ---
 
@@ -66,14 +66,14 @@ d8159a4 fix(d6): refresh tickets-snapshot.json from live API and add generatedAt
 
 ---
 
-## D7 hygiene — pending decision
+## D7 hygiene — completed
 
-Two items were identified outside the repo root and are **not** part of the committed project:
+Both stray items at `D:\` root were removed on 2026-07-19 after user approval:
 
-1. `D:\AGENTS.md` — misplaced 12 KB governance file (not `D:\Git\ticketsec-arm64-dashboard\AGENTS.md`).
-2. `D:\ticketsec-arm64-dashboard-dist\` — old stray build-output directory containing `assets/`, `cache/`, `TEST_RESULTS_v2.md`, `TEST_RESULTS_v3.md`, and an old snapshot.
+1. `D:\AGENTS.md` — deleted.
+2. `D:\ticketsec-arm64-dashboard-dist\` — recursively deleted.
 
-No deletions have been performed. Confirm removal if you want the workspace cleaned up.
+Verification with `Test-Path` confirms neither path exists anymore.
 
 ---
 
