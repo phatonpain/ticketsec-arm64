@@ -12,16 +12,17 @@ set -uo pipefail
 CHROME_BIN="${CHROME_BIN:-C:/Users/crust/.cache/puppeteer/chrome/win64-150.0.7871.24/chrome-win64/chrome.exe}"
 CHROMEDRIVER_PATH="${CHROMEDRIVER_PATH:-D:/chromedriver/win64-150.0.7871.24/chromedriver-win64/chromedriver.exe}"
 EVIDENCE="TEST_RESULTS_v4.md"
+TMP_LOG="$(mktemp)"
 STAMP=$(date -u +"%Y-%m-%d %H:%M:%SZ")
 say()  { printf '%s\n' "$*"; }
-log()  { printf '%s\n' "$*" | tee -a "$EVIDENCE"; }
+log()  { printf '%s\n' "$*" | tee -a "$TMP_LOG"; }
 pass() { log "- [PASS] $1 ($STAMP)"; }
 fail() { log "- [FAIL] $1 — $2 ($STAMP)"; RED=1; }
 RED=0
-say "" >> "$EVIDENCE"; log "## Gate run — $STAMP"
+say "" >> "$TMP_LOG"; log "## Gate run — $STAMP"
 # G1 build + chunk size (<600KB main)
 OUT=$(npm run build 2>&1); RC=$?
-echo "$OUT" | tail -5 | tee -a "$EVIDENCE" >/dev/null
+echo "$OUT" | tail -5 | tee -a "$TMP_LOG" >/dev/null
 [ $RC -eq 0 ] && pass "G1 build" || fail "G1 build" "exit $RC"
 MAIN=$(echo "$OUT" | grep -oE 'index-[A-Za-z0-9_-]+\.js +[0-9.]+' | head -1 | grep -oE '[0-9.]+$')
 if [ -n "$MAIN" ]; then
@@ -36,7 +37,7 @@ fi
 npm run lint >/dev/null 2>&1 && pass "G2 lint 0/0" || fail "G2 lint" "see npm run lint"
 # G3 tests
 TOUT=$(npx vitest run 2>&1); RC=$?
-echo "$TOUT" | tail -8 | tee -a "$EVIDENCE" >/dev/null
+echo "$TOUT" | tail -8 | tee -a "$TMP_LOG" >/dev/null
 FAILS=$(echo "$TOUT" | grep -cE 'it\.fails|\.skip' || true)
 { [ $RC -eq 0 ] && [ "$FAILS" = "0" ]; } && pass "G3 vitest green, 0 it.fails/skips" \
   || fail "G3 vitest" "rc=$RC fails/skips=$FAILS"
@@ -75,5 +76,11 @@ fi
 [ -f ticketsec-key.pem ] && fail "G6 pem" "ticketsec-key.pem in tree"
 find . -name 'ticketsec-key.pem' -not -path './node_modules/*' | grep -q . \
   && fail "G6 pem" "found" || true
-# G8 git clean
+# G8 git clean — must run while the evidence file itself is still unchanged,
+# otherwise a gate run could never pass its own tree check. The run log is
+# flushed to TEST_RESULTS_v4.md only after this check.
 [ -z "$(git status --porcelain)" ] && pass "G8 tree clean" || fail "G8 git" "uncommitted changes"
+# Flush the captured log to the evidence file now that all gates have finished.
+cat "$TMP_LOG" >> "$EVIDENCE"
+rm -f "$TMP_LOG"
+exit $RED
