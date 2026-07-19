@@ -8,6 +8,7 @@ screenshots/p1/
 scripts/screenshot_p1.py
 scripts/screenshot_p1_selenium.mjs
 scripts/test_write.txt
+scripts/remove_var_fallbacks.py
 *.log
 .vitest_*.log
 working_tree.diff
