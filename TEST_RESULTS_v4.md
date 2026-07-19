@@ -258,3 +258,107 @@
 - [PASS] G4 axe health (2026-07-19 05:42:33Z)
 - [PASS] G6 secrets scan clean (2026-07-19 05:42:33Z)
 - [FAIL] G8 git — uncommitted changes (2026-07-19 05:42:33Z)
+
+## Gate run — 2026-07-19 05:44:23Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:44:23Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:44:23Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:44:23Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m145 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:44:31
+[2m   Duration [22m 21.29s[2m (transform 4.39s, setup 24.65s, import 7.13s, tests 56.92s, environment 93.66s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-19 05:44:23Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:44:23Z)
+- [PASS] G4 axe detections (2026-07-19 05:44:23Z)
+- [PASS] G4 axe analytics (2026-07-19 05:44:23Z)
+- [PASS] G4 axe registry (2026-07-19 05:44:23Z)
+- [PASS] G4 axe health (2026-07-19 05:44:23Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:44:23Z)
+- [PASS] G8 tree clean (2026-07-19 05:44:23Z)
+
+## Gate run — 2026-07-19 05:45:43Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:45:43Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:45:43Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:45:43Z)
+     [33m[2m✓[22m[39m toggle flips aria-pressed and sets <html data-reduced-motion> [33m 466[2mms[22m[39m
+     [33m[2m✓[22m[39m EXPOSED-07: the Reduced-motion toggle exposes an accessible name (WCAG 4.1.2) [33m 408[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:45:51
+[2m   Duration [22m 21.26s[2m (transform 2.33s, setup 21.94s, import 5.38s, tests 53.48s, environment 96.24s)[22m
+
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 05:45:43Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:45:43Z)
+- [PASS] G4 axe detections (2026-07-19 05:45:43Z)
+- [PASS] G4 axe analytics (2026-07-19 05:45:43Z)
+- [PASS] G4 axe registry (2026-07-19 05:45:43Z)
+- [PASS] G4 axe health (2026-07-19 05:45:43Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:45:43Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 05:45:43Z)
+
+## Gate run — 2026-07-19 05:46:16Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:46:16Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:46:16Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:46:16Z)
+     [33m[2m✓[22m[39m toggle flips aria-pressed and sets <html data-reduced-motion> [33m 471[2mms[22m[39m
+     [33m[2m✓[22m[39m EXPOSED-07: the Reduced-motion toggle exposes an accessible name (WCAG 4.1.2) [33m 691[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:46:14
+[2m   Duration [22m 22.01s[2m (transform 2.50s, setup 23.58s, import 5.18s, tests 56.17s, environment 106.13s)[22m
+
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 05:46:16Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:46:16Z)
+- [PASS] G4 axe detections (2026-07-19 05:46:16Z)
+- [PASS] G4 axe analytics (2026-07-19 05:46:16Z)
+- [PASS] G4 axe registry (2026-07-19 05:46:16Z)
+- [PASS] G4 axe health (2026-07-19 05:46:16Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:46:16Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 05:46:16Z)
+
+## Gate run — 2026-07-19 05:46:54Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:46:54Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:46:54Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:46:54Z)
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m145 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:47:03
+[2m   Duration [22m 21.41s[2m (transform 3.24s, setup 24.04s, import 6.71s, tests 56.16s, environment 92.79s)[22m
+
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (see .vitest_fail.log) (2026-07-19 05:46:54Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:46:54Z)
+- [PASS] G4 axe detections (2026-07-19 05:46:54Z)
+- [PASS] G4 axe analytics (2026-07-19 05:46:54Z)
+- [PASS] G4 axe registry (2026-07-19 05:46:54Z)
+- [PASS] G4 axe health (2026-07-19 05:46:54Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:46:54Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 05:46:54Z)
