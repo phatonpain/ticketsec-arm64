@@ -155,7 +155,7 @@ def main() -> int:
             print("Model-load measurement timed out.", file=sys.stderr)
 
     output = {
-        "status": "OK",
+        "status": "COMPLETE",
         "generated_at": now_utc(),
         "host": args.host,
         "endpoint": ENDPOINT,

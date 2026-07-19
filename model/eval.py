@@ -264,7 +264,7 @@ def main() -> int:
             existing_eval = {}
 
     eval_results = {
-        "status": "OK",
+        "status": "COMPLETE",
         "generated_at": generated_at,
         "artifact_sha256": artifact_hash,
         "methodology": existing_eval.get(
@@ -301,7 +301,7 @@ def main() -> int:
     write_json(RESULTS_PATH, eval_results)
 
     confusion = {
-        "status": "OK",
+        "status": "COMPLETE",
         "generated_at": generated_at,
         "artifact_sha256": artifact_hash,
         "methodology": eval_results["methodology"],

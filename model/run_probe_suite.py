@@ -142,7 +142,7 @@ def main() -> int:
     http_5xx = sum(1 for r in results if 500 <= r["http_status"] < 600)
 
     output = {
-        "status": "OK" if http_5xx == 0 else "NEEDS_REVIEW",
+        "status": "COMPLETE" if http_5xx == 0 else "NEEDS_REVIEW",
         "generated_at": now_utc(),
         "endpoint": ENDPOINT,
         "probe_suite_sha256": file_hash(PROBE_SUITE_PATH),
