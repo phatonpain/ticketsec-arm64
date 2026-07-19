@@ -62,6 +62,14 @@ function rowIds(): string[] {
   return dataRows().map((r) => within(r).getAllByRole('cell')[2]?.textContent ?? '');
 }
 
+function sortableColumnHeader(name: RegExp): HTMLElement {
+  const found = screen
+    .getAllByRole('columnheader', { name })
+    .find((th) => within(th).queryByRole('button'));
+  if (!found) throw new Error(`Sortable column header not found for ${name}`);
+  return found;
+}
+
 function seedCustom(tickets: Ticket[]): void {
   act(() => seedTickets(tickets));
 }
@@ -158,10 +166,11 @@ describe('sorting (local state — works)', () => {
     await screen.findByText('TKT-8471');
 
     await user.click(screen.getByRole('button', { name: /^category/i }));
+    await waitFor(() => expect(sortableColumnHeader(/^category/i)).toHaveAttribute('aria-sort', 'descending'));
     await waitFor(() => expect(rowIds()[0]).toBe('TKT-8469')); // 'Unauthorized Access' last alphabetically → first in desc
 
     await user.click(screen.getByRole('button', { name: /^category/i }));
-    await waitFor(() => expect(screen.getByRole('columnheader', { name: /^category/i })).toHaveAttribute('aria-sort', 'ascending'));
+    await waitFor(() => expect(sortableColumnHeader(/^category/i)).toHaveAttribute('aria-sort', 'ascending'));
     await waitFor(() => expect(rowIds()[0]).toBe('TKT-8468')); // 'Data Breach' first alphabetically
   });
 
@@ -171,6 +180,9 @@ describe('sorting (local state — works)', () => {
     await screen.findByText('TKT-8471');
 
     await user.click(screen.getByRole('button', { name: /^severity/i }));
+    await waitFor(() =>
+      expect(sortableColumnHeader(/^severity/i)).toHaveAttribute('aria-sort', 'descending'),
+    );
     // critical: Phishing/Malware/Data Breach (stable, keeps time order) → high → medium → info
     await waitFor(() =>
       expect(rowIds()).toEqual(['TKT-8471', 'TKT-8470', 'TKT-8468', 'TKT-8469', 'TKT-8467', 'TKT-8466']),
@@ -183,8 +195,14 @@ describe('sorting (local state — works)', () => {
     await screen.findByText('TKT-8471');
 
     await user.click(screen.getByRole('button', { name: /^confidence/i })); // desc
+    await waitFor(() =>
+      expect(sortableColumnHeader(/^confidence/i)).toHaveAttribute('aria-sort', 'descending'),
+    );
     await waitFor(() => expect(rowIds()[0]).toBe('TKT-8471')); // 0.96
     await user.click(screen.getByRole('button', { name: /^confidence/i })); // asc
+    await waitFor(() =>
+      expect(sortableColumnHeader(/^confidence/i)).toHaveAttribute('aria-sort', 'ascending'),
+    );
     await waitFor(() => expect(rowIds()[0]).toBe('TKT-8466')); // 0.71
   });
 
@@ -200,8 +218,14 @@ describe('sorting (local state — works)', () => {
       await screen.findByText('TKT-9999');
 
       await user.click(screen.getByRole('button', { name: /^ticket id/i })); // desc: TKT-10000 first
+      await waitFor(() =>
+        expect(sortableColumnHeader(/^ticket id/i)).toHaveAttribute('aria-sort', 'descending'),
+      );
       await waitFor(() => expect(rowIds()[0]).toBe('TKT-10000'));
       await user.click(screen.getByRole('button', { name: /^ticket id/i })); // asc
+      await waitFor(() =>
+        expect(sortableColumnHeader(/^ticket id/i)).toHaveAttribute('aria-sort', 'ascending'),
+      );
       // Numeric ascending puts TKT-9999 first.
       await waitFor(() => expect(rowIds()[0]).toBe('TKT-9999'));
     },
