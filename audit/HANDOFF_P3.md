@@ -3,7 +3,7 @@
 Date: 2026-07-19  
 Branch: `mission/v4`  
 Phase 2 final commit: `bc7d948`  
-Phase 3 final commit: `eda3c8a`
+Phase 3 final commit: `eda3c8a` (code + handoff); gate-evidence commit: `d7f02ef`
 
 ## Done
 
