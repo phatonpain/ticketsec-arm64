@@ -2,13 +2,34 @@
 
 Date: 2026-07-19
 Branch: `mission/v4`
-Baseline tag: `baseline-v4`
+Baseline tag: `baseline-v4` → `3bc1561`
+Phase 1 commit: `faa555c`
 
 ## Done (file:line)
 
 ### DESIGN_BRIEF §4 anatomy verification
 - Dashboard, Detections, Threat Analytics, System Health, Model Registry, and Live Predictions views were verified against `M8_VISUAL_DELIVERABLES.md` and the m8 side-by-side screenshots at `screenshots/m8/sidebyside-*.png`.
-- No re-design was required; only residual token/a11y fixes were applied.
+- No re-design was required; only residual token/a11y/data-honesty fixes were applied.
+
+### Residual Phase 1 fixes
+
+1. **TimelineChart honest empty state** (`src/components/TimelineChart.tsx`)
+   - Added `EmptyState` with `Activity` icon, "Collecting live detections" title, and a next-step description when no ticket data exists.
+   - Added component-level coverage in `tests/components/TimelineChart.test.tsx`.
+
+2. **ModelHealthDonut artifact wiring** (`src/components/ModelHealthDonut.tsx`, `src/lib/artifacts.ts`)
+   - Donut now reads `modelMeta.sizeMb` / `memoryMaxMb` from `src/lib/artifacts.ts` instead of hard-coding the footprint.
+   - Center label shows only the model size (`0.38 MB`); headroom detail was moved to the legend so the graphic stays readable.
+
+3. **Confusion matrix cell values** (`src/components/ModelRegistry.tsx`, `src/lib/echarts.ts`)
+   - Registered `HeatmapChart` (plus `LegacyGridContainLabel`) in `src/lib/echarts.ts`.
+   - Matrix now renders per-cell counts with a dynamic visual-map range built from `chartColors` tokens.
+
+4. **Token purity cleanup** (`src/lib/chartTokens.ts`, `src/components/ModelRegistry.tsx`)
+   - Added `indigoStrongHover` to the sanctioned ECharts color mirror and removed the raw `#4338CA` hex from the confusion-matrix visual map.
+
+5. **Lint hygiene** (`tests/flows/offline-silence.test.tsx`)
+   - Removed unused `fetchMock` variable/import flagged by `oxlint` so the codebase now passes lint with **0 warnings**.
 
 ### Command palette completeness (`src/components/CommandPalette.tsx`)
 - Added `Classify ticket` action that navigates to Live Predictions and focuses the textarea.
@@ -33,10 +54,11 @@ Baseline tag: `baseline-v4`
 
 ## Gate status
 
-- `npm run lint` → 0 warnings, 0 errors
-- `npm run build` → 0 errors; main chunk **299.36 kB** (< 600 kB)
-- `npx vitest run` → **146/146 passed**
-- `bash scripts/gates.sh` → **G1–G8 all PASS** (`2026-07-19 06:25:15Z`, recorded in `TEST_RESULTS_v4.md`)
+- `npm run lint` → **0 warnings, 0 errors**
+- `npm run build` → 0 errors; main chunk **309.75 kB** / gzip 90.06 kB (< 600 kB)
+- `npx vitest run` → **172/172 passed**
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 20:24:14Z` (recorded in `TEST_RESULTS_v4.md`)
+  - G1 build + chunk budget, G2 lint, G3 vitest, G4 axe (5 routes), G6 secrets scan, G8 tree clean
 
 ## Open items for Phase 2 / later phases
 
@@ -51,8 +73,9 @@ Baseline tag: `baseline-v4`
 - `scripts/gates.sh` assumes the Vite dev server is running on `localhost:5173` for G4 axe checks.
 - Screenshot generation depends on the pinned Chrome + ChromeDriver paths in `scripts/screenshot_p1_selenium.mjs`.
 - The token-fallback removal touched many files; if a future patch needs a fallback for a missing token, prefer adding the token to `src/styles/tokens.css` instead of reintroducing inline fallbacks.
+- ECharts lazy chunk is ~613 kB (above the default Vite warning limit) but is code-split and does not affect the main-chunk budget.
 
 ## Context notes for compaction
 
 - Preserve: `audit/STATE_MAP_v4.md`, `audit/RUBRIC_P1.md`, this HANDOFF, `TEST_RESULTS_v4.md`, Honesty Contract.
-- The latest green commit before Phase 2 work is `8ebe8f6`.
+- The latest green commit before Phase 2 work is `faa555c`.
