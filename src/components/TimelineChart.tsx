@@ -28,10 +28,13 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
       counts.set(iso, (counts.get(iso) ?? 0) + 1);
     }
     const sorted = Array.from(counts.entries()).sort(([a], [b]) => a.localeCompare(b));
+    const seriesValues = sorted.map(([, count]) => count);
     return {
       categories: sorted.map(([iso]) => formatDateLabel(iso)),
-      values: sorted.map(([, count]) => count),
-      hasData: sorted.length > 0,
+      values: seriesValues,
+      /* A single date produces an invisible symbol-less point; wait for at least
+       * two days of data before drawing a meaningful trend line. */
+      hasData: sorted.length > 1 && seriesValues.some((v) => v > 0),
     };
   }, [tickets]);
 
@@ -119,8 +122,7 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
           <EmptyState
             icon={Activity}
             title="Collecting live detections"
-            description={`${tickets.length} detection${tickets.length === 1 ? '' : 's'} so far. Submit a ticket to populate this timeline.`}
-            nextStep="Open the command palette (Ctrl+K) and choose Classify ticket."
+            description="Submit a ticket on Live Predictions to populate this chart."
             minHeight={180}
           />
         )}

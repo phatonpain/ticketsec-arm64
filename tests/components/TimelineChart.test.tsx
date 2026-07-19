@@ -17,28 +17,42 @@ afterEach(() => {
   cleanup();
 });
 
+function makeTicket(id: string, iso: string): Ticket {
+  return {
+    id,
+    subject: 'sample',
+    category: 'Phishing',
+    confidence: 0.9,
+    status: 'Resolved',
+    assignedTo: 'Auto',
+    createdAt: new Date(iso),
+    source: 'live',
+  };
+}
+
 describe('TimelineChart empty state', () => {
-  it('renders collecting EmptyState with a real count when no tickets exist', () => {
+  it('renders the standard EmptyState when no tickets exist', () => {
     render(<TimelineChart tickets={[]} />);
     expect(screen.getByText('Collecting live detections')).toBeInTheDocument();
-    expect(screen.getByText(/0 detections so far/)).toBeInTheDocument();
-    expect(screen.getByText(/Open the command palette/)).toBeInTheDocument();
+    expect(
+      screen.getByText('Submit a ticket on Live Predictions to populate this chart.'),
+    ).toBeInTheDocument();
   });
 
-  it('renders the ECharts stub when tickets exist', () => {
+  it('renders the EmptyState for a single-day series (invisible symbol-less point)', () => {
+    const tickets: Ticket[] = [makeTicket('TKT-1', '2026-07-19T12:00:00Z')];
+    render(<TimelineChart tickets={tickets} />);
+    expect(screen.getByText('Collecting live detections')).toBeInTheDocument();
+    expect(screen.queryByTestId('echart-stub')).not.toBeInTheDocument();
+  });
+
+  it('renders the ECharts stub when tickets span at least two days', () => {
     const tickets: Ticket[] = [
-      {
-        id: 'TKT-1',
-        subject: 'phishing attempt',
-        category: 'Phishing',
-        confidence: 0.9,
-        status: 'Resolved',
-        assignedTo: 'Auto',
-        createdAt: new Date('2026-07-19T12:00:00Z'),
-        source: 'live',
-      },
+      makeTicket('TKT-1', '2026-07-18T12:00:00Z'),
+      makeTicket('TKT-2', '2026-07-19T12:00:00Z'),
     ];
     render(<TimelineChart tickets={tickets} />);
     expect(screen.queryByText('Collecting live detections')).not.toBeInTheDocument();
+    expect(screen.getByTestId('echart-stub')).toBeInTheDocument();
   });
 });
