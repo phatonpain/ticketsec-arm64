@@ -1,4 +1,5 @@
 import React from 'react';
+import { chartColors } from '../lib/chartTokens';
 
 interface SparklineProps {
   data: number[];
@@ -26,7 +27,7 @@ function deriveFillColor(color: string): string {
 
 export const Sparkline: React.FC<SparklineProps> = ({
   data,
-  color = '#06B6D4',
+  color = chartColors.int8,
   fillColor,
   height = 36,
   width = '100%',

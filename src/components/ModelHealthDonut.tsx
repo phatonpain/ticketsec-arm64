@@ -128,7 +128,7 @@ export const ModelHealthDonut: React.FC = () => {
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -138,7 +138,7 @@ export const ModelHealthDonut: React.FC = () => {
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -147,10 +147,10 @@ export const ModelHealthDonut: React.FC = () => {
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             Model Footprint
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>INT8 artifact vs t4g.micro memory budget</p>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>INT8 artifact vs t4g.micro memory budget</p>
         </div>
         {/* Static, verifiable facts — no provenance badge by design (FIX-04). */}
       </div>
@@ -161,7 +161,7 @@ export const ModelHealthDonut: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          padding: '6px var(--density-widget-pad-x, 20px) 8px',
+          padding: '6px var(--density-widget-pad-x) 8px',
           borderTop: '1px solid var(--border-default)',
         }}
       >

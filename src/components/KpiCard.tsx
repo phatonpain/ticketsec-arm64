@@ -67,13 +67,13 @@ function slug(label: string): string {
 }
 
 const badgeGeometry: React.CSSProperties = {
-  fontSize: 'var(--badge-font-size, 11px)',
-  fontWeight: 'var(--badge-font-weight, 600)',
-  letterSpacing: 'var(--badge-letter-spacing, 0.4px)',
-  lineHeight: 'var(--badge-line-height, 16px)',
+  fontSize: 'var(--badge-font-size)',
+  fontWeight: 'var(--badge-font-weight)',
+  letterSpacing: 'var(--badge-letter-spacing)',
+  lineHeight: 'var(--badge-line-height)',
   textTransform: 'uppercase',
-  padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-  borderRadius: 'var(--radius-badge, 4px)',
+  padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+  borderRadius: 'var(--radius-badge)',
   whiteSpace: 'nowrap',
 };
 
@@ -187,7 +187,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         padding: 'var(--density-card-pad)',
         height: 'var(--density-kpi-h)',
         display: 'flex',
@@ -203,9 +203,9 @@ export const KpiCard: React.FC<KpiCardProps> = ({
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <span
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             textTransform: 'uppercase',
             color: 'var(--text-muted)',
           }}
@@ -250,13 +250,13 @@ export const KpiCard: React.FC<KpiCardProps> = ({
                     top: 'calc(100% + 8px)',
                     right: 0,
                     width: 240,
-                    zIndex: 'var(--z-tooltip, 1100)' as unknown as number,
+                    zIndex: 'var(--z-tooltip)' as unknown as number,
                     background: 'var(--bg-elevated)',
                     border: '1px solid var(--border-default)',
-                    borderRadius: 'var(--radius-md, 8px)',
+                    borderRadius: 'var(--radius-md)',
                     padding: 10,
-                    boxShadow: 'var(--shadow-popover, 0 8px 24px rgba(0,0,0,0.35))',
-                    fontSize: 'var(--font-size-micro, 11px)',
+                    boxShadow: 'var(--shadow-popover)',
+                    fontSize: 'var(--font-size-micro)',
                     lineHeight: 1.45,
                     color: 'var(--text-secondary)',
                     pointerEvents: 'none',
@@ -276,7 +276,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
             style={{
               width: 28,
               height: 28,
-              borderRadius: 'var(--radius-sm, 6px)',
+              borderRadius: 'var(--radius-sm)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -293,12 +293,12 @@ export const KpiCard: React.FC<KpiCardProps> = ({
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 4 }}>
         <span
           style={{
-            fontSize: 'clamp(var(--font-size-xl, 20px), 2.5vw, var(--font-size-kpi, 28px))',
+            fontSize: 'clamp(var(--font-size-xl), 2.5vw, var(--font-size-kpi))',
             fontWeight: 600,
             fontFamily: 'var(--font-numeric)',
             fontVariantNumeric: 'tabular-nums',
             color: muted ? 'var(--text-muted)' : 'var(--text-primary)',
-            letterSpacing: 'var(--tracking-kpi, -0.5px)',
+            letterSpacing: 'var(--tracking-kpi)',
             lineHeight: 1,
             whiteSpace: 'nowrap',
           }}
@@ -311,7 +311,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
         <span
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             color: 'var(--text-muted)',
             lineHeight: 1.4,
           }}

@@ -33,7 +33,7 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
           style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-default)',
-            borderRadius: 'var(--radius-md, 8px)',
+            borderRadius: 'var(--radius-md)',
             padding: 'var(--density-card-pad)',
             display: 'flex',
             flexDirection: 'column',
@@ -54,7 +54,7 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
             />
             <span
               style={{
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 color: 'var(--text-secondary)',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
@@ -67,12 +67,12 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
           </div>
           <div
             style={{
-              fontSize: 'var(--font-size-kpi, 28px)',
+              fontSize: 'var(--font-size-kpi)',
               fontWeight: 600,
               fontFamily: 'var(--font-numeric)',
               fontVariantNumeric: 'tabular-nums',
               color: 'var(--text-primary)',
-              letterSpacing: 'var(--tracking-kpi, -0.5px)',
+              letterSpacing: 'var(--tracking-kpi)',
               lineHeight: 1,
             }}
           >

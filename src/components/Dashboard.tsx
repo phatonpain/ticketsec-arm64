@@ -93,7 +93,7 @@ export const Dashboard: React.FC = () => {
   const iconButtonStyle: React.CSSProperties = {
     width: 30,
     height: 30,
-    borderRadius: 'var(--radius-sm, 6px)',
+    borderRadius: 'var(--radius-sm)',
     border: '1px solid var(--border-default)',
     background: 'transparent',
     color: 'var(--text-secondary)',
@@ -115,8 +115,8 @@ export const Dashboard: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           gap: 14,
-          padding: '0 var(--layout-page-px, 24px)',
-          margin: '0 calc(-1 * var(--layout-page-px, 24px))',
+          padding: '0 var(--layout-page-px)',
+          margin: '0 calc(-1 * var(--layout-page-px))',
           borderBottom: '1px solid var(--border-default)',
           boxSizing: 'border-box',
         }}
@@ -128,10 +128,10 @@ export const Dashboard: React.FC = () => {
             alignItems: 'center',
             gap: 6,
             padding: '4px 10px',
-            borderRadius: 'var(--radius-pill, 20px)',
+            borderRadius: 'var(--radius-pill)',
             border: `1px solid ${statusConfig.border}`,
             background: statusConfig.bg,
-            fontSize: 'var(--font-size-xs, 11px)',
+            fontSize: 'var(--font-size-xs)',
             fontWeight: 600,
             whiteSpace: 'nowrap',
             color: statusConfig.color,
@@ -152,7 +152,7 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Probe latency */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
           <span>Probe</span>
           <span
             style={{
@@ -177,11 +177,11 @@ export const Dashboard: React.FC = () => {
               alignItems: 'center',
               gap: 6,
               padding: '4px 10px',
-              borderRadius: 'var(--radius-sm, 6px)',
+              borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-default)',
               background: 'var(--bg-card)',
               color: 'var(--text-secondary)',
-              fontSize: 'var(--font-size-sm, 12px)',
+              fontSize: 'var(--font-size-sm)',
               cursor: 'pointer',
               height: 28,
             }}
@@ -200,10 +200,10 @@ export const Dashboard: React.FC = () => {
                 minWidth: 160,
                 background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-md, 8px)',
+                borderRadius: 'var(--radius-md)',
                 padding: '6px 0',
-                zIndex: 'var(--z-overlay, 1000)' as unknown as number,
-                boxShadow: 'var(--shadow-popover, 0 4px 16px rgba(0,0,0,0.40))',
+                zIndex: 'var(--z-overlay)' as unknown as number,
+                boxShadow: 'var(--shadow-popover)',
               }}
             >
               {TIME_RANGES.map(option => (
@@ -222,7 +222,7 @@ export const Dashboard: React.FC = () => {
                   }}
                   style={{
                     padding: '8px 14px',
-                    fontSize: 'var(--font-size-base, 13px)',
+                    fontSize: 'var(--font-size-base)',
                     color: option === range ? 'var(--text-primary)' : 'var(--text-secondary)',
                     background: option === range ? 'var(--color-accent-indigo-bg)' : 'transparent',
                     cursor: 'pointer',
@@ -263,7 +263,7 @@ export const Dashboard: React.FC = () => {
               }}
             />
           </button>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)' }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)' }}>
             {lastSync ? `Synced ${formatRelativeTime(lastSync)}` : checking ? 'Checking…' : 'Not synced'}
           </span>
         </div>
@@ -293,12 +293,12 @@ export const Dashboard: React.FC = () => {
                 position: 'absolute',
                 top: 4,
                 right: 4,
-                minWidth: 'var(--badge-count-size, 16px)',
-                height: 'var(--badge-count-size, 16px)',
-                borderRadius: 'var(--radius-pill, 999px)',
+                minWidth: 'var(--badge-count-size)',
+                height: 'var(--badge-count-size)',
+                borderRadius: 'var(--radius-pill)',
                 background: 'var(--color-badge-alert-bg)',
                 color: 'var(--color-text-on-accent)',
-                fontSize: 'var(--badge-count-font-size, 10px)',
+                fontSize: 'var(--badge-count-font-size)',
                 fontWeight: 700,
                 display: 'flex',
                 alignItems: 'center',

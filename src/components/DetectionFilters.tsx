@@ -28,13 +28,13 @@ function chipBase(active: boolean): React.CSSProperties {
   return {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 'var(--badge-gap, 6px)',
+    gap: 'var(--badge-gap)',
     padding: '4px 10px',
-    borderRadius: 'var(--radius-pill, 999px)',
+    borderRadius: 'var(--radius-pill)',
     border: '1px solid var(--border-default)',
-    background: active ? 'var(--color-accent-indigo-bg)' : 'var(--color-control-ghost-bg, transparent)',
+    background: active ? 'var(--color-accent-indigo-bg)' : 'var(--color-control-ghost-bg)',
     color: active ? 'var(--text-primary)' : 'var(--text-secondary)',
-    fontSize: 'var(--font-size-sm, 12px)',
+    fontSize: 'var(--font-size-sm)',
     fontWeight: 600,
     cursor: 'pointer',
     transition: 'all 120ms ease',
@@ -45,7 +45,7 @@ function chipBase(active: boolean): React.CSSProperties {
 const countStyle: React.CSSProperties = {
   fontFamily: 'var(--font-numeric)',
   fontVariantNumeric: 'tabular-nums',
-  fontSize: 'var(--font-size-xs, 11px)',
+  fontSize: 'var(--font-size-xs)',
   color: 'var(--text-muted)',
   minWidth: 16,
   textAlign: 'center',
@@ -108,15 +108,15 @@ export const DetectionFilters: React.FC<DetectionFiltersProps> = ({ counts, acti
         onClick={() => onToggle('category', category)}
         style={{
           ...chipBase(isActive),
-          background: isActive ? bg : 'var(--color-control-ghost-bg, transparent)',
+          background: isActive ? bg : 'var(--color-control-ghost-bg)',
           color: isActive ? color : 'var(--text-secondary)',
           borderColor: isActive ? color : 'var(--border-default)',
         }}
       >
         <span
           style={{
-            width: 'var(--badge-dot-size, 6px)',
-            height: 'var(--badge-dot-size, 6px)',
+            width: 'var(--badge-dot-size)',
+            height: 'var(--badge-dot-size)',
             borderRadius: '50%',
             background: color,
             flexShrink: 0,
@@ -135,17 +135,17 @@ export const DetectionFilters: React.FC<DetectionFiltersProps> = ({ counts, acti
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
-        padding: '12px var(--density-widget-pad-x, 20px)',
+        padding: '12px var(--density-widget-pad-x)',
         borderBottom: '1px solid var(--border-default)',
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <span
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             color: 'var(--text-muted)',
           }}
         >
@@ -156,10 +156,10 @@ export const DetectionFilters: React.FC<DetectionFiltersProps> = ({ counts, acti
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <span
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             color: 'var(--text-muted)',
           }}
         >
@@ -170,10 +170,10 @@ export const DetectionFilters: React.FC<DetectionFiltersProps> = ({ counts, acti
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <span
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             color: 'var(--text-muted)',
           }}
         >

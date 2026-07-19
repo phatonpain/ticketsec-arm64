@@ -47,7 +47,7 @@ export const EventLog: React.FC = () => {
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -57,7 +57,7 @@ export const EventLog: React.FC = () => {
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -66,10 +66,10 @@ export const EventLog: React.FC = () => {
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             Event Log
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>Real-time system events</p>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>Real-time system events</p>
         </div>
         {/* FIX-21: filter state is exposed to assistive tech. */}
         <div role="group" aria-label="Filter events by level" style={{ display: 'flex', gap: 4 }}>
@@ -81,8 +81,8 @@ export const EventLog: React.FC = () => {
               onClick={() => setFilter(f.key)}
               style={{
                 padding: '4px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
-                fontSize: 'var(--font-size-micro, 11px)',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: 'var(--font-size-micro)',
                 fontWeight: 600,
                 cursor: 'pointer',
                 border: filter === f.key ? '1px solid var(--border-hover)' : '1px solid transparent',
@@ -104,9 +104,9 @@ export const EventLog: React.FC = () => {
         style={{
           maxHeight: 340,
           overflowY: 'auto',
-          padding: '8px var(--density-widget-pad-x, 20px)',
+          padding: '8px var(--density-widget-pad-x)',
           fontFamily: 'var(--font-numeric)',
-          fontSize: 'var(--font-size-sm, 12px)',
+          fontSize: 'var(--font-size-sm)',
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
@@ -119,7 +119,7 @@ export const EventLog: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 'var(--font-size-base, 13px)',
+              fontSize: 'var(--font-size-base)',
               color: 'var(--text-muted)',
             }}
           >
@@ -137,7 +137,7 @@ export const EventLog: React.FC = () => {
                 >
                   <span
                     style={{
-                      fontSize: 'var(--font-size-micro, 11px)',
+                      fontSize: 'var(--font-size-micro)',
                       color: 'var(--text-muted)',
                       fontFamily: 'var(--font-numeric)',
                       fontVariantNumeric: 'tabular-nums',
@@ -148,11 +148,11 @@ export const EventLog: React.FC = () => {
                   </span>
                   <span
                     style={{
-                      fontSize: 'var(--font-size-micro, 11px)',
+                      fontSize: 'var(--font-size-micro)',
                       fontWeight: 700,
-                      letterSpacing: 'var(--badge-letter-spacing, 0.5px)',
-                      padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-                      borderRadius: 'var(--radius-badge, 4px)',
+                      letterSpacing: 'var(--badge-letter-spacing)',
+                      padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+                      borderRadius: 'var(--radius-badge)',
                       color: style.color,
                       background: style.bg,
                       flexShrink: 0,
@@ -164,7 +164,7 @@ export const EventLog: React.FC = () => {
                   </span>
                   <span
                     style={{
-                      fontSize: 'var(--font-size-sm, 12px)',
+                      fontSize: 'var(--font-size-sm)',
                       color: 'var(--text-primary)',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -178,11 +178,11 @@ export const EventLog: React.FC = () => {
                     <span
                       aria-label={`${log.count} occurrences`}
                       style={{
-                        fontSize: 'var(--font-size-micro, 11px)',
+                        fontSize: 'var(--font-size-micro)',
                         fontWeight: 700,
                         color: 'var(--text-muted)',
                         background: 'var(--color-control-ghost-bg)',
-                        borderRadius: 'var(--radius-badge, 4px)',
+                        borderRadius: 'var(--radius-badge)',
                         padding: '1px 5px',
                         flexShrink: 0,
                       }}
@@ -197,7 +197,7 @@ export const EventLog: React.FC = () => {
             <div
               style={{
                 textAlign: 'center',
-                fontSize: 'var(--font-size-micro, 11px)',
+                fontSize: 'var(--font-size-micro)',
                 color: 'var(--text-muted)',
                 padding: '8px 0 4px',
               }}

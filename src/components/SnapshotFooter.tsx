@@ -38,7 +38,7 @@ export const SnapshotFooter: React.FC<SnapshotFooterProps> = ({ source }) => {
       style={{
         display: 'flex',
         justifyContent: 'flex-end',
-        padding: '6px var(--density-widget-pad-x, 16px) 8px',
+        padding: '6px var(--density-widget-pad-x) 8px',
         borderTop: '1px solid var(--border-default)',
       }}
     >

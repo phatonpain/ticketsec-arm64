@@ -78,7 +78,7 @@ const StatRow: React.FC<StatRowProps> = ({ icon: Icon, label, value, detail, spa
       style={{
         width: 32,
         height: 32,
-        borderRadius: 'var(--radius-sm, 6px)',
+        borderRadius: 'var(--radius-sm)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -90,25 +90,25 @@ const StatRow: React.FC<StatRowProps> = ({ icon: Icon, label, value, detail, spa
       <Icon size={14} />
     </div>
     <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, letterSpacing: 'var(--tracking-caps, 0.6px)', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+      <div style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
         {label}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 2 }}>
         <span
           style={{
-            fontSize: 'var(--font-size-xl, 20px)',
+            fontSize: 'var(--font-size-xl)',
             fontWeight: 600,
             fontFamily: 'var(--font-numeric)',
             fontVariantNumeric: 'tabular-nums',
             color: muted ? 'var(--text-muted)' : 'var(--text-primary)',
-            letterSpacing: 'var(--tracking-kpi, -0.5px)',
+            letterSpacing: 'var(--tracking-kpi)',
             lineHeight: 1.2,
             whiteSpace: 'nowrap',
           }}
         >
           {value}
         </span>
-        <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
           {detail}
         </span>
       </div>
@@ -155,7 +155,7 @@ export const ModelPerformancePanel: React.FC = () => {
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -165,7 +165,7 @@ export const ModelPerformancePanel: React.FC = () => {
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -174,10 +174,10 @@ export const ModelPerformancePanel: React.FC = () => {
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             Model Performance
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>Accuracy, latency and throughput</p>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>Accuracy, latency and throughput</p>
         </div>
       </div>
       <div style={{ padding: '0 var(--density-card-pad) var(--density-card-pad)', flex: 1 }}>
@@ -213,7 +213,7 @@ export const ModelPerformancePanel: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          padding: '6px var(--density-widget-pad-x, 20px) 8px',
+          padding: '6px var(--density-widget-pad-x) 8px',
           borderTop: '1px solid var(--border-default)',
         }}
       >

@@ -37,7 +37,7 @@ export const DetectionsView: React.FC = () => {
           padding: '10px 14px',
           background: 'var(--bg-card)',
           border: '1px solid var(--border-default)',
-          borderRadius: 'var(--radius-md, 8px)',
+          borderRadius: 'var(--radius-md)',
         }}
       >
         <Search size={16} color="var(--text-muted)" aria-hidden />
@@ -53,7 +53,7 @@ export const DetectionsView: React.FC = () => {
             background: 'transparent',
             border: 'none',
             color: 'var(--text-primary)',
-            fontSize: 'var(--font-size-base, 13px)',
+            fontSize: 'var(--font-size-base)',
             outline: 'none',
           }}
         />
@@ -62,7 +62,7 @@ export const DetectionsView: React.FC = () => {
             type="button"
             onClick={clear}
             style={{
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               color: 'var(--text-muted)',
               background: 'transparent',
               border: 'none',

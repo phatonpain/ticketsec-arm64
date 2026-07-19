@@ -30,21 +30,21 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
     : `Classified as ${ticket.category} by cached snapshot · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`;
 
   return (
-    <div style={{ padding: '12px var(--density-widget-pad-x, 20px)', display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div style={{ padding: '12px var(--density-widget-pad-x)', display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div>
         <div
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             color: 'var(--text-muted)',
             marginBottom: 4,
           }}
         >
           Subject
         </div>
-        <div style={{ fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-primary)', lineHeight: 1.5, wordBreak: 'break-word' }}>
+        <div style={{ fontSize: 'var(--font-size-base)', color: 'var(--text-primary)', lineHeight: 1.5, wordBreak: 'break-word' }}>
           {ticket.subject}
         </div>
       </div>
@@ -52,10 +52,10 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
       <div>
         <div
           style={{
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: 'var(--tracking-caps, 0.6px)',
+            letterSpacing: 'var(--tracking-caps)',
             color: 'var(--text-muted)',
             marginBottom: 6,
           }}
@@ -71,7 +71,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
                 <span
                   style={{
                     width: 110,
-                    fontSize: 'var(--font-size-sm, 12px)',
+                    fontSize: 'var(--font-size-sm)',
                     color: 'var(--text-secondary)',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -86,7 +86,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
                     width: 40,
                     fontFamily: 'var(--font-numeric)',
                     fontVariantNumeric: 'tabular-nums',
-                    fontSize: 'var(--font-size-sm, 12px)',
+                    fontSize: 'var(--font-size-sm)',
                     color: 'var(--text-primary)',
                     textAlign: 'right',
                   }}
@@ -123,42 +123,42 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
         <div>
           <div
             style={{
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               fontWeight: 600,
               textTransform: 'uppercase',
-              letterSpacing: 'var(--tracking-caps, 0.6px)',
+              letterSpacing: 'var(--tracking-caps)',
               color: 'var(--text-muted)',
               marginBottom: 4,
             }}
           >
             Provenance
           </div>
-          <div style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-primary)' }}>
+          <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-primary)' }}>
             {sourceLabel} · {timestamp}
           </div>
         </div>
         <div>
           <div
             style={{
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               fontWeight: 600,
               textTransform: 'uppercase',
-              letterSpacing: 'var(--tracking-caps, 0.6px)',
+              letterSpacing: 'var(--tracking-caps)',
               color: 'var(--text-muted)',
               marginBottom: 4,
             }}
           >
             Assignment
           </div>
-          <div style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-primary)' }}>{ticket.assignedTo}</div>
+          <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-primary)' }}>{ticket.assignedTo}</div>
         </div>
         <div>
           <div
             style={{
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               fontWeight: 600,
               textTransform: 'uppercase',
-              letterSpacing: 'var(--tracking-caps, 0.6px)',
+              letterSpacing: 'var(--tracking-caps)',
               color: 'var(--text-muted)',
               marginBottom: 4,
             }}
@@ -169,10 +169,10 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-              borderRadius: 'var(--radius-badge, 4px)',
-              fontSize: 'var(--badge-font-size, 11px)',
-              fontWeight: 'var(--badge-font-weight, 600)',
+              padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+              borderRadius: 'var(--radius-badge)',
+              fontSize: 'var(--badge-font-size)',
+              fontWeight: 'var(--badge-font-weight)',
               backgroundColor: statusColors.bg,
               color: statusColors.text,
               whiteSpace: 'nowrap',
@@ -185,7 +185,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
 
       <div
         style={{
-          fontSize: 'var(--font-size-sm, 12px)',
+          fontSize: 'var(--font-size-sm)',
           color: 'var(--text-secondary)',
           fontFamily: 'var(--font-numeric)',
           borderTop: '1px solid var(--tint-row)',

@@ -314,7 +314,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 'var(--z-overlay, 1000)' as unknown as number,
+        zIndex: 'var(--z-overlay)' as unknown as number,
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -334,8 +334,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
           maxHeight: '70vh',
           background: 'var(--bg-sidebar)',
           border: '1px solid var(--border-default)',
-          borderRadius: 'var(--radius-lg, 10px)',
-          boxShadow: 'var(--shadow-popover, 0 16px 48px rgba(0,0,0,0.40))',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-popover)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
@@ -368,7 +368,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
               background: 'transparent',
               border: 'none',
               color: 'var(--text-primary)',
-              fontSize: 'var(--font-size-base, 13px)',
+              fontSize: 'var(--font-size-base)',
               outline: 'none',
             }}
           />
@@ -379,7 +379,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
               border: '1px solid var(--border-default)',
               background: 'var(--bg-card)',
               color: 'var(--text-muted)',
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               fontFamily: 'var(--font-numeric)',
             }}
           >
@@ -399,7 +399,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
                 padding: 24,
                 textAlign: 'center',
                 color: 'var(--text-muted)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
               }}
             >
               No commands match “{query}”
@@ -413,10 +413,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
                   <div
                     style={{
                       padding: '6px 16px',
-                      fontSize: 'var(--font-size-micro, 11px)',
+                      fontSize: 'var(--font-size-micro)',
                       fontWeight: 700,
                       textTransform: 'uppercase',
-                      letterSpacing: 'var(--tracking-caps, 0.6px)',
+                      letterSpacing: 'var(--tracking-caps)',
                       color: 'var(--text-muted)',
                     }}
                   >
@@ -445,7 +445,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
                           color: selected ? 'var(--text-primary)' : 'var(--text-secondary)',
                           cursor: 'pointer',
                           textAlign: 'left',
-                          fontSize: 'var(--font-size-base, 13px)',
+                          fontSize: 'var(--font-size-base)',
                           fontFamily: 'inherit',
                         }}
                       >
@@ -459,7 +459,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
                               border: '1px solid var(--border-default)',
                               background: 'var(--bg-card)',
                               color: 'var(--text-muted)',
-                              fontSize: 'var(--font-size-micro, 11px)',
+                              fontSize: 'var(--font-size-micro)',
                               fontFamily: 'var(--font-numeric)',
                             }}
                           >
@@ -481,7 +481,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ onOpenHelp }) =>
             gap: 12,
             padding: '8px 16px',
             borderTop: '1px solid var(--border-default)',
-            fontSize: 'var(--font-size-micro, 11px)',
+            fontSize: 'var(--font-size-micro)',
             color: 'var(--text-muted)',
           }}
         >

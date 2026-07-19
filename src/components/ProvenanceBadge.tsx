@@ -28,13 +28,13 @@ export const ProvenanceBadge: React.FC<ProvenanceBadgeProps> = ({ source }) => {
   return (
     <span
       style={{
-        fontSize: 'var(--badge-font-size, 11px)',
-        fontWeight: 'var(--badge-font-weight, 600)',
-        letterSpacing: 'var(--badge-letter-spacing, 0.4px)',
-        lineHeight: 'var(--badge-line-height, 16px)',
+        fontSize: 'var(--badge-font-size)',
+        fontWeight: 'var(--badge-font-weight)',
+        letterSpacing: 'var(--badge-letter-spacing)',
+        lineHeight: 'var(--badge-line-height)',
         textTransform: 'uppercase',
-        padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-        borderRadius: 'var(--radius-badge, 4px)',
+        padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+        borderRadius: 'var(--radius-badge)',
         color: 'var(--badge-cached-fg)',
         background: 'var(--badge-cached-bg)',
         border: '1px solid var(--badge-cached-border)',

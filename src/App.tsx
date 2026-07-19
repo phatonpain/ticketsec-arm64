@@ -13,7 +13,7 @@
  *    icon well (--color-icon-chip-bg + --text-secondary); sparkline colors
  *    come from chartTokens (the sanctioned hex mirror), not raw '#6366F1'.
  *  - FIX-23: '8.73MB' → '8.73 MB' (C-16); footprint detail/tooltip (C-17/18).
- *  - FIX-29: main marginLeft 260 → var(--layout-sidebar-w, 240px) (same
+ *  - FIX-29: main marginLeft 260 → var(--layout-sidebar-w) (same
  *    token the Sidebar uses).
  *  - Event Log dedupe: status-transition logging (restored/lost) is now
  *    owned by the useApi single writer — this effect would double-log.
@@ -187,7 +187,7 @@ export const App: React.FC = () => {
       <main
         style={{
           flex: 1,
-          marginLeft: 'var(--layout-sidebar-w, 240px)',
+          marginLeft: 'var(--layout-sidebar-w)',
           height: '100vh',
           overflowY: 'auto',
           display: 'flex',
@@ -198,7 +198,7 @@ export const App: React.FC = () => {
         <Header />
 
         {/* Content */}
-        <div style={{ flex: 1, padding: '20px var(--layout-page-px, 24px)', display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
+        <div style={{ flex: 1, padding: '20px var(--layout-page-px)', display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
           {/* Page Title */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
@@ -206,22 +206,22 @@ export const App: React.FC = () => {
                 ref={titleRef}
                 tabIndex={-1}
                 style={{
-                  fontSize: 'var(--font-size-xl, 20px)',
+                  fontSize: 'var(--font-size-xl)',
                   fontWeight: 700,
                   color: 'var(--text-primary)',
-                  letterSpacing: 'var(--tracking-title, -0.3px)',
+                  letterSpacing: 'var(--tracking-title)',
                   marginBottom: 4,
                   outline: 'none',
                 }}
               >
                 {viewTitle}
               </h1>
-              <p style={{ fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-secondary)' }}>
+              <p style={{ fontSize: 'var(--font-size-base)', color: 'var(--text-secondary)' }}>
                 {viewSubtitle}
               </p>
             </div>
             {lastSync && (
-              <div style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
                 Last sync: {lastSync.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
               </div>
             )}

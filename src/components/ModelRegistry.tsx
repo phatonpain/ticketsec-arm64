@@ -126,7 +126,7 @@ function extractArtifactSize(md: string): string {
 const cardStyle: React.CSSProperties = {
   backgroundColor: 'var(--bg-card)',
   border: '1px solid var(--border-default)',
-  borderRadius: 'var(--radius-md, 8px)',
+  borderRadius: 'var(--radius-md)',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
@@ -134,7 +134,7 @@ const cardStyle: React.CSSProperties = {
 
 const panelHeadStyle: React.CSSProperties = {
   height: 'var(--density-widget-head-h)',
-  padding: '0 var(--density-widget-pad-x, 20px)',
+  padding: '0 var(--density-widget-pad-x)',
   boxSizing: 'border-box',
   display: 'flex',
   alignItems: 'center',
@@ -150,26 +150,26 @@ const panelBodyStyle: React.CSSProperties = {
 const panelFooterStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'flex-end',
-  padding: '6px var(--density-widget-pad-x, 16px) 8px',
+  padding: '6px var(--density-widget-pad-x) 8px',
   borderTop: '1px solid var(--border-default)',
 };
 
 const tableHeadStyle: React.CSSProperties = {
   padding: '6px 12px',
-  fontSize: 'var(--font-size-micro, 11px)',
+  fontSize: 'var(--font-size-micro)',
   fontWeight: 600,
   textTransform: 'uppercase',
-  letterSpacing: 'var(--tracking-th, 0.5px)',
+  letterSpacing: 'var(--tracking-th)',
   color: 'var(--text-muted)',
   textAlign: 'left',
   whiteSpace: 'nowrap',
-  height: 'var(--density-table-head-h, 36px)',
+  height: 'var(--density-table-head-h)',
   boxSizing: 'border-box',
 };
 
 const tableCellStyle: React.CSSProperties = {
   padding: '0 12px',
-  fontSize: 'var(--font-size-sm, 12px)',
+  fontSize: 'var(--font-size-sm)',
   color: 'var(--text-primary)',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
@@ -196,10 +196,10 @@ const Panel: React.FC<PanelProps> = ({ icon: Icon, title, subtitle, children, fo
   <div style={cardStyle}>
     <div style={panelHeadStyle}>
       <div>
-        <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+        <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
           {title}
         </h2>
-        <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>{subtitle}</p>
+        <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>{subtitle}</p>
       </div>
       <Icon size={18} color="var(--text-muted)" aria-hidden />
     </div>
@@ -256,12 +256,12 @@ const ModelCardSection: React.FC = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--density-card-gap)' }}>
         {items.map(item => (
           <div key={item.label} style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <span style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps, 0.6px)', color: 'var(--text-muted)' }}>
+            <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps)', color: 'var(--text-muted)' }}>
               {item.label}
             </span>
             <span
               style={{
-                fontSize: 'var(--font-size-base, 13px)',
+                fontSize: 'var(--font-size-base)',
                 color: 'var(--text-primary)',
                 fontFamily: item.label === 'SHA-256' || item.label === 'Artifact size' ? 'var(--font-numeric)' : 'var(--font-family-sans)',
                 fontVariantNumeric: 'tabular-nums',
@@ -303,14 +303,14 @@ const AccuracySection: React.FC = () => {
     >
       <div style={{ marginBottom: 12, display: 'flex', gap: 16 }}>
         <div>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Overall accuracy</span>
-          <div style={{ fontSize: 'var(--font-size-kpi, 28px)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Overall accuracy</span>
+          <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
             {formatAccuracy(typedEval.overall_accuracy)}
           </div>
         </div>
         <div>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Test set</span>
-          <div style={{ fontSize: 'var(--font-size-kpi, 28px)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Test set</span>
+          <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
             {typedEval.test_size?.toLocaleString('en-US') ?? '—'}
           </div>
         </div>
@@ -396,7 +396,7 @@ const ConfusionMatrixSection: React.FC = () => {
         bottom: 0,
         show: false,
         inRange: {
-          color: [chartColors.cardBg, '#4338CA', '#6366F1', '#818CF8'],
+          color: [chartColors.cardBg, chartColors.indigoStrongHover, chartColors.onnx, chartColors.accentStrong],
         },
       },
       series: [
@@ -472,20 +472,20 @@ const LatencySection: React.FC = () => {
       footer={<ProvenanceFooter generatedAt={typedLatency.generated_at} extra={typedLatency.measurement_protocol?.interpretation ?? ''} />}
     >
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--density-card-gap)' }}>
-        <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm, 6px)', padding: 12 }}>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p50</span>
-          <div style={{ fontSize: 'var(--font-size-kpi, 28px)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+        <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)', padding: 12 }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p50</span>
+          <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
             {formatLatencyMs(typedLatency.p50_ms)}
           </div>
         </div>
-        <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm, 6px)', padding: 12 }}>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p95</span>
-          <div style={{ fontSize: 'var(--font-size-kpi, 28px)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+        <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)', padding: 12 }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p95</span>
+          <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
             {formatLatencyMs(typedLatency.p95_ms)}
           </div>
         </div>
       </div>
-      <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 12 }}>
+      <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 12 }}>
         {typedLatency.measurement_protocol?.interpretation ?? 'processing_time_ms is server-side ONNX inference time reported by /predict.'}
       </p>
     </Panel>
@@ -594,11 +594,11 @@ const AblationSection: React.FC = () => {
                     {deployed && (
                       <span
                         style={{
-                          fontSize: 'var(--badge-font-size, 11px)',
+                          fontSize: 'var(--badge-font-size)',
                           fontWeight: 600,
                           textTransform: 'uppercase',
                           padding: '2px 8px',
-                          borderRadius: 'var(--radius-badge, 4px)',
+                          borderRadius: 'var(--radius-badge)',
                           color: 'var(--color-text-on-accent)',
                           backgroundColor: 'var(--color-accent-indigo-strong)',
                         }}
@@ -609,11 +609,11 @@ const AblationSection: React.FC = () => {
                     {winner && !deployed && (
                       <span
                         style={{
-                          fontSize: 'var(--badge-font-size, 11px)',
+                          fontSize: 'var(--badge-font-size)',
                           fontWeight: 600,
                           textTransform: 'uppercase',
                           padding: '2px 8px',
-                          borderRadius: 'var(--radius-badge, 4px)',
+                          borderRadius: 'var(--radius-badge)',
                           color: 'var(--color-text-inverse)',
                           backgroundColor: 'var(--color-accent-cyan)',
                         }}
@@ -629,7 +629,7 @@ const AblationSection: React.FC = () => {
         </table>
       </div>
       {typedEval.deployed_note && (
-        <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 12 }}>
+        <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 12 }}>
           {typedEval.deployed_note}
         </p>
       )}

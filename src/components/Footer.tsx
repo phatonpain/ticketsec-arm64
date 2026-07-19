@@ -33,8 +33,8 @@ export const Footer: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 var(--layout-page-px, 28px)',
-        fontSize: 'var(--font-size-sm, 12px)',
+        padding: '0 var(--layout-page-px)',
+        fontSize: 'var(--font-size-sm)',
         color: 'var(--text-muted)',
       }}
     >

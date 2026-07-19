@@ -127,7 +127,7 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -137,7 +137,7 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -146,10 +146,10 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             Threat Distribution
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>Detections by category</p>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>Detections by category</p>
         </div>
         <ProvenanceBadge source={source} />
       </div>

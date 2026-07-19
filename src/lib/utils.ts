@@ -11,7 +11,7 @@
  *  - SEVERITY_COLORS: 'info' key mapped var(--sev-info) → var(--sev-low);
  *    --sev-info does not exist in the canonical token set (FIX-02).
  *  - STATUS_COLORS: raw rgba + off-palette hex text (#5EEA9A neon-mint AA-fail,
- *    #F43F5E 3.57:1 AA-fail) → var(--status-{resolved,escalated,pending}-fg/-bg)
+ *    #F43F5E 3.57:1 AA-fail) → var(--status-{resolved)
  *    (FIX-15; every fg is ≥4.5:1 on its bg over card).
  *  - REMOVED generateTicketId() (dead code — zero call sites; real IDs come
  *    from the monotonic counter in src/hooks/useTickets.ts).

@@ -3,7 +3,7 @@
  * Original: src/components/HelpModal.tsx (104 lines).
  * NOTE: original line ~62 was truncated in the source PDF ("…justifyContent:
  * 'space-between', ga…"); reconstructed as gap: 12 (matches the parent stack).
- * Changes vs original: z-index 300 → var(--z-overlay, 1000); kbd font stack
+ * Changes vs original: z-index 300 → var(--z-overlay); kbd font stack
  * literal → var(--font-numeric); radius token; shadow → --shadow-popover.
  */
 
@@ -35,7 +35,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 'var(--z-overlay, 1000)' as unknown as number,
+        zIndex: 'var(--z-overlay)' as unknown as number,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -53,7 +53,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
           border: '1px solid var(--border-default)',
           borderRadius: 'var(--radius-md)',
           padding: 24,
-          boxShadow: 'var(--shadow-popover, 0 16px 48px rgba(0,0,0,0.40))',
+          boxShadow: 'var(--shadow-popover)',
         }}
         onClick={e => e.stopPropagation()}
         role="dialog"
@@ -61,7 +61,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
         aria-labelledby="help-title"
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-          <h2 id="help-title" style={{ fontSize: 'var(--font-size-lg, 16px)', fontWeight: 600, color: 'var(--text-primary)' }}>
+          <h2 id="help-title" style={{ fontSize: 'var(--font-size-lg)', fontWeight: 600, color: 'var(--text-primary)' }}>
             Keyboard Shortcuts
           </h2>
           <button
@@ -73,7 +73,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
               border: 'none',
               color: 'var(--text-secondary)',
               cursor: 'pointer',
-              fontSize: 'var(--font-size-sm, 12px)',
+              fontSize: 'var(--font-size-sm)',
               padding: 4,
             }}
           >
@@ -84,7 +84,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {SHORTCUTS.map(shortcut => (
             <div key={shortcut.description} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-              <span style={{ fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-secondary)' }}>{shortcut.description}</span>
+              <span style={{ fontSize: 'var(--font-size-base)', color: 'var(--text-secondary)' }}>{shortcut.description}</span>
               <span style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
                 {shortcut.keys.map(key => (
                   <kbd
@@ -100,7 +100,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
                       border: '1px solid var(--border-default)',
                       background: 'var(--bg-card)',
                       color: 'var(--text-primary)',
-                      fontSize: 'var(--font-size-sm, 12px)',
+                      fontSize: 'var(--font-size-sm)',
                       fontFamily: 'var(--font-numeric)',
                     }}
                   >
@@ -112,7 +112,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ open, onClose }) => {
           ))}
         </div>
 
-        <p style={{ marginTop: 20, fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+        <p style={{ marginTop: 20, fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', lineHeight: 1.5 }}>
           Shortcuts are active while no text input is focused. Press <kbd style={{ fontFamily: 'inherit' }}>Esc</kbd> to close.
         </p>
       </div>

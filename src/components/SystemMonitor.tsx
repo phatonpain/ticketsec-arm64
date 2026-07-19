@@ -61,7 +61,7 @@ export const SystemMonitor: React.FC = () => {
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -71,7 +71,7 @@ export const SystemMonitor: React.FC = () => {
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -80,10 +80,10 @@ export const SystemMonitor: React.FC = () => {
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             System Monitor
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>Infrastructure resources</p>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>Infrastructure resources</p>
         </div>
         {/* FIX-04: no cached data source ⇒ no provenance badge on this panel. */}
       </div>
@@ -92,7 +92,7 @@ export const SystemMonitor: React.FC = () => {
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
           gap: 10,
-          padding: 'var(--density-card-pad) var(--density-widget-pad-x, 20px)',
+          padding: 'var(--density-card-pad) var(--density-widget-pad-x)',
         }}
       >
         {tiles.map(tile => (
@@ -101,7 +101,7 @@ export const SystemMonitor: React.FC = () => {
             style={{
               backgroundColor: 'var(--color-status-neutral-bg)',
               border: '1px solid var(--tint-track)',
-              borderRadius: 'var(--radius-sm, 6px)',
+              borderRadius: 'var(--radius-sm)',
               padding: '12px 14px',
             }}
           >
@@ -109,10 +109,10 @@ export const SystemMonitor: React.FC = () => {
               <tile.icon size={12} color="var(--text-secondary)" />
               <span
                 style={{
-                  fontSize: 'var(--font-size-micro, 11px)',
+                  fontSize: 'var(--font-size-micro)',
                   color: 'var(--text-secondary)',
                   fontWeight: 600,
-                  letterSpacing: 'var(--tracking-caps, 0.6px)',
+                  letterSpacing: 'var(--tracking-caps)',
                   textTransform: 'uppercase',
                 }}
               >
@@ -121,7 +121,7 @@ export const SystemMonitor: React.FC = () => {
             </div>
             <div
               style={{
-                fontSize: 'var(--font-size-md, 15px)',
+                fontSize: 'var(--font-size-md)',
                 fontWeight: 600,
                 color: tile.value === '—' ? 'var(--text-secondary)' : 'var(--text-primary)',
                 fontFamily: 'var(--font-numeric)',
@@ -131,7 +131,7 @@ export const SystemMonitor: React.FC = () => {
             >
               {tile.value}
             </div>
-            <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-secondary)' }}>{tile.sub}</div>
+            <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>{tile.sub}</div>
           </div>
         ))}
       </div>
@@ -139,7 +139,7 @@ export const SystemMonitor: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          padding: '6px var(--density-widget-pad-x, 20px) 8px',
+          padding: '6px var(--density-widget-pad-x) 8px',
           borderTop: '1px solid var(--border-default)',
         }}
       >

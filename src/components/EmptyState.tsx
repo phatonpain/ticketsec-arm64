@@ -28,7 +28,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       padding: '24px',
       color: 'var(--text-muted)',
       border: '1px dashed var(--border-default)',
-      borderRadius: 'var(--radius-md, 8px)',
+      borderRadius: 'var(--radius-md)',
       backgroundColor: 'var(--bg-body)',
     }}
   >
@@ -37,16 +37,16 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       style={{
         fontWeight: 600,
         color: 'var(--text-secondary)',
-        fontSize: 'var(--font-size-base, 13px)',
+        fontSize: 'var(--font-size-base)',
       }}
     >
       {title}
     </span>
-    <span style={{ fontSize: 'var(--font-size-sm, 12px)', lineHeight: 1.5, maxWidth: 320 }}>
+    <span style={{ fontSize: 'var(--font-size-sm)', lineHeight: 1.5, maxWidth: 320 }}>
       {description}
     </span>
     {nextStep && (
-      <span style={{ fontSize: 'var(--font-size-micro, 11px)', lineHeight: 1.5, maxWidth: 320 }}>
+      <span style={{ fontSize: 'var(--font-size-micro)', lineHeight: 1.5, maxWidth: 320 }}>
         {nextStep}
       </span>
     )}

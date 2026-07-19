@@ -153,7 +153,7 @@ export const Header: React.FC = () => {
   const iconButtonStyle: React.CSSProperties = {
     width: 34,
     height: 34,
-    borderRadius: 'var(--radius-sm, 8px)',
+    borderRadius: 'var(--radius-sm)',
     border: '1px solid var(--border-default)',
     background: 'transparent',
     color: 'var(--text-secondary)',
@@ -170,8 +170,8 @@ export const Header: React.FC = () => {
   return (
     <header
       style={{
-        height: 'var(--density-header-h, 56px)',
-        padding: '0 var(--layout-page-px, 28px)',
+        height: 'var(--density-header-h)',
+        padding: '0 var(--layout-page-px)',
         borderBottom: `1px solid ${scrolled ? 'var(--border-hover)' : 'var(--border-default)'}`,
         background: 'var(--bg-body)',
         display: 'flex',
@@ -179,16 +179,16 @@ export const Header: React.FC = () => {
         justifyContent: 'space-between',
         position: 'sticky',
         top: 0,
-        zIndex: 'var(--z-header, 90)' as unknown as number,
+        zIndex: 'var(--z-header)' as unknown as number,
         isolation: 'isolate',
-        boxShadow: scrolled ? 'var(--shadow-popover, 0 4px 12px rgba(0,0,0,0.25))' : 'none',
+        boxShadow: scrolled ? 'var(--shadow-popover)' : 'none',
         boxSizing: 'border-box',
       }}
     >
       {/* Breadcrumb */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-muted)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--font-size-base)', color: 'var(--text-muted)' }}>
         <span style={{ color: 'var(--text-secondary)' }}>Dashboard</span>
-        <span style={{ fontSize: 'var(--font-size-micro, 11px)' }}>›</span>
+        <span style={{ fontSize: 'var(--font-size-micro)' }}>›</span>
         <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{breadcrumb}</span>
       </div>
 
@@ -212,10 +212,10 @@ export const Header: React.FC = () => {
               alignItems: 'center',
               gap: 6,
               padding: '5px 12px',
-              borderRadius: 'var(--radius-pill, 20px)',
+              borderRadius: 'var(--radius-pill)',
               border: `1px solid ${statusConfig.border}`,
               background: statusConfig.bg,
-              fontSize: 'var(--font-size-sm, 12px)',
+              fontSize: 'var(--font-size-sm)',
               fontWeight: 600,
               whiteSpace: 'nowrap',
               color: statusConfig.color,
@@ -247,49 +247,49 @@ export const Header: React.FC = () => {
                 width: 280,
                 background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-md, 8px)',
+                borderRadius: 'var(--radius-md)',
                 padding: 12,
-                zIndex: 'var(--z-tooltip, 1100)' as unknown as number,
-                boxShadow: 'var(--shadow-popover, 0 8px 24px rgba(0,0,0,0.30))',
+                zIndex: 'var(--z-tooltip)' as unknown as number,
+                boxShadow: 'var(--shadow-popover)',
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-sm, 12px)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
+              <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
                 Connection Diagnostics
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
                   Status: <span style={{ color: statusConfig.color, fontWeight: 500 }}>{statusConfig.label}</span>
                 </div>
                 {lastSync && (
-                  <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-secondary)' }}>
+                  <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
                     Last sync: {formatRelativeTime(lastSync)}
                   </div>
                 )}
                 {diagnostics.lastProbe && (
-                  <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-secondary)' }}>
+                  <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
                     Probed: {formatRelativeTime(diagnostics.lastProbe)}
                   </div>
                 )}
                 {diagnostics.lastError && (
-                  <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--accent-rose)' }}>
+                  <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--accent-rose)' }}>
                     Error: {diagnostics.lastError}
                   </div>
                 )}
                 <div style={{ marginTop: 4, borderTop: '1px solid var(--border-default)', paddingTop: 8 }}>
                   <div
                     style={{
-                      fontSize: 'var(--font-size-micro, 11px)',
+                      fontSize: 'var(--font-size-micro)',
                       fontWeight: 600,
                       color: 'var(--text-muted)',
                       textTransform: 'uppercase',
-                      letterSpacing: 'var(--tracking-caps, 0.6px)',
+                      letterSpacing: 'var(--tracking-caps)',
                       marginBottom: 4,
                     }}
                   >
                     Endpoints
                   </div>
                   {diagnostics.endpoints.length === 0 ? (
-                    <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)' }}>No probes yet.</div>
+                    <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)' }}>No probes yet.</div>
                   ) : (
                     diagnostics.endpoints.map(endpoint => (
                       <div
@@ -303,7 +303,7 @@ export const Header: React.FC = () => {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
-                            fontSize: 'var(--font-size-micro, 11px)',
+                            fontSize: 'var(--font-size-micro)',
                           }}
                           title={endpoint.url}
                         >
@@ -314,7 +314,7 @@ export const Header: React.FC = () => {
                             color: endpoint.ok ? 'var(--accent-emerald)' : 'var(--accent-rose)',
                             fontWeight: 500,
                             flexShrink: 0,
-                            fontSize: 'var(--font-size-micro, 11px)',
+                            fontSize: 'var(--font-size-micro)',
                             fontFamily: 'var(--font-numeric)',
                             fontVariantNumeric: 'tabular-nums',
                           }}
@@ -325,7 +325,7 @@ export const Header: React.FC = () => {
                     ))
                   )}
                 </div>
-                <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', marginTop: 4 }}>
+                <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: 4 }}>
                   Auto-recovery probes with jittered backoff (5s–60s).
                 </div>
               </div>
@@ -350,7 +350,7 @@ export const Header: React.FC = () => {
           <kbd
             style={{
               fontFamily: 'var(--font-numeric)',
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               color: 'var(--text-muted)',
               border: '1px solid var(--border-default)',
               borderRadius: 4,
@@ -397,11 +397,11 @@ export const Header: React.FC = () => {
               alignItems: 'center',
               gap: 6,
               padding: '6px 12px',
-              borderRadius: 'var(--radius-sm, 6px)',
+              borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-default)',
               background: 'var(--bg-card)',
               color: 'var(--text-secondary)',
-              fontSize: 'var(--font-size-base, 13px)',
+              fontSize: 'var(--font-size-base)',
               cursor: 'pointer',
             }}
           >
@@ -420,10 +420,10 @@ export const Header: React.FC = () => {
                 minWidth: 180,
                 background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-md, 8px)',
+                borderRadius: 'var(--radius-md)',
                 padding: '6px 0',
-                zIndex: 'var(--z-overlay, 1000)' as unknown as number,
-                boxShadow: 'var(--shadow-popover, 0 8px 24px rgba(0,0,0,0.30))',
+                zIndex: 'var(--z-overlay)' as unknown as number,
+                boxShadow: 'var(--shadow-popover)',
               }}
             >
               {TIME_RANGES.map(option => (
@@ -442,7 +442,7 @@ export const Header: React.FC = () => {
                   }}
                   style={{
                     padding: '8px 14px',
-                    fontSize: 'var(--font-size-base, 13px)',
+                    fontSize: 'var(--font-size-base)',
                     color: option === range ? 'var(--text-primary)' : 'var(--text-secondary)',
                     background: option === range ? 'var(--color-accent-indigo-bg)' : 'transparent',
                     cursor: 'pointer',
@@ -482,12 +482,12 @@ export const Header: React.FC = () => {
                   position: 'absolute',
                   top: 5,
                   right: 5,
-                  minWidth: 'var(--badge-count-size, 16px)',
-                  height: 'var(--badge-count-size, 16px)',
-                  borderRadius: 'var(--radius-pill, 999px)',
+                  minWidth: 'var(--badge-count-size)',
+                  height: 'var(--badge-count-size)',
+                  borderRadius: 'var(--radius-pill)',
                   background: 'var(--color-badge-alert-bg)',
                   color: 'var(--color-text-on-accent)',
-                  fontSize: 'var(--badge-count-font-size, 10px)',
+                  fontSize: 'var(--badge-count-font-size)',
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
@@ -511,18 +511,18 @@ export const Header: React.FC = () => {
                 overflowY: 'auto',
                 background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-md, 8px)',
+                borderRadius: 'var(--radius-md)',
                 padding: '12px 0',
-                zIndex: 'var(--z-overlay, 1000)' as unknown as number,
-                boxShadow: 'var(--shadow-popover, 0 8px 24px rgba(0,0,0,0.30))',
+                zIndex: 'var(--z-overlay)' as unknown as number,
+                boxShadow: 'var(--shadow-popover)',
               }}
             >
               <div style={{ padding: '0 14px 8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: 'var(--font-size-base, 13px)', fontWeight: 600, color: 'var(--text-primary)' }}>Notifications</span>
-                <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)' }}>{recentNotifications.length} events</span>
+                <span style={{ fontSize: 'var(--font-size-base)', fontWeight: 600, color: 'var(--text-primary)' }}>Notifications</span>
+                <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)' }}>{recentNotifications.length} events</span>
               </div>
               {recentNotifications.length === 0 ? (
-                <div style={{ padding: '16px 14px', textAlign: 'center', fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)' }}>
+                <div style={{ padding: '16px 14px', textAlign: 'center', fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
                   No notifications yet.
                 </div>
               ) : (
@@ -547,9 +547,9 @@ export const Header: React.FC = () => {
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ width: 6, height: 6, borderRadius: '50%', background: levelColor, flexShrink: 0 }} />
-                        <span style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-primary)', fontWeight: 500 }}>{entry.message}</span>
+                        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-primary)', fontWeight: 500 }}>{entry.message}</span>
                       </div>
-                      <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', paddingLeft: 14 }}>
+                      <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', paddingLeft: 14 }}>
                         {formatRelativeTime(entry.timestamp)} · {entry.level}
                       </span>
                     </div>

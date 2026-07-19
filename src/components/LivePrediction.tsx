@@ -99,7 +99,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
         display: 'flex',
@@ -113,7 +113,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -122,15 +122,15 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             Live Classification
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>
             {live ? 'Real-time inference via ONNX Runtime INT8' : 'Classification is paused — API offline'}
           </p>
         </div>
       </div>
-      <div style={{ padding: 'var(--density-card-pad) var(--density-widget-pad-x, 20px)', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ padding: 'var(--density-card-pad) var(--density-widget-pad-x)', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
@@ -142,24 +142,24 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
             width: '100%',
             background: 'var(--bg-input)',
             border: '1px solid var(--border-default)',
-            borderRadius: 'var(--radius-md, 8px)',
+            borderRadius: 'var(--radius-md)',
             padding: 12,
-            fontSize: 'var(--font-size-base, 13px)',
+            fontSize: 'var(--font-size-base)',
             color: 'var(--text-primary)',
             fontFamily: 'Inter, sans-serif',
             resize: 'none',
             boxSizing: 'border-box',
           }}
         />
-        <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', marginTop: -4 }}>Ctrl + Enter to classify</div>
+        <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: -4 }}>Ctrl + Enter to classify</div>
 
         <div>
           <div
             style={{
-              fontSize: 'var(--font-size-micro, 11px)',
+              fontSize: 'var(--font-size-micro)',
               fontWeight: 600,
               color: 'var(--text-muted)',
-              letterSpacing: 'var(--tracking-caps, 0.6px)',
+              letterSpacing: 'var(--tracking-caps)',
               textTransform: 'uppercase',
               marginBottom: 6,
             }}
@@ -173,11 +173,11 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
                 type="button"
                 onClick={() => { setText(ex); handleClassify(ex); }}
                 style={{
-                  fontSize: 'var(--font-size-micro, 11px)',
+                  fontSize: 'var(--font-size-micro)',
                   color: 'var(--text-secondary)',
                   background: 'var(--bg-body)',
                   border: '1px solid var(--border-default)',
-                  borderRadius: 'var(--radius-badge, 4px)',
+                  borderRadius: 'var(--radius-badge)',
                   padding: '4px 8px',
                   cursor: 'pointer',
                 }}
@@ -191,7 +191,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)' }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)' }}>
             {disabledReason ?? 'Ready'}
           </span>
           <button
@@ -208,8 +208,8 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
               background: 'var(--color-accent-indigo-strong)',
               color: 'var(--color-text-on-accent)',
               border: 'none',
-              borderRadius: 'var(--radius-sm, 6px)',
-              fontSize: 'var(--font-size-base, 13px)',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: 'var(--font-size-base)',
               fontWeight: 600,
               cursor: loading || empty || !live ? 'not-allowed' : 'pointer',
               opacity: loading || empty || !live ? 0.5 : 1,
@@ -224,7 +224,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
         {!result && !loading && !error && (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, color: 'var(--text-muted)', textAlign: 'center', padding: '0 24px' }}>
             <Zap size={24} style={{ opacity: 0.3 }} />
-            <span style={{ fontSize: 'var(--font-size-sm, 12px)' }}>
+            <span style={{ fontSize: 'var(--font-size-sm)' }}>
               {live
                 ? 'Submit a ticket to see the real-time prediction result.'
                 : 'Classification is unavailable while the API is offline. The button re-enables automatically on reconnect.'}
@@ -238,18 +238,18 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
             style={{
               background: 'var(--color-status-err-bg)',
               border: '1px solid var(--accent-rose)',
-              borderRadius: 'var(--radius-md, 8px)',
+              borderRadius: 'var(--radius-md)',
               padding: 12,
               display: 'flex',
               flexDirection: 'column',
               gap: 8,
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--font-size-sm, 12px)', color: 'var(--accent-rose)', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--font-size-sm)', color: 'var(--accent-rose)', fontWeight: 600 }}>
               <AlertTriangle size={14} />
               Classification failed
             </div>
-            <div style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-secondary)' }}>{error}</div>
+            <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>{error}</div>
             <button
               type="button"
               onClick={() => handleClassify()}
@@ -260,11 +260,11 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
                 alignItems: 'center',
                 gap: 6,
                 padding: '5px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
+                borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-default)',
                 background: 'var(--bg-body)',
                 color: 'var(--text-primary)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 cursor: loading || !live ? 'not-allowed' : 'pointer',
               }}
             >
@@ -274,35 +274,35 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
         )}
 
         {result && (
-          <div style={{ background: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md, 8px)', padding: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ background: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps, 0.6px)', fontWeight: 600 }}>
+              <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps)', fontWeight: 600 }}>
                 Category
               </span>
               <span
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 'var(--badge-gap, 6px)',
-                  padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-                  borderRadius: 'var(--radius-badge, 4px)',
-                  fontSize: 'var(--font-size-sm, 12px)',
+                  gap: 'var(--badge-gap)',
+                  padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+                  borderRadius: 'var(--radius-badge)',
+                  fontSize: 'var(--font-size-sm)',
                   fontWeight: 600,
                   background: CATEGORY_BG[result.predicted_category] || 'var(--color-status-neutral-bg)',
                   color: categoryColor,
                 }}
               >
-                <span style={{ width: 'var(--badge-dot-size, 6px)', height: 'var(--badge-dot-size, 6px)', borderRadius: '50%', background: categoryColor }} />
+                <span style={{ width: 'var(--badge-dot-size)', height: 'var(--badge-dot-size)', borderRadius: '50%', background: categoryColor }} />
                 {result.predicted_category.replace(/_/g, ' ')}
               </span>
             </div>
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps, 0.6px)', fontWeight: 600 }}>
+                <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps)', fontWeight: 600 }}>
                   Confidence
                 </span>
-                <span style={{ fontSize: 'var(--font-size-lg, 18px)', fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', fontWeight: 600, color: 'var(--text-primary)' }}>
+                <span style={{ fontSize: 'var(--font-size-lg)', fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', fontWeight: 600, color: 'var(--text-primary)' }}>
                   {confidencePercent.toFixed(1)}%
                 </span>
               </div>
@@ -332,7 +332,7 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
                   title="Decision threshold (70%)"
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', marginTop: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: 4 }}>
                 <span>0%</span>
                 <span>Threshold 70%</span>
                 <span>100%</span>
@@ -340,19 +340,19 @@ export const LivePrediction: React.FC<LivePredictionProps> = ({ onClassify, onEr
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps, 0.6px)', fontWeight: 600 }}>
+              <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps)', fontWeight: 600 }}>
                 Inference time
               </span>
-              <span style={{ fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-primary)' }}>
+              <span style={{ fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', fontSize: 'var(--font-size-base)', color: 'var(--text-primary)' }}>
                 {processingTime ?? '—'}
               </span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps, 0.6px)', fontWeight: 600 }}>
+              <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-caps)', fontWeight: 600 }}>
                 Model
               </span>
-              <span style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-secondary)', fontFamily: 'var(--font-numeric)' }}>
+              <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', fontFamily: 'var(--font-numeric)' }}>
                 onnx-int8 · arm64
               </span>
             </div>

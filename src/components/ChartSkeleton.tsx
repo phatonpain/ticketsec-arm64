@@ -18,7 +18,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
       width: '100%',
       height,
       background: 'var(--bg-card)',
-      borderRadius: 'var(--radius-md, 8px)',
+      borderRadius: 'var(--radius-md)',
       border: '1px solid var(--border-default)',
       padding: 20,
       display: 'flex',
@@ -61,7 +61,7 @@ export const ChartSkeleton: React.FC<ChartSkeletonProps> = ({ height = 320 }) =>
       style={{
         flex: 1,
         background: 'var(--tint-row)',
-        borderRadius: 'var(--radius-sm, 6px)',
+        borderRadius: 'var(--radius-sm)',
       }}
     />
   </div>

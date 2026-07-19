@@ -230,14 +230,14 @@ export const ClassificationTable: React.FC = () => {
 
   const thBaseStyle: React.CSSProperties = {
     padding: '6px 12px',
-    fontSize: 'var(--font-size-micro, 11px)',
+    fontSize: 'var(--font-size-micro)',
     fontWeight: 600,
     textTransform: 'uppercase',
-    letterSpacing: 'var(--tracking-th, 0.5px)',
+    letterSpacing: 'var(--tracking-th)',
     color: 'var(--text-muted)',
     textAlign: 'left',
     whiteSpace: 'nowrap',
-    height: 'var(--density-table-head-h, 36px)',
+    height: 'var(--density-table-head-h)',
     boxSizing: 'border-box',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -245,7 +245,7 @@ export const ClassificationTable: React.FC = () => {
 
   const tdStyle: React.CSSProperties = {
     padding: '0 12px',
-    fontSize: 'var(--font-size-sm, 12px)',
+    fontSize: 'var(--font-size-sm)',
     color: 'var(--text-primary)',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -279,7 +279,7 @@ export const ClassificationTable: React.FC = () => {
           }}
         >
           {label}
-          <span style={{ fontSize: 'var(--font-size-micro, 11px)', color: active ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+          <span style={{ fontSize: 'var(--font-size-micro)', color: active ? 'var(--text-primary)' : 'var(--text-muted)' }}>
             {active ? (sortDir === 'asc' ? '▲' : '▼') : ''}
           </span>
         </button>
@@ -320,7 +320,7 @@ export const ClassificationTable: React.FC = () => {
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
-        borderRadius: 'var(--radius-md, 8px)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         transition: 'border-color 150ms ease',
       }}
@@ -328,7 +328,7 @@ export const ClassificationTable: React.FC = () => {
       <div
         style={{
           height: 'var(--density-widget-head-h)',
-          padding: '0 var(--density-widget-pad-x, 20px)',
+          padding: '0 var(--density-widget-pad-x)',
           boxSizing: 'border-box',
           display: 'flex',
           alignItems: 'center',
@@ -337,10 +337,10 @@ export const ClassificationTable: React.FC = () => {
         }}
       >
         <div>
-          <h2 style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title, -0.2px)' }}>
+          <h2 style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: 'var(--tracking-title)' }}>
             {totalCount} Classifications
           </h2>
-          <p style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 1 }}>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 1 }}>
             {subtitle}
             {query && ` · filtered by “${query}”`}
           </p>
@@ -351,7 +351,7 @@ export const ClassificationTable: React.FC = () => {
               type="button"
               onClick={clear}
               style={{
-                fontSize: 'var(--font-size-micro, 11px)',
+                fontSize: 'var(--font-size-micro)',
                 color: 'var(--text-muted)',
                 background: 'transparent',
                 border: 'none',
@@ -372,11 +372,11 @@ export const ClassificationTable: React.FC = () => {
                 alignItems: 'center',
                 gap: 6,
                 padding: '5px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
+                borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--color-status-ok-text)',
                 background: 'var(--color-status-ok-bg)',
                 color: 'var(--color-status-ok-text)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 fontWeight: 600,
                 cursor: 'pointer',
               }}
@@ -394,11 +394,11 @@ export const ClassificationTable: React.FC = () => {
                 alignItems: 'center',
                 gap: 6,
                 padding: '5px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
+                borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-default)',
-                background: 'var(--color-control-ghost-bg, transparent)',
+                background: 'var(--color-control-ghost-bg)',
                 color: 'var(--text-secondary)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 cursor: 'pointer',
               }}
             >
@@ -456,7 +456,7 @@ export const ClassificationTable: React.FC = () => {
           <tbody>
             {pageResult.items.length === 0 ? (
               <tr>
-                <td colSpan={12} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-muted)' }}>
+                <td colSpan={12} style={{ padding: '32px 16px', textAlign: 'center', fontSize: 'var(--font-size-base)', color: 'var(--text-muted)' }}>
                   {emptyReason()}
                 </td>
               </tr>
@@ -525,7 +525,7 @@ export const ClassificationTable: React.FC = () => {
                             cursor: 'pointer',
                             fontFamily: 'var(--font-numeric)',
                             fontVariantNumeric: 'tabular-nums',
-                            fontSize: 'var(--font-size-sm, 12px)',
+                            fontSize: 'var(--font-size-sm)',
                             color: 'var(--text-secondary)',
                             textAlign: 'left',
                           }}
@@ -536,7 +536,7 @@ export const ClassificationTable: React.FC = () => {
                       </td>
                       <td
                         onClick={() => toggleExpanded(row.id)}
-                        style={{ ...tdStyle, width: 'auto', minWidth: 220, maxWidth: 'none', fontSize: 'var(--font-size-base, 13px)', fontWeight: 500, cursor: 'pointer' }}
+                        style={{ ...tdStyle, width: 'auto', minWidth: 220, maxWidth: 'none', fontSize: 'var(--font-size-base)', fontWeight: 500, cursor: 'pointer' }}
                         title={row.subject}
                       >
                         {truncate(row.subject, 36)}
@@ -547,9 +547,9 @@ export const ClassificationTable: React.FC = () => {
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 'var(--badge-gap, 6px)',
-                            borderRadius: 'var(--radius-badge, 4px)',
-                            fontSize: 'var(--font-size-sm, 12px)',
+                            gap: 'var(--badge-gap)',
+                            borderRadius: 'var(--radius-badge)',
+                            fontSize: 'var(--font-size-sm)',
                             fontWeight: 600,
                             letterSpacing: '0.2px',
                             backgroundColor: categoryBg,
@@ -558,14 +558,14 @@ export const ClassificationTable: React.FC = () => {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             maxWidth: '100%',
-                            padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
+                            padding: 'var(--badge-pad-y) var(--badge-pad-x)',
                             boxSizing: 'border-box',
                           }}
                         >
                           <span
                             style={{
-                              width: 'var(--badge-dot-size, 6px)',
-                              height: 'var(--badge-dot-size, 6px)',
+                              width: 'var(--badge-dot-size)',
+                              height: 'var(--badge-dot-size)',
                               borderRadius: '50%',
                               backgroundColor: categoryColor,
                               flexShrink: 0,
@@ -586,7 +586,7 @@ export const ClassificationTable: React.FC = () => {
                             }}
                             aria-hidden="true"
                           />
-                          <span style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-secondary)' }}>
+                          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
                             {SEVERITY_LABEL[severity]}
                           </span>
                         </span>
@@ -597,7 +597,7 @@ export const ClassificationTable: React.FC = () => {
                             style={{
                               fontFamily: 'var(--font-numeric)',
                               fontVariantNumeric: 'tabular-nums',
-                              fontSize: 'var(--font-size-base, 13px)',
+                              fontSize: 'var(--font-size-base)',
                               color: 'var(--text-primary)',
                               minWidth: 32,
                             }}
@@ -631,10 +631,10 @@ export const ClassificationTable: React.FC = () => {
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-                            borderRadius: 'var(--radius-badge, 4px)',
-                            fontSize: 'var(--badge-font-size, 11px)',
-                            fontWeight: 'var(--badge-font-weight, 600)',
+                            padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+                            borderRadius: 'var(--radius-badge)',
+                            fontSize: 'var(--badge-font-size)',
+                            fontWeight: 'var(--badge-font-weight)',
                             backgroundColor: STATUS_COLORS[row.status].bg,
                             color: STATUS_COLORS[row.status].text,
                             whiteSpace: 'nowrap',
@@ -650,12 +650,12 @@ export const ClassificationTable: React.FC = () => {
                         {row.source === 'cache' && (
                           <span
                             style={{
-                              fontSize: 'var(--badge-font-size, 11px)',
-                              fontWeight: 'var(--badge-font-weight, 600)',
-                              letterSpacing: 'var(--badge-letter-spacing, 0.4px)',
+                              fontSize: 'var(--badge-font-size)',
+                              fontWeight: 'var(--badge-font-weight)',
+                              letterSpacing: 'var(--badge-letter-spacing)',
                               textTransform: 'uppercase',
-                              padding: 'var(--badge-pad-y, 2px) var(--badge-pad-x, 8px)',
-                              borderRadius: 'var(--radius-badge, 4px)',
+                              padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+                              borderRadius: 'var(--radius-badge)',
                               color: 'var(--badge-cached-fg)',
                               background: 'var(--badge-cached-bg)',
                               border: '1px solid var(--badge-cached-border)',
@@ -715,11 +715,11 @@ export const ClassificationTable: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '10px var(--density-widget-pad-x, 20px)',
+            padding: '10px var(--density-widget-pad-x)',
             borderTop: '1px solid var(--border-default)',
           }}
         >
-          <span style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)' }}>
+          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
             {pageSummary(pageResult)}
             {query && ` (filtered from ${tickets.length})`}
           </span>
@@ -731,17 +731,17 @@ export const ClassificationTable: React.FC = () => {
               onClick={() => setPage(p => Math.max(1, p - 1))}
               style={{
                 padding: '4px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
+                borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-default)',
-                background: 'var(--color-control-ghost-bg, transparent)',
+                background: 'var(--color-control-ghost-bg)',
                 color: !pageResult.hasPrev ? 'var(--text-muted)' : 'var(--text-primary)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 cursor: !pageResult.hasPrev ? 'not-allowed' : 'pointer',
               }}
             >
               Previous
             </button>
-            <span style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-secondary)' }}>
+            <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
               Page {pageResult.page} of {pageResult.pageCount} · {pageSize} per page
             </span>
             <button
@@ -751,11 +751,11 @@ export const ClassificationTable: React.FC = () => {
               onClick={() => setPage(p => p + 1)}
               style={{
                 padding: '4px 10px',
-                borderRadius: 'var(--radius-sm, 6px)',
+                borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-default)',
-                background: 'var(--color-control-ghost-bg, transparent)',
+                background: 'var(--color-control-ghost-bg)',
                 color: !pageResult.hasNext ? 'var(--text-muted)' : 'var(--text-primary)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 cursor: !pageResult.hasNext ? 'not-allowed' : 'pointer',
               }}
             >

@@ -73,7 +73,7 @@ export const Sidebar: React.FC = () => {
   return (
     <aside
       style={{
-        width: 'var(--layout-sidebar-w, 260px)',
+        width: 'var(--layout-sidebar-w)',
         background: 'var(--bg-sidebar)',
         borderRight: '1px solid var(--border-default)',
         display: 'flex',
@@ -82,7 +82,7 @@ export const Sidebar: React.FC = () => {
         top: 0,
         bottom: 0,
         left: 0,
-        zIndex: 'var(--z-header, 100)' as unknown as number,
+        zIndex: 'var(--z-header)' as unknown as number,
         transition: 'width 200ms ease',
         overflow: 'hidden',
       }}
@@ -102,13 +102,13 @@ export const Sidebar: React.FC = () => {
           style={{
             width: 32,
             height: 32,
-            borderRadius: 'var(--radius-md, 8px)',
+            borderRadius: 'var(--radius-md)',
             background: 'var(--bg-input)',
             border: '1px solid var(--border-default)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 'var(--font-size-base, 13px)',
+            fontSize: 'var(--font-size-base)',
             fontWeight: 700,
             color: 'var(--text-primary)',
             flexShrink: 0,
@@ -118,8 +118,8 @@ export const Sidebar: React.FC = () => {
         </div>
         {!collapsed && (
           <div style={{ overflow: 'hidden' }}>
-            <div style={{ fontSize: 'var(--font-size-md, 15px)', fontWeight: 600, color: 'var(--text-primary)' }}>TicketSec</div>
-            <div style={{ fontSize: 'var(--font-size-sm, 12px)', color: 'var(--text-muted)', marginTop: 2 }}>Security Operations</div>
+            <div style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--text-primary)' }}>TicketSec</div>
+            <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 2 }}>Security Operations</div>
           </div>
         )}
       </div>
@@ -140,11 +140,11 @@ export const Sidebar: React.FC = () => {
             {!collapsed && (
               <div
                 style={{
-                  fontSize: 'var(--font-size-micro, 11px)',
+                  fontSize: 'var(--font-size-micro)',
                   fontWeight: 700,
                   color: 'var(--text-muted)',
                   textTransform: 'uppercase',
-                  letterSpacing: 'var(--tracking-caps, 0.6px)',
+                  letterSpacing: 'var(--tracking-caps)',
                   padding: '12px 12px 8px',
                 }}
               >
@@ -168,8 +168,8 @@ export const Sidebar: React.FC = () => {
                     justifyContent: collapsed ? 'center' : 'flex-start',
                     gap: 12,
                     padding: collapsed ? '10px 0' : '9px 14px',
-                    borderRadius: 'var(--radius-md, 8px)',
-                    fontSize: 'var(--font-size-base, 13px)',
+                    borderRadius: 'var(--radius-md)',
+                    fontSize: 'var(--font-size-base)',
                     fontWeight: isActive ? 600 : 500,
                     color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                     backgroundColor: isActive ? 'var(--color-accent-indigo-bg)' : 'transparent',
@@ -215,11 +215,11 @@ export const Sidebar: React.FC = () => {
             justifyContent: collapsed ? 'center' : 'flex-start',
             gap: 8,
             padding: collapsed ? '8px 0' : '8px 12px',
-            borderRadius: 'var(--radius-md, 8px)',
+            borderRadius: 'var(--radius-md)',
             border: '1px solid var(--border-default)',
             backgroundColor: 'transparent',
             color: 'var(--text-secondary)',
-            fontSize: 'var(--font-size-sm, 12px)',
+            fontSize: 'var(--font-size-sm)',
             fontWeight: 500,
             cursor: 'pointer',
           }}
@@ -240,7 +240,7 @@ export const Sidebar: React.FC = () => {
               padding: 12,
               background: 'var(--bg-card)',
               border: '1px solid var(--border-default)',
-              borderRadius: 'var(--radius-md, 8px)',
+              borderRadius: 'var(--radius-md)',
             }}
           >
             <div
@@ -253,15 +253,15 @@ export const Sidebar: React.FC = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'var(--text-secondary)',
-                fontSize: 'var(--font-size-sm, 12px)',
+                fontSize: 'var(--font-size-sm)',
                 fontWeight: 600,
               }}
             >
               SO
             </div>
             <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: 'var(--font-size-sm, 12px)', fontWeight: 600, color: 'var(--text-primary)' }}>SecOps Analyst</div>
-              <div style={{ fontSize: 'var(--font-size-micro, 11px)', color: 'var(--text-muted)', marginTop: 2 }}>SOC L1</div>
+              <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--text-primary)' }}>SecOps Analyst</div>
+              <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: 2 }}>SOC L1</div>
             </div>
           </div>
         </div>

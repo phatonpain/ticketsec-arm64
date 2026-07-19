@@ -29,6 +29,7 @@ export const chartColors = {
   onnx: '#6366F1',
   int8: '#06B6D4',
   accentStrong: '#818CF8', // hover/emphasis only (mirrors --chart-series-accent-strong)
+  indigoStrongHover: '#4338CA', // mirrors --color-accent-indigo-strong-hover
 
   // Model footprint donut (mirrors --color-accent-cyan / --chart-donut-track)
   modelInt8: '#06B6D4',
