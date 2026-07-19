@@ -2,8 +2,9 @@
  * M8-PHASE1 — Model Performance stat block.
  *
  * Accuracy comes from eval_results.json (committed artifact). Latency and
- * throughput come from useApi getPerformance. Sparklines show recent history
- * when live data exists; otherwise values read "—" with honest context.
+ * throughput come from useApi getPerformance when live; otherwise latency falls
+ * back to the committed t4g.micro benchmark. Throughput stays honest: no source
+ * means it reads '—' rather than inventing a number.
  */
 
 import React, { useEffect, useMemo, useState } from 'react';
@@ -12,42 +13,17 @@ import { Sparkline } from './Sparkline';
 import { chartColors } from '../lib/chartTokens';
 import { extractLatencySeries, extractThroughputSeries } from '../lib/utils';
 import { useApi } from '../hooks/useApi';
-import evalResults from '../../model/eval_results.json';
+import { artifacts } from '../lib/artifacts';
 
-interface PerClassMetric {
-  precision: number;
-  recall: number;
-  f1: number;
-  support: number;
-}
-
-interface EvalResults {
-  status: 'OK' | 'PENDING' | string;
-  overall_accuracy: number | null;
-  per_class_metrics: Record<string, PerClassMetric> | null;
-}
-
-const typedEvalResults = evalResults as EvalResults;
-
-function macroAverage(metrics: Record<string, PerClassMetric>, key: keyof PerClassMetric): number {
-  const values = Object.values(metrics).map(m => m[key]);
-  return values.reduce((a, b) => a + b, 0) / values.length;
-}
+const { eval: evalArtifact, latency: latencyArtifact } = artifacts;
 
 function getAccuracyMetrics(): { value: string; detail: string; pending: boolean } {
-  if (typedEvalResults.status !== 'OK' || typedEvalResults.overall_accuracy == null) {
+  if (!evalArtifact.ready || evalArtifact.overallAccuracy == null) {
     return { value: '—', detail: 'Awaiting eval — see MODEL_CARD.md', pending: true };
   }
-  const accuracy = typedEvalResults.overall_accuracy;
-  const perClass = typedEvalResults.per_class_metrics;
-  const f1 = perClass ? macroAverage(perClass, 'f1') : null;
-  const precision = perClass ? macroAverage(perClass, 'precision') : null;
-  const detailParts: string[] = [];
-  if (precision != null) detailParts.push(`Precision ${precision.toFixed(2)}`);
-  if (f1 != null) detailParts.push(`F1 ${f1.toFixed(2)}`);
   return {
-    value: `${(accuracy * 100).toFixed(0)}%`,
-    detail: detailParts.join(' · ') || 'Held-out test accuracy',
+    value: `${(evalArtifact.overallAccuracy * 100).toFixed(2)}%`,
+    detail: 'from eval_results.json',
     pending: false,
   };
 }
@@ -124,6 +100,7 @@ export const ModelPerformancePanel: React.FC = () => {
   const cached = status !== 'live';
 
   const [latencyValue, setLatencyValue] = useState<string>('—');
+  const [latencyDetail, setLatencyDetail] = useState<string>('—');
   const [throughputValue, setThroughputValue] = useState<string>('—');
   const [latencyHistory, setLatencyHistory] = useState<number[]>([]);
   const [throughputHistory, setThroughputHistory] = useState<number[]>([]);
@@ -137,7 +114,18 @@ export const ModelPerformancePanel: React.FC = () => {
 
       const hasLivePerformance = performance.length > 0;
       const latest = hasLivePerformance ? performance[performance.length - 1] : undefined;
-      setLatencyValue(formatLatency(latest?.latency_ms));
+
+      if (hasLivePerformance && latest?.latency_ms != null) {
+        setLatencyValue(formatLatency(latest.latency_ms));
+        setLatencyDetail('Last inference probe');
+      } else if (latencyArtifact.ready && latencyArtifact.p50Ms != null) {
+        setLatencyValue(formatLatency(latencyArtifact.p50Ms));
+        setLatencyDetail('Offline benchmark');
+      } else {
+        setLatencyValue('—');
+        setLatencyDetail(cached ? 'No offline benchmark' : 'Awaiting probe');
+      }
+
       setThroughputValue(formatThroughput(latest?.throughput));
       setLatencyHistory(extractLatencySeries(hasLivePerformance ? performance : []));
       setThroughputHistory(extractThroughputSeries(hasLivePerformance ? performance : []));
@@ -145,7 +133,7 @@ export const ModelPerformancePanel: React.FC = () => {
     };
     load();
     return () => { mounted = false; };
-  }, [getPerformance, status]);
+  }, [getPerformance, status, cached]);
 
   const accuracy = useMemo(() => getAccuracyMetrics(), []);
 
@@ -194,10 +182,10 @@ export const ModelPerformancePanel: React.FC = () => {
           icon={Zap}
           label="Latency"
           value={latencyValue}
-          detail={cached ? 'Last known · cached snapshot' : 'Last inference probe'}
+          detail={latencyDetail}
           sparklineData={latencyHistory}
           sparklineColor={chartColors.int8}
-          muted={cached}
+          muted={cached && latencyDetail !== 'Offline benchmark'}
         />
         <StatRow
           icon={Activity}
@@ -218,7 +206,7 @@ export const ModelPerformancePanel: React.FC = () => {
         }}
       >
         <span style={{ fontSize: 'var(--caption-size)', color: 'var(--caption-color)' }}>
-          Accuracy from eval_results.json · latency/throughput from API metrics
+          Accuracy from eval_results.json · latency/throughput from API metrics · offline fallback from latency_t4g_micro.json
         </span>
       </div>
     </div>

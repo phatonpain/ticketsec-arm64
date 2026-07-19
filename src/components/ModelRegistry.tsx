@@ -5,6 +5,9 @@
  * them with full provenance (generated_at + sha256 short) per section.
  * If an artifact is missing or PENDING, that section falls back to the honest
  * pending EmptyState pattern.
+ *
+ * D1 fix: all artifact status decisions flow through src/lib/artifacts.ts so
+ * 'COMPLETE' and 'OK' are treated identically across every surface.
  */
 
 import React, { useMemo } from 'react';
@@ -13,80 +16,9 @@ import { ECharts } from './ECharts';
 import type { EChartsCoreOption } from '../lib/echarts';
 import { EmptyState } from './EmptyState';
 import { chartColors } from '../lib/chartTokens';
-import evalResults from '../../model/eval_results.json';
-import confusionMatrix from '../../model/confusion_matrix.json';
-import latency from '../../model/latency_t4g_micro.json';
-import probes from '../../model/probe_results.json';
-import quantizationMd from '../../model/quantization.md?raw';
+import { artifacts } from '../lib/artifacts';
 
-interface EvalArtifact {
-  status: string;
-  generated_at?: string;
-  artifact_sha256?: string;
-  dataset_size?: number;
-  train_size?: number;
-  test_size?: number;
-  overall_accuracy?: number;
-  methodology?: {
-    split?: string;
-    categories?: string[];
-  };
-  per_class_metrics?: Record<string, { precision: number; recall: number; f1: number; support: number }>;
-  ablation?: Array<{
-    candidate_id: string;
-    overall_accuracy: number;
-    min_f1: number;
-    all_f1_above_floor: boolean;
-  }>;
-  winner_candidate_id?: string;
-  deployed_candidate_id?: string;
-  deployed_note?: string;
-}
-
-interface ConfusionArtifact {
-  status: string;
-  generated_at?: string;
-  artifact_sha256?: string;
-  labels?: string[];
-  matrix?: number[][];
-}
-
-interface LatencyArtifact {
-  status: string;
-  generated_at?: string;
-  host?: string;
-  p50_ms?: number;
-  p95_ms?: number;
-  measurement_protocol?: {
-    interpretation?: string;
-  };
-}
-
-interface ProbeResult {
-  id: string;
-  expected_vs_actual?: {
-    expected: string | null;
-    actual: string | null;
-    matched: boolean;
-  };
-}
-
-interface ProbeArtifact {
-  status: string;
-  generated_at?: string;
-  probe_suite_sha256?: string;
-  probe_count?: number;
-  probes_run?: number;
-  expectation_mismatches?: number;
-  results?: ProbeResult[];
-}
-
-const typedEval = evalResults as EvalArtifact;
-const typedConfusion = confusionMatrix as ConfusionArtifact;
-const typedLatency = latency as LatencyArtifact;
-const typedProbes = probes as ProbeArtifact;
-
-const MODEL_INT8_BYTES = 401_770;
+const { eval: evalArtifact, confusion: confusionArtifact, latency: latencyArtifact, probes: probeArtifact, modelMeta, quantization } = artifacts;
 
 function shortSha(sha?: string): string {
   return sha ? sha.slice(0, 12) : '—';
@@ -116,11 +48,6 @@ function formatGeneratedAt(iso?: string): string {
     second: '2-digit',
     hour12: false,
   });
-}
-
-function extractArtifactSize(md: string): string {
-  const match = md.match(/INT8 ONNX.*?(\d[\d,]*\s*bytes)/);
-  return match ? match[1].replace(/,/g, ',') : `${MODEL_INT8_BYTES.toLocaleString('en-US')} bytes`;
 }
 
 const cardStyle: React.CSSProperties = {
@@ -221,7 +148,7 @@ const ProvenanceFooter: React.FC<{ generatedAt?: string; sha256?: string; extra?
 );
 
 const ModelCardSection: React.FC = () => {
-  if (typedEval.status !== 'OK') {
+  if (!evalArtifact.ready) {
     return (
       <Panel icon={Box} title="Model Card" subtitle="Artifact metadata">
         <EmptyState
@@ -235,15 +162,19 @@ const ModelCardSection: React.FC = () => {
     );
   }
 
+  const deltaText = quantization.delta != null
+    ? `${quantization.delta >= 0 ? '+' : ''}${(quantization.delta * 100).toFixed(2)} pp`
+    : '—';
+
   const items = [
     { label: 'Task', value: 'Multiclass ticket classification' },
     { label: 'Format', value: 'ONNX INT8' },
-    { label: 'Artifact size', value: `0.38 MB (${extractArtifactSize(quantizationMd)})` },
-    { label: 'SHA-256', value: shortSha(typedEval.artifact_sha256) },
-    { label: 'Target', value: typedLatency.host ?? 'AWS Graviton t4g.micro' },
-    { label: 'Dataset', value: `${typedEval.dataset_size?.toLocaleString('en-US') ?? '—'} samples` },
-    { label: 'Train / test', value: `${typedEval.train_size?.toLocaleString('en-US') ?? '—'} / ${typedEval.test_size?.toLocaleString('en-US') ?? '—'}` },
-    { label: 'Split', value: typedEval.methodology?.split ?? '—' },
+    { label: 'Artifact size', value: `${modelMeta.sizeMb ?? '—'} MB (${quantization.sizeText})` },
+    { label: 'SHA-256', value: shortSha(modelMeta.sha256 ?? evalArtifact.sha256) },
+    { label: 'Target', value: latencyArtifact.host ?? 'AWS Graviton t4g.micro' },
+    { label: 'Dataset', value: `${evalArtifact.datasetSize?.toLocaleString('en-US') ?? '—'} samples` },
+    { label: 'Train / test', value: `${evalArtifact.trainSize?.toLocaleString('en-US') ?? '—'} / ${evalArtifact.testSize?.toLocaleString('en-US') ?? '—'}` },
+    { label: 'Quantization delta', value: `${deltaText} vs sklearn baseline` },
   ];
 
   return (
@@ -251,7 +182,7 @@ const ModelCardSection: React.FC = () => {
       icon={Box}
       title="Model Card"
       subtitle="Artifact metadata"
-      footer={<ProvenanceFooter generatedAt={typedEval.generated_at} sha256={typedEval.artifact_sha256} />}
+      footer={<ProvenanceFooter generatedAt={evalArtifact.generatedAt} sha256={modelMeta.sha256 ?? evalArtifact.sha256} />}
     >
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--density-card-gap)' }}>
         {items.map(item => (
@@ -263,7 +194,7 @@ const ModelCardSection: React.FC = () => {
               style={{
                 fontSize: 'var(--font-size-base)',
                 color: 'var(--text-primary)',
-                fontFamily: item.label === 'SHA-256' || item.label === 'Artifact size' ? 'var(--font-numeric)' : 'var(--font-family-sans)',
+                fontFamily: item.label === 'SHA-256' || item.label === 'Artifact size' || item.label === 'Quantization delta' ? 'var(--font-numeric)' : 'var(--font-family-sans)',
                 fontVariantNumeric: 'tabular-nums',
               }}
               title={item.value}
@@ -278,7 +209,7 @@ const ModelCardSection: React.FC = () => {
 };
 
 const AccuracySection: React.FC = () => {
-  if (!['OK', 'COMPLETE'].includes(typedEval.status) || !typedEval.per_class_metrics) {
+  if (!evalArtifact.ready || !evalArtifact.perClassMetrics) {
     return (
       <Panel icon={Target} title="Accuracy & Eval" subtitle="Per-class precision / recall / F1">
         <EmptyState
@@ -292,26 +223,26 @@ const AccuracySection: React.FC = () => {
     );
   }
 
-  const categories = Object.keys(typedEval.per_class_metrics);
+  const categories = Object.keys(evalArtifact.perClassMetrics);
 
   return (
     <Panel
       icon={Target}
       title="Accuracy & Eval"
-      subtitle={`Overall ${formatAccuracy(typedEval.overall_accuracy)} · synthetic dataset · GroupShuffleSplit · n=${typedEval.dataset_size ?? '—'}`}
-      footer={<ProvenanceFooter generatedAt={typedEval.generated_at} sha256={typedEval.artifact_sha256} />}
+      subtitle={`Overall ${formatAccuracy(evalArtifact.overallAccuracy)} · synthetic dataset · GroupShuffleSplit · n=${evalArtifact.datasetSize ?? '—'}`}
+      footer={<ProvenanceFooter generatedAt={evalArtifact.generatedAt} sha256={evalArtifact.sha256} />}
     >
       <div style={{ marginBottom: 12, display: 'flex', gap: 16 }}>
         <div>
           <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Overall accuracy</span>
           <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
-            {formatAccuracy(typedEval.overall_accuracy)}
+            {formatAccuracy(evalArtifact.overallAccuracy)}
           </div>
         </div>
         <div>
           <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Test set</span>
           <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
-            {typedEval.test_size?.toLocaleString('en-US') ?? '—'}
+            {evalArtifact.testSize?.toLocaleString('en-US') ?? '—'}
           </div>
         </div>
       </div>
@@ -328,7 +259,7 @@ const AccuracySection: React.FC = () => {
           </thead>
           <tbody>
             {categories.map(cat => {
-              const m = typedEval.per_class_metrics![cat];
+              const m = evalArtifact.perClassMetrics![cat];
               return (
                 <tr key={cat} style={{ borderBottom: '1px solid var(--tint-row)' }}>
                   <td style={tableCellStyle}>{cat}</td>
@@ -348,8 +279,8 @@ const AccuracySection: React.FC = () => {
 
 const ConfusionMatrixSection: React.FC = () => {
   const option = useMemo<EChartsCoreOption>(() => {
-    const labels = typedConfusion.labels ?? [];
-    const matrix = typedConfusion.matrix ?? [];
+    const labels = confusionArtifact.labels ?? [];
+    const matrix = confusionArtifact.matrix ?? [];
     const data: [number, number, number][] = [];
     matrix.forEach((row, y) => {
       row.forEach((value, x) => {
@@ -423,7 +354,7 @@ const ConfusionMatrixSection: React.FC = () => {
     };
   }, []);
 
-  if (typedConfusion.status !== 'OK' || !typedConfusion.matrix) {
+  if (!confusionArtifact.ready || !confusionArtifact.matrix) {
     return (
       <Panel icon={BarChart3} title="Confusion Matrix" subtitle="6×6 held-out test predictions">
         <EmptyState
@@ -442,7 +373,7 @@ const ConfusionMatrixSection: React.FC = () => {
       icon={BarChart3}
       title="Confusion Matrix"
       subtitle="6×6 held-out test predictions"
-      footer={<ProvenanceFooter generatedAt={typedConfusion.generated_at} sha256={typedConfusion.artifact_sha256} />}
+      footer={<ProvenanceFooter generatedAt={confusionArtifact.generatedAt} sha256={confusionArtifact.sha256} />}
     >
       <ECharts option={option} style={{ width: '100%', height: '320px' }} />
     </Panel>
@@ -450,7 +381,7 @@ const ConfusionMatrixSection: React.FC = () => {
 };
 
 const LatencySection: React.FC = () => {
-  if (typedLatency.status !== 'OK' || typedLatency.p50_ms == null) {
+  if (!latencyArtifact.ready || latencyArtifact.p50Ms == null) {
     return (
       <Panel icon={Activity} title="Latency on Graviton" subtitle="t4g.micro inference benchmarks">
         <EmptyState
@@ -468,32 +399,35 @@ const LatencySection: React.FC = () => {
     <Panel
       icon={Activity}
       title="Latency on Graviton"
-      subtitle={`${typedLatency.host ?? 'AWS Graviton t4g.micro'} · processing_time_ms excludes network RTT`}
-      footer={<ProvenanceFooter generatedAt={typedLatency.generated_at} extra={typedLatency.measurement_protocol?.interpretation ?? ''} />}
+      subtitle={`${latencyArtifact.host ?? 'AWS Graviton t4g.micro'} · processing_time_ms excludes network RTT`}
+      footer={<ProvenanceFooter generatedAt={latencyArtifact.generatedAt} extra={latencyArtifact.interpretation ?? ''} />}
     >
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--density-card-gap)' }}>
         <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)', padding: 12 }}>
           <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p50</span>
           <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
-            {formatLatencyMs(typedLatency.p50_ms)}
+            {formatLatencyMs(latencyArtifact.p50Ms)}
           </div>
         </div>
         <div style={{ backgroundColor: 'var(--bg-body)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-sm)', padding: 12 }}>
           <span style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>p95</span>
           <div style={{ fontSize: 'var(--font-size-kpi)', fontWeight: 700, fontFamily: 'var(--font-numeric)', fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
-            {formatLatencyMs(typedLatency.p95_ms)}
+            {formatLatencyMs(latencyArtifact.p95Ms)}
           </div>
         </div>
       </div>
       <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 12 }}>
-        {typedLatency.measurement_protocol?.interpretation ?? 'processing_time_ms is server-side ONNX inference time reported by /predict.'}
+        {latencyArtifact.interpretation ?? 'processing_time_ms is server-side ONNX inference time reported by /predict.'}
+      </p>
+      <p style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: 8 }}>
+        Measured on {latencyArtifact.host ?? 't4g.micro'} · n={latencyArtifact.sampleCount ?? '—'}
       </p>
     </Panel>
   );
 };
 
 const ProbeSuiteSection: React.FC = () => {
-  if (typedProbes.status !== 'OK' || !typedProbes.results) {
+  if (!probeArtifact.ready || !probeArtifact.results) {
     return (
       <Panel icon={Beaker} title="Probe Suite" subtitle="OOD / empty / unicode probes">
         <EmptyState
@@ -507,14 +441,14 @@ const ProbeSuiteSection: React.FC = () => {
     );
   }
 
-  const passed = (typedProbes.probe_count ?? 0) - (typedProbes.expectation_mismatches ?? 0);
+  const passed = (probeArtifact.probeCount ?? 0) - (probeArtifact.expectationMismatches ?? 0);
 
   return (
     <Panel
       icon={Beaker}
       title="Probe Suite"
-      subtitle={`${typedProbes.probes_run ?? passed}/${typedProbes.probe_count ?? '—'} passed · expectation mismatches ${typedProbes.expectation_mismatches ?? '—'}`}
-      footer={<ProvenanceFooter generatedAt={typedProbes.generated_at} sha256={typedProbes.probe_suite_sha256} />}
+      subtitle={`${probeArtifact.probesRun ?? passed}/${probeArtifact.probeCount ?? '—'} passed · expectation mismatches ${probeArtifact.expectationMismatches ?? '—'}`}
+      footer={<ProvenanceFooter generatedAt={probeArtifact.generatedAt} sha256={probeArtifact.probeSuiteSha256} />}
     >
       <div style={{ overflowX: 'auto' }} tabIndex={0}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -527,7 +461,7 @@ const ProbeSuiteSection: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {typedProbes.results.map(r => {
+            {probeArtifact.results.map(r => {
               const matched = r.expected_vs_actual?.matched ?? false;
               return (
                 <tr key={r.id} style={{ borderBottom: '1px solid var(--tint-row)' }}>
@@ -548,7 +482,7 @@ const ProbeSuiteSection: React.FC = () => {
 };
 
 const AblationSection: React.FC = () => {
-  if (typedEval.status !== 'OK' || !typedEval.ablation) {
+  if (!evalArtifact.ready || !evalArtifact.ablation) {
     return (
       <Panel icon={ShieldCheck} title="Ablation" subtitle="Candidate selection">
         <EmptyState
@@ -566,8 +500,8 @@ const AblationSection: React.FC = () => {
     <Panel
       icon={ShieldCheck}
       title="Ablation"
-      subtitle={`Winner ${typedEval.winner_candidate_id ?? '—'} · deployed ${typedEval.deployed_candidate_id ?? '—'}`}
-      footer={<ProvenanceFooter generatedAt={typedEval.generated_at} sha256={typedEval.artifact_sha256} extra="skl2onnx cannot export char_wb TfidfVectorizer" />}
+      subtitle={`Winner ${evalArtifact.winnerCandidateId ?? '—'} · deployed ${evalArtifact.deployedCandidateId ?? '—'}`}
+      footer={<ProvenanceFooter generatedAt={evalArtifact.generatedAt} sha256={evalArtifact.sha256} extra="skl2onnx cannot export char_wb TfidfVectorizer" />}
     >
       <div style={{ overflowX: 'auto' }} tabIndex={0}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -581,9 +515,9 @@ const AblationSection: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {typedEval.ablation.map(row => {
-              const deployed = row.candidate_id === typedEval.deployed_candidate_id;
-              const winner = row.candidate_id === typedEval.winner_candidate_id;
+            {evalArtifact.ablation.map(row => {
+              const deployed = row.candidate_id === evalArtifact.deployedCandidateId;
+              const winner = row.candidate_id === evalArtifact.winnerCandidateId;
               return (
                 <tr key={row.candidate_id} style={{ borderBottom: '1px solid var(--tint-row)' }}>
                   <td style={{ ...tableCellStyle, fontFamily: 'var(--font-numeric)' }}>{row.candidate_id}</td>
@@ -628,9 +562,9 @@ const AblationSection: React.FC = () => {
           </tbody>
         </table>
       </div>
-      {typedEval.deployed_note && (
+      {evalArtifact.deployedNote && (
         <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)', marginTop: 12 }}>
-          {typedEval.deployed_note}
+          {evalArtifact.deployedNote}
         </p>
       )}
     </Panel>
