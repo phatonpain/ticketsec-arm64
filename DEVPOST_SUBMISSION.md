@@ -21,7 +21,7 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 ## How we built it
 
 - **Frontend:** React 19 + TypeScript + Vite. State lives in singleton `useSyncExternalStore` stores (`useApi`, `useEventLog`, `useTickets`, `useSettings`, `useTicketQuery`) so every component shares one source of truth. Charts use Apache ECharts loaded lazily through `echarts/core` to keep the main bundle small. Styling is done with inline styles plus CSS variables in `src/styles/tokens.css`.
-- **Backend:** FastAPI serving an INT8-quantized ONNX text classifier (~0.22 MB) on an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM). The `POST /predict` endpoint returns `{category, confidence, processing_time_ms}`.
+- **Backend:** FastAPI serving an INT8-quantized ONNX text classifier (~0.38 MB) on an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM). The `POST /predict` endpoint returns `{category, confidence, processing_time_ms}`.
 - **Deployment:** systemd unit `ticketsec.service` with `MemoryMax=700M`, `Restart=always`, and Security Group ingress on port 8000. Deployment and rollback steps are in `DEVOPS_RUNBOOK.md`.
 - **Model evaluation:** A held-out evaluation script (`model/eval.py`) uses a stratified 80/20 split with seed 42 and commits per-class precision/recall/F1 plus a confusion matrix. An adversarial probe suite and Graviton latency measurements are defined and will run against the live API once it is reachable.
 - **Quality:** `npm run build` and `npm run lint` pass with zero warnings/errors; `npx axe` reports zero violations; the main JS chunk is under 600 KB.
@@ -29,8 +29,8 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 ## Challenges
 
 - **Small synthetic dataset:** The classifier is trained on a small synthetic dataset, so any accuracy number must be reported with its full context — dataset size, split strategy, and leakage-risk caveats — or not at all. The model card enforces this wording.
-- **ARM64 memory budget:** A `t4g.micro` has only 1 GB RAM. Quantizing the model to INT8 keeps the artifact around 0.22 MB and leaves headroom under the 700 MB systemd cap.
-- **API reliability during the hackathon:** The Graviton instance is currently unreachable from the public internet. Instead of fabricating a live demo, the dashboard was built to treat honest cached/offline states as a first-class feature.
+- **ARM64 memory budget:** A `t4g.micro` has only 1 GB RAM. Quantizing the model to INT8 keeps the artifact around 0.38 MB and leaves headroom under the 700 MB systemd cap.
+- **API reliability during the hackathon:** The Graviton instance was unreachable from the public internet during parts of the hackathon. Instead of fabricating a live demo, the dashboard was built to treat honest cached/offline states as a first-class feature.
 - **Solo scope management:** With one developer, every feature had to map directly to a Devpost judging criterion. The strategy backlog in `STRATEGY.md` keeps priorities explicit.
 
 ## Accomplishments we're proud of
@@ -44,7 +44,7 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 ## What we learned
 
 - **Honesty is a feature, not a fallback.** Judges and users notice when a demo hides a failing backend. Building the degraded mode intentionally made the product stronger.
-- **Quantization changes the cost story.** An 0.22 MB INT8 model makes a $3/month ARM64 instance viable for a hackathon demo.
+- **Quantization changes the cost story.** A 0.38 MB INT8 model makes a $3/month ARM64 instance viable for a hackathon demo.
 - **Singleton stores simplify state.** Using `useSyncExternalStore` for global state removed prop-drilling and made the live/cached/offline transition consistent across every surface.
 - **Documentation is part of the deliverable.** The README, model card, runbook, strategy, and demo script are as important as the code for a judged submission.
 
@@ -60,7 +60,7 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 ## Technical details
 
 - **Categories:** Phishing · Malware · Unauthorized Access · Data Breach · DDoS · False Positive
-- **Model artifact:** INT8-quantized ONNX, ~0.22 MB
+- **Model artifact:** INT8-quantized ONNX, ~0.38 MB
 - **Host:** AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM), ~$0.0042/hour on-demand
 - **API health:** `http://3.23.60.61:8000/health`
 - **API docs:** `http://3.23.60.61:8000/docs`
@@ -72,10 +72,10 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 
 | Metric | Status | Source |
 |---|---|---|
-| Held-out accuracy | `[PENDING: model/eval_results.json]` | `model/eval_results.json` |
-| Per-class precision/recall/F1 | `[PENDING: model/eval_results.json]` | `model/eval_results.json` |
-| Latency p50/p95 on t4g.micro | `[PENDING: model/latency_t4g_micro.json]` | `model/latency_t4g_micro.json` |
-| Adversarial probe results | `[PENDING: model/probe_results.json]` | `model/probe_results.json` |
+| Held-out accuracy | 92.94% | `model/eval_results.json` |
+| Per-class precision/recall/F1 | See `model/eval_results.json` | `model/eval_results.json` |
+| Latency p50/p95 on t4g.micro | 0.230 ms / 0.310 ms | `model/latency_t4g_micro.json` |
+| Adversarial probe results | 14 probes, 0 mismatches | `model/probe_results.json` |
 | Main JS chunk size | < 600 KB | `TEST_RESULTS_v4.md` |
 | axe violations | 0 | `TEST_RESULTS_v4.md` |
 
@@ -85,8 +85,8 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 
 | Claim | Artifact | SHA-256 | Date |
 |---|---|---|---|
-| 0.22 MB INT8 model | `model/quantization.md` | `c6c873e5879e327e06d88ecab46ded049cf11f08c1919523952d1f3ae9f1a572` | 2026-07-17 |
+| 0.38 MB INT8 model | `model/quantization.md` | `70538123a0df1032cf7dc0a321e77e88064398894b2c6aac95ddd3656f790be2` | 2026-07-19 |
 | t4g.micro cost (~$0.0042/hr) | AWS pricing (us-east-2 on-demand) | N/A | 2026-07-17 |
 | Build/lint/axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |
-| Model metrics | `model/eval_results.json` | `8bc522dae58e14517c9bfabab4810b6f9af1b4d29b322bc69f2528c1a0044347` | 2026-07-17T14:33:51Z |
-| Latency metrics | `model/latency_t4g_micro.json` | `addc0f2ffea8c04c3c7d9e69953b3694f7010b095233b364a339218ecd40c8df` | 2026-07-17T14:33:51Z |
+| Model metrics | `model/eval_results.json` | `e50792484983362d9587851dce1ef8a2c5b4ad67d91a0a5e158c0f6d6680fe68` | 2026-07-19 |
+| Latency metrics | `model/latency_t4g_micro.json` | `12af06413242e25dab5cf1f237176724b63b943f5d238e7ef11570e8c1635c02` | 2026-07-19 |

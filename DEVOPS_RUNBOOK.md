@@ -223,7 +223,7 @@ bash ops/snapshot-refresh.sh
 After refreshing, rebuild and redeploy the frontend so the new snapshot ships with the bundle:
 
 ```bash
-cd D:\ComfyUI\ticketsec-arm64-dashboard
+cd D:\Git\ticketsec-arm64-dashboard
 npm run build
 ```
 
@@ -284,14 +284,14 @@ aws ec2 revoke-security-group-ingress \
 Ensure the dashboard points to the correct API base URL:
 
 ```bash
-# D:\ComfyUI\ticketsec-arm64-dashboard\.env
+# D:\Git\ticketsec-arm64-dashboard\.env
 VITE_API_BASE_URL=http://3.23.60.61:8000
 ```
 
 Then start the dev server:
 
 ```powershell
-cd D:\ComfyUI\ticketsec-arm64-dashboard
+cd D:\Git\ticketsec-arm64-dashboard
 npm run dev
 ```
 

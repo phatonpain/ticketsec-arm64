@@ -77,10 +77,10 @@ Every number spoken must trace to a committed artifact. PENDING values are annou
 
 ### 00:45–01:00 — ARM64 / ONNX INT8 cost story
 
-**Visual:** KPI cards (Model Footprint 0.22 MB) and a terminal showing the `t4g.micro` specs.
+**Visual:** KPI cards (Model Footprint 0.38 MB) and a terminal showing the `t4g.micro` specs.
 
 **Narration (Branch A & B):**
-> "The model is an INT8-quantized ONNX artifact of about 0.22 MB. It runs on an AWS Graviton t4g.micro — ARM64, 2 vCPU, 1 GB RAM — costing roughly $0.0042 per hour. Latency p50 and p95 on the real instance are recorded in `model/latency_t4g_micro.json`."
+> "The model is an INT8-quantized ONNX artifact of about 0.38 MB. It runs on an AWS Graviton t4g.micro — ARM64, 2 vCPU, 1 GB RAM — costing roughly $0.0042 per hour. Latency p50 and p95 on the real instance are recorded in `model/latency_t4g_micro.json`."
 
 **Cite:**
 - `model/quantization.md` — INT8 size and RAM budget.
@@ -135,7 +135,7 @@ Before recording:
 | Claim | Artifact | SHA-256 | Date |
 |---|---|---|---|
 | Six categories | `00_SHARED_CONTEXT.md` | N/A | repository |
-| 0.22 MB INT8 model | `model/quantization.md` | `c6c873e5879e327e06d88ecab46ded049cf11f08c1919523952d1f3ae9f1a572` | 2026-07-17 |
+| 0.38 MB INT8 model | `model/quantization.md` | `70538123a0df1032cf7dc0a321e77e88064398894b2c6aac95ddd3656f790be2` | 2026-07-19 |
 | t4g.micro cost | AWS pricing | N/A | 2026-07-17 |
 | Latency p50/p95 | `model/latency_t4g_micro.json` | `addc0f2ffea8c04c3c7d9e69953b3694f7010b095233b364a339218ecd40c8df` | 2026-07-17T14:33:51Z |
 | axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |

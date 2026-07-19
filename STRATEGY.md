@@ -11,7 +11,7 @@
 | Devpost criterion | TicketSec strength (the story) | Evidence artifact (committed) | Backing agent files |
 |---|---|---|---|
 | **Innovation/Impact** | Honesty Contract as differentiator: truthful LIVE / amber `CACHED` / "Unavailable — API offline" states plus a real-only Event Log — honesty by design in a SOC tool. | Badge states verified in `TEST_RESULTS_v4.md`; `MODEL_CARD.md` accuracy caveat; demo runbook (this file) | tech-writer.md, qa-engineer.md, hackathon-strategist.md |
-| **Technical Execution** | INT8-quantized ONNX classifier (~0.22 MB) served by FastAPI on an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM); React 19 + TypeScript + Vite frontend with lazy `echarts/core` chunks; singleton `useSyncExternalStore` stores. | `model/eval_results.json`, `model/latency_t4g_micro.json`, `model/probe_results.json`, `model/quantization.md`, `DEVOPS_RUNBOOK.md` | ml-engineer.md, backend-engineer.md, devops-sre.md |
+| **Technical Execution** | INT8-quantized ONNX classifier (~0.38 MB) served by FastAPI on an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM); React 19 + TypeScript + Vite frontend with lazy `echarts/core` chunks; singleton `useSyncExternalStore` stores. | `model/eval_results.json`, `model/latency_t4g_micro.json`, `model/probe_results.json`, `model/quantization.md`, `DEVOPS_RUNBOOK.md` | ml-engineer.md, backend-engineer.md, devops-sre.md |
 | **Design/UX** | Enterprise SOC density (Splunk ES / CrowdStrike Falcon / Datadog class): design tokens in `src/styles/tokens.css`, 40 px table rows, 16 px card padding, Inter + JetBrains Mono, tabular numerals, WCAG 2.2 AA. | `A11Y_REPORT.md` (to be delivered by a11y-specialist.md); `TEST_RESULTS_v4.md` axe-clean evidence | design-engineer.md, a11y-specialist.md, frontend-engineer.md |
 | **Completeness/Polish** | Working honest dashboard + live API path + cached degraded mode + full submission package (`README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `MODEL_CARD.md`, tests, runbook). | `TEST_RESULTS_v4.md`, `README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `DEVOPS_RUNBOOK.md` | qa-engineer.md, tech-writer.md, devops-sre.md |
 
@@ -99,7 +99,7 @@ This arc is the spine of `DEMO_SCRIPT.md`:
 | 0–5 | Hook | "SOC analysts drown in tickets." | Same hook |
 | 5–15 | Problem | Six categories (Phishing · Malware · Unauthorized Access · Data Breach · DDoS · False Positive) and the need for fast triage. | Same problem framing |
 | 15–45 | Core demo | Live classify one ticket via `/predict`; show `processing_time_ms`, LIVE badge, real Event Log entry. | Show amber `CACHED` badge and explain honest degraded mode; demonstrate that the UI never lies about data freshness. |
-| 45–60 | Why ARM64/INT8 | 0.22 MB INT8 model on a `t4g.micro` (~$0.004/hour on-demand) — cite `model/quantization.md` and `model/latency_t4g_micro.json`. | Same cost story, with values marked PENDING until API returns. |
+| 45–60 | Why ARM64/INT8 | 0.38 MB INT8 model on a `t4g.micro` (~$0.004/hour on-demand) — cite `model/quantization.md` and `model/latency_t4g_micro.json`. | Same cost story, citing the real p50/p95 values in `model/latency_t4g_micro.json`. |
 | 60–75 | Design/UX | Enterprise density, design tokens, keyboard shortcuts, `npx axe` = 0 — cite `A11Y_REPORT.md` / `TEST_RESULTS_v4.md`. | Same design evidence |
 | 75–90 | CTA | "Vote for TicketSec Arm64 on Devpost." + URL. | Same CTA |
 
@@ -115,8 +115,8 @@ This arc is the spine of `DEMO_SCRIPT.md`:
 
 | Risk | Impact | Mitigation | Unblocks |
 |---|---|---|---|
-| `t4g.micro` stays unreachable | Cannot collect live latency/probe metrics; demo forced to Branch B | Already prepared Branch B runbook; PENDING artifacts are honest | devops-sre.md must restore service or confirm timeline |
-| `model/artifact.onnx` not committed | `model/eval_results.json` stays PENDING | eval.py + test_set committed; README/Devpost use PENDING slots | ml-engineer.md / Felipe provides artifact |
+| `t4g.micro` reachable but classify path not yet exercised | Need to confirm live `/predict` works end-to-end before Branch A demo | Branch B runbook ready; use health check + snapshot-refresh script for evidence | devops-sre.md / qa-engineer.md |
+| `model/artifact.onnx` committed | ✅ Resolved — `model/eval_results.json` and latency/probe files now `OK` | — | — |
 | Hardcoded "100%" accuracy in `src/App.tsx` KPI card | Violates accuracy wording rule and Honesty Contract | Route to frontend-engineer.md to bind KPI to `model/eval_results.json` or show PENDING | 01_ORCHESTRATOR.md |
 | Missing `A11Y_REPORT.md` / `PERF_BUDGET.md` / `SECURITY_REVIEW.md` | README links point to files that do not yet exist | Links are marked as owned by sibling agents; timeline reserves time for them | a11y-specialist.md, performance-engineer.md, security-engineer.md |
 
@@ -125,4 +125,4 @@ This arc is the spine of `DEMO_SCRIPT.md`:
 - **React version:** SHARED_CONTEXT states React 18; `package.json` uses React 19. The frontend runs and builds cleanly. This drift is noted for the Orchestrator but does not block docs.
 - **Stack fact — inline styles:** Confirmed; components use inline styles with CSS variables from `src/styles/tokens.css`.
 - **Stack fact — stores:** Confirmed; `useApi`, `useEventLog`, `useTickets`, `useSettings`, `useTicketQuery` are singleton `useSyncExternalStore` stores.
-- **Hardcoded accuracy in UI:** `src/App.tsx` KPI card previously showed static "100%" and "F1-Score: 0.98 · Precision: 0.97". This was corrected: the accuracy KPI now reads from `model/eval_results.json` and displays "—" with a gray `PENDING VALIDATION` chip while the artifact is pending. Related placeholder data in `src/lib/performanceSnapshot.ts` was removed and `ModelHealthDonut.tsx` now only shows verifiable sizes (INT8 artifact 0.22 MB vs the 700 MB systemd `MemoryMax`).
+- **Hardcoded accuracy in UI:** `src/App.tsx` KPI card previously showed static "100%" and "F1-Score: 0.98 · Precision: 0.97". This was corrected: the accuracy KPI now reads from `model/eval_results.json` and displays "—" with a gray `PENDING VALIDATION` chip while the artifact is pending. Related placeholder data in `src/lib/performanceSnapshot.ts` was removed and `ModelHealthDonut.tsx` now only shows verifiable sizes (INT8 artifact 0.38 MB vs the 700 MB systemd `MemoryMax`).

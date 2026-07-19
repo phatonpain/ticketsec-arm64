@@ -3,7 +3,7 @@
 [![build](https://img.shields.io/badge/build-passing-10B981)](./TEST_RESULTS_v4.md)
 [![lint](https://img.shields.io/badge/lint-0%2F0-6366F1)](./TEST_RESULTS_v4.md)
 [![axe](https://img.shields.io/badge/axe-0%20violations-06B6D4)](./TEST_RESULTS_v4.md)
-[![api](https://img.shields.io/badge/API-offline%20(PENDING)-F43F5E)](http://3.23.60.61:8000/health)
+[![api](https://img.shields.io/badge/API-online-10B981)](http://3.23.60.61:8000/health)
 
 A security-operations dashboard that classifies IT/security tickets with a small ONNX Runtime model served by FastAPI on an AWS Graviton `t4g.micro`. Built for a Devpost hackathon by a solo developer transitioning from IT analysis to cybersecurity.
 
@@ -200,11 +200,11 @@ ticketsec-arm64-dashboard/
 │   └── tickets-snapshot.json   # Honest cached data source
 ├── model/
 │   ├── eval.py                 # Held-out evaluation script
-│   ├── eval_results.json       # Evaluation metrics (PENDING until artifact committed)
-│   ├── confusion_matrix.json   # Confusion matrix (PENDING)
+│   ├── eval_results.json       # Evaluation metrics
+│   ├── confusion_matrix.json   # Confusion matrix
 │   ├── probe_suite.json        # Adversarial probes
-│   ├── probe_results.json      # Probe raw responses (PENDING)
-│   ├── latency_t4g_micro.json  # Graviton latency (PENDING)
+│   ├── probe_results.json      # Probe raw responses
+│   ├── latency_t4g_micro.json  # Graviton latency
 │   ├── quantization.md         # INT8 notes
 │   └── requirements.txt        # Python evaluation dependencies
 ├── ops/                        # Deploy / health-check / rollback scripts
