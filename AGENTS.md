@@ -36,3 +36,22 @@ SOC ticket-triage dashboard: React+Vite frontend (hash-routed), FastAPI
 ## Definição de "pronto"
 build 0 errors + chunk <600KB · lint 0/0 · vitest green · axe 0 ·
 contrast 23/23 · honesty matrix pass · tree clean & committed.
+
+## Regras aprendidas (v4 retrospective)
+
+1. **Re-probe live endpoints at the start of every phase.** Environment state
+   changes; assumptions from the previous handoff can be stale.
+2. **npm audit findings in dev-only tooling are triaged, not force-fixed.**
+   Do not add dependency overrides unless a green gate run proves they are
+   safe and necessary.
+3. **Scratch/output artifacts go to ignored paths or `/tmp`.** Never leave
+   untracked contrast reports, axe outputs, or temp scripts in the repo root.
+4. **Verify route canonicalization before route-based checks.** The router may
+   normalize aliases (e.g., `#/analytics` → `#/dashboard`), so confirm the
+   actual view hashes before running axe, screenshots, or e2e.
+5. **A red gate is information, not an obstacle.** Max 3 fix attempts per gate
+   per phase; then stop, write a root-cause hypothesis, and present two
+   options (minimal fix vs. human escalation).
+6. **Commit the model that runs, not the model that scores highest.** If the
+   accuracy winner cannot be exported to the target runtime, document the
+   winner and deploy the best exportable candidate.

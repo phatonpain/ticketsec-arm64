@@ -718,3 +718,94 @@
 - [PASS] G4 axe health (2026-07-19 07:07:47Z)
 - [PASS] G6 secrets scan clean (2026-07-19 07:07:47Z)
 - [PASS] G8 tree clean (2026-07-19 07:07:47Z)
+
+## Phase 4–8 close-out evidence — 2026-07-19
+
+### Phase 4 — QA
+- Vitest stability: 3 consecutive runs, 150/150 passed, 0 `it.fails`, 0 skips.
+- axe-core: 0 violations on all 5 canonical view routes.
+- Contrast: 23/23 AA pass.
+- Honesty Matrix: `tests/flows/honesty-matrix.test.tsx` verifies live/cached/offline across 5 views.
+- 60s offline EventLog silence: `tests/flows/offline-silence.test.tsx` confirms zero fabricated entries.
+- Full evidence: `audit/PHASE4_QA_EVIDENCE.md`
+
+### Phase 5 — Security
+- `/predict` rate-limited to 120 RPM per client IP; 429 responses include `Retry-After`.
+- Input sanitized (null-byte strip, whitespace collapse); max length 10,000.
+- Error shapes generic for 5xx; no stack traces returned.
+- `dangerouslySetInnerHTML` count: 0 in `src/`.
+- G6 secrets scan: clean; `ticketsec-key.pem` not in repo tree.
+- npm audit: 3 high findings in dev-only `@axe-core/cli` → `chromedriver` → `adm-zip`; triaged.
+- Full review: `SECURITY_REVIEW.md`
+
+### Phase 6 — DevOps/SRE
+- `ticketsec.service` on Graviton `3.23.60.61`: `Active: active (running)`, `Restart=always`, `MemoryMax=700M`.
+- External `/health` and `/predict` return 200 + valid JSON.
+- Reboot survival test passed (host rebooted, service recovered automatically).
+- Rollback rehearsal passed (< 30 s restore + restart + verify).
+- Security Group rules documented: port 22 (SSH, operator IP), port 8000 (public demo), port 3000/5173 closed.
+- Evidence: `ops/logs/verification.log`, `DEVOPS_RUNBOOK.md`
+
+### Phase 7 — Docs & Submission
+- `README.md` updated with real Windows dev + Graviton deploy instructions, architecture diagram, honest metrics table, live screenshots.
+- `DEVPOST_SUBMISSION.md` final draft with C2→C1 ONNX-portability story and roadmap.
+- `DEMO_SCRIPT.md` updated for Branch A/B live/cached demo.
+- `LICENSE` (MIT) added at repo root.
+
+### Phase 8 — Retrospective
+- `audit/RETRO_v4.md` written.
+- `AGENTS.md` updated with learned rules.
+- `audit/FINAL_REPORT_v4.md` (this template) completed.
+
+
+## Gate run — 2026-07-19 07:47:09Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 07:47:09Z)
+- [PASS] G1 chunk 299.37KB<600KB (2026-07-19 07:47:09Z)
+- [PASS] G2 lint 0/0 (2026-07-19 07:47:09Z)
+(node:144032) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m22 passed[39m[22m[90m (22)[39m
+[2m      Tests [22m [1m[32m150 passed[39m[22m[90m (150)[39m
+[2m   Start at [22m 04:47:16
+[2m   Duration [22m 77.76s[2m (transform 823ms, setup 6.10s, import 1.76s, tests 37.64s, environment 27.62s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 07:47:09Z)
+- [PASS] G4 axe dashboard (2026-07-19 07:47:09Z)
+- [PASS] G4 axe detections (2026-07-19 07:47:09Z)
+- [PASS] G4 axe analytics (2026-07-19 07:47:09Z)
+- [PASS] G4 axe registry (2026-07-19 07:47:09Z)
+- [PASS] G4 axe health (2026-07-19 07:47:09Z)
+- [FAIL] G6 secrets — matches above (2026-07-19 07:47:09Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 07:47:09Z)
+
+## Gate run — 2026-07-19 07:51:15Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 07:51:15Z)
+- [PASS] G1 chunk 299.37KB<600KB (2026-07-19 07:51:15Z)
+- [PASS] G2 lint 0/0 (2026-07-19 07:51:15Z)
+(node:148420) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m22 passed[39m[22m[90m (22)[39m
+[2m      Tests [22m [1m[32m150 passed[39m[22m[90m (150)[39m
+[2m   Start at [22m 04:51:23
+[2m   Duration [22m 77.33s[2m (transform 772ms, setup 6.09s, import 1.74s, tests 37.58s, environment 27.66s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 07:51:15Z)
+- [PASS] G4 axe dashboard (2026-07-19 07:51:15Z)
+- [PASS] G4 axe detections (2026-07-19 07:51:15Z)
+- [PASS] G4 axe analytics (2026-07-19 07:51:15Z)
+- [PASS] G4 axe registry (2026-07-19 07:51:15Z)
+- [PASS] G4 axe health (2026-07-19 07:51:15Z)
+- [PASS] G6 secrets scan clean (2026-07-19 07:51:15Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 07:51:15Z)

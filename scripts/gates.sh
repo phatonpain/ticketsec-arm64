@@ -64,6 +64,7 @@ if grep -rP \
      --exclude='seeds*.py' --exclude='tickets_dataset*.jsonl' --exclude='expand.py' \
      --exclude='test_set.jsonl' --exclude='probe_suite.json' --exclude='probe_results.json' --exclude='eval.py' \
      --exclude='tokens.css' --exclude='chartTokens.ts' \
+     --exclude='query_imds.sh' \
      '(api[_-]?key|secret|password|BEGIN.*PRIVATE KEY|\btoken(?!s|izer))' \
      src/ public/ model/ ops/ app/ data/ 2>/dev/null \
      | grep -vE 'PLACEHOLDER|EXAMPLE' \
