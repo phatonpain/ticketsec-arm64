@@ -13,8 +13,12 @@ scripts/*
 !scripts/gates.sh
 !scripts/m6_axe_all.py
 !scripts/m6_webbridge_gates.py
-audit/HANDOFF_P1.md
-audit/RUBRIC_P1.md
+audit/*
+!audit/HANDOFF_TEMPLATE.md
+!audit/STATE_MAP_v4.md
+model/calibration.json
+model/check_calibration.py
+model/MODEL_CARD.md
 model/artifact_meta.json
 model/decision_threshold.json
 *.log
