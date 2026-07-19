@@ -40,7 +40,7 @@ import { useActiveView } from '../hooks/useActiveView';
 
 export const Header: React.FC = () => {
   const { activeView } = useActiveView();
-  const { title, subtitle, breadcrumb } = VIEW_CONFIG[activeView];
+  const { breadcrumb } = VIEW_CONFIG[activeView];
   const { status, checkHealth, checking, diagnostics, lastSync } = useApi();
   const { logs, unreadCount, markAllRead } = useEventLog();
   const { range, setRange } = useTimeRange();
@@ -189,7 +189,7 @@ export const Header: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--font-size-base, 13px)', color: 'var(--text-muted)' }}>
         <span style={{ color: 'var(--text-secondary)' }}>Dashboard</span>
         <span style={{ fontSize: 'var(--font-size-micro, 11px)' }}>›</span>
-        <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Security Operations Center</span>
+        <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{breadcrumb}</span>
       </div>
 
       {/* Right side */}
