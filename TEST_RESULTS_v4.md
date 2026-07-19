@@ -861,3 +861,81 @@
 - [PASS] G4 axe health (2026-07-19 15:08:17Z)
 - [PASS] G6 secrets scan clean (2026-07-19 15:08:17Z)
 - [PASS] G8 tree clean (2026-07-19 15:08:17Z)
+
+## Gate run — 2026-07-19 18:11:47Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 18:11:47Z)
+- [PASS] G1 chunk 309.71KB<600KB (2026-07-19 18:11:47Z)
+- [PASS] G2 lint 0/0 (2026-07-19 18:11:47Z)
+(node:169884) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m25 passed[39m[22m[90m (25)[39m
+[2m      Tests [22m [1m[32m170 passed[39m[22m[90m (170)[39m
+[2m   Start at [22m 15:11:47
+[2m   Duration [22m 123.00s[2m (transform 1.28s, setup 10.94s, import 3.22s, tests 52.11s, environment 49.00s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 18:11:47Z)
+- [PASS] G4 axe dashboard (2026-07-19 18:11:47Z)
+- [PASS] G4 axe detections (2026-07-19 18:11:47Z)
+- [PASS] G4 axe analytics (2026-07-19 18:11:47Z)
+- [PASS] G4 axe registry (2026-07-19 18:11:47Z)
+- [PASS] G4 axe health (2026-07-19 18:11:47Z)
+- [PASS] G6 secrets scan clean (2026-07-19 18:11:47Z)
+- [PASS] G8 tree clean (2026-07-19 18:11:47Z)
+
+## Gate run — 2026-07-19 18:25:09Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 18:25:09Z)
+- [PASS] G1 chunk 309.71KB<600KB (2026-07-19 18:25:09Z)
+- [PASS] G2 lint 0/0 (2026-07-19 18:25:09Z)
+(node:168428) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m25 passed[39m[22m[90m (25)[39m
+[2m      Tests [22m [1m[32m170 passed[39m[22m[90m (170)[39m
+[2m   Start at [22m 15:25:11
+[2m   Duration [22m 122.04s[2m (transform 1.22s, setup 10.75s, import 3.28s, tests 51.81s, environment 48.52s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 18:25:09Z)
+- [PASS] G4 axe dashboard (2026-07-19 18:25:09Z)
+- [PASS] G4 axe detections (2026-07-19 18:25:09Z)
+- [PASS] G4 axe analytics (2026-07-19 18:25:09Z)
+- [PASS] G4 axe registry (2026-07-19 18:25:09Z)
+- [PASS] G4 axe health (2026-07-19 18:25:09Z)
+- [PASS] G6 secrets scan clean (2026-07-19 18:25:09Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 18:25:09Z)
+
+## Gate run — 2026-07-19 18:30:20Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 18:30:20Z)
+- [PASS] G1 chunk 309.71KB<600KB (2026-07-19 18:30:20Z)
+- [PASS] G2 lint 0/0 (2026-07-19 18:30:20Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m24 passed[39m[22m[90m (25)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m169 passed[39m[22m[90m (170)[39m
+[2m   Start at [22m 15:30:21
+[2m   Duration [22m 123.34s[2m (transform 1.46s, setup 10.70s, import 3.41s, tests 53.11s, environment 48.16s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-19 18:30:20Z)
+- [PASS] G4 axe dashboard (2026-07-19 18:30:20Z)
+- [PASS] G4 axe detections (2026-07-19 18:30:20Z)
+- [PASS] G4 axe analytics (2026-07-19 18:30:20Z)
+- [PASS] G4 axe registry (2026-07-19 18:30:20Z)
+- [PASS] G4 axe health (2026-07-19 18:30:20Z)
+- [PASS] G6 secrets scan clean (2026-07-19 18:30:20Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 18:30:20Z)
