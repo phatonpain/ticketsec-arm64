@@ -56,3 +56,4 @@
   SSH   (22):  scoped to operator IP (My IP) — administrative access only
   HTTP  (8000): 0.0.0.0/0 during hackathon demo period
   Other ports (3000, 5173, etc.): closed unless explicitly in use
+2026-07-19T18:08:16Z | snapshot-refresh | OK: snapshot refreshed from http://3.23.60.61:8000/predict at 2026-07-19T18:08:14Z
