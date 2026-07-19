@@ -76,8 +76,8 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 | Per-class precision/recall/F1 | `[PENDING: model/eval_results.json]` | `model/eval_results.json` |
 | Latency p50/p95 on t4g.micro | `[PENDING: model/latency_t4g_micro.json]` | `model/latency_t4g_micro.json` |
 | Adversarial probe results | `[PENDING: model/probe_results.json]` | `model/probe_results.json` |
-| Main JS chunk size | < 600 KB | `TEST_RESULTS_v3.md` |
-| axe violations | 0 | `TEST_RESULTS_v3.md` |
+| Main JS chunk size | < 600 KB | `TEST_RESULTS_v4.md` |
+| axe violations | 0 | `TEST_RESULTS_v4.md` |
 
 ---
 
@@ -87,6 +87,6 @@ The distinguishing feature is the Honesty Contract: every surface shows one of t
 |---|---|---|---|
 | 0.22 MB INT8 model | `model/quantization.md` | `c6c873e5879e327e06d88ecab46ded049cf11f08c1919523952d1f3ae9f1a572` | 2026-07-17 |
 | t4g.micro cost (~$0.0042/hr) | AWS pricing (us-east-2 on-demand) | N/A | 2026-07-17 |
-| Build/lint/axe 0 violations | `TEST_RESULTS_v3.md` | `75555737574f1092507958f33b32b714270f8e3f9cf0f53a019ad1866f03b75b` | 2026-07-17 |
+| Build/lint/axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |
 | Model metrics | `model/eval_results.json` | `8bc522dae58e14517c9bfabab4810b6f9af1b4d29b322bc69f2528c1a0044347` | 2026-07-17T14:33:51Z |
 | Latency metrics | `model/latency_t4g_micro.json` | `addc0f2ffea8c04c3c7d9e69953b3694f7010b095233b364a339218ecd40c8df` | 2026-07-17T14:33:51Z |

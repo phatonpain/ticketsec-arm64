@@ -100,7 +100,7 @@ Every number spoken must trace to a committed artifact. PENDING values are annou
 > "The UI follows an enterprise SOC density bar: 40-pixel table rows, 16-pixel card padding, Inter and JetBrains Mono fonts, and a single token file. Accessibility is verified with axe — zero violations — and every interactive element has a visible focus ring and keyboard shortcut."
 
 **Cite:**
-- `TEST_RESULTS_v3.md` — build, lint, axe 0 violations.
+- `TEST_RESULTS_v4.md` — build, lint, axe 0 violations.
 - `src/styles/tokens.css` — design tokens.
 - `A11Y_REPORT.md` *(owned by a11y-specialist.md; PENDING if not yet committed)*.
 
@@ -138,5 +138,5 @@ Before recording:
 | 0.22 MB INT8 model | `model/quantization.md` | `c6c873e5879e327e06d88ecab46ded049cf11f08c1919523952d1f3ae9f1a572` | 2026-07-17 |
 | t4g.micro cost | AWS pricing | N/A | 2026-07-17 |
 | Latency p50/p95 | `model/latency_t4g_micro.json` | `addc0f2ffea8c04c3c7d9e69953b3694f7010b095233b364a339218ecd40c8df` | 2026-07-17T14:33:51Z |
-| axe 0 violations | `TEST_RESULTS_v3.md` | `75555737574f1092507958f33b32b714270f8e3f9cf0f53a019ad1866f03b75b` | 2026-07-17 |
+| axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |
 | Keyboard shortcuts / focus rings | `src/App.tsx` / `A11Y_REPORT.md` | `[PENDING: A11Y_REPORT.md]` | 2026-07-17 |

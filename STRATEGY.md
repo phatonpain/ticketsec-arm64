@@ -10,10 +10,10 @@
 
 | Devpost criterion | TicketSec strength (the story) | Evidence artifact (committed) | Backing agent files |
 |---|---|---|---|
-| **Innovation/Impact** | Honesty Contract as differentiator: truthful LIVE / amber `CACHED` / "Unavailable — API offline" states plus a real-only Event Log — honesty by design in a SOC tool. | Badge states verified in `TEST_RESULTS_v3.md`; `MODEL_CARD.md` accuracy caveat; demo runbook (this file) | tech-writer.md, qa-engineer.md, hackathon-strategist.md |
+| **Innovation/Impact** | Honesty Contract as differentiator: truthful LIVE / amber `CACHED` / "Unavailable — API offline" states plus a real-only Event Log — honesty by design in a SOC tool. | Badge states verified in `TEST_RESULTS_v4.md`; `MODEL_CARD.md` accuracy caveat; demo runbook (this file) | tech-writer.md, qa-engineer.md, hackathon-strategist.md |
 | **Technical Execution** | INT8-quantized ONNX classifier (~0.22 MB) served by FastAPI on an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM); React 19 + TypeScript + Vite frontend with lazy `echarts/core` chunks; singleton `useSyncExternalStore` stores. | `model/eval_results.json`, `model/latency_t4g_micro.json`, `model/probe_results.json`, `model/quantization.md`, `DEVOPS_RUNBOOK.md` | ml-engineer.md, backend-engineer.md, devops-sre.md |
-| **Design/UX** | Enterprise SOC density (Splunk ES / CrowdStrike Falcon / Datadog class): design tokens in `src/styles/tokens.css`, 40 px table rows, 16 px card padding, Inter + JetBrains Mono, tabular numerals, WCAG 2.2 AA. | `A11Y_REPORT.md` (to be delivered by a11y-specialist.md); `TEST_RESULTS_v3.md` axe-clean evidence | design-engineer.md, a11y-specialist.md, frontend-engineer.md |
-| **Completeness/Polish** | Working honest dashboard + live API path + cached degraded mode + full submission package (`README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `MODEL_CARD.md`, tests, runbook). | `TEST_RESULTS_v3.md`, `README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `DEVOPS_RUNBOOK.md` | qa-engineer.md, tech-writer.md, devops-sre.md |
+| **Design/UX** | Enterprise SOC density (Splunk ES / CrowdStrike Falcon / Datadog class): design tokens in `src/styles/tokens.css`, 40 px table rows, 16 px card padding, Inter + JetBrains Mono, tabular numerals, WCAG 2.2 AA. | `A11Y_REPORT.md` (to be delivered by a11y-specialist.md); `TEST_RESULTS_v4.md` axe-clean evidence | design-engineer.md, a11y-specialist.md, frontend-engineer.md |
+| **Completeness/Polish** | Working honest dashboard + live API path + cached degraded mode + full submission package (`README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `MODEL_CARD.md`, tests, runbook). | `TEST_RESULTS_v4.md`, `README.md`, `DEVPOST_SUBMISSION.md`, `DEMO_SCRIPT.md`, `DEVOPS_RUNBOOK.md` | qa-engineer.md, tech-writer.md, devops-sre.md |
 
 ## 2. Priority Backlog (P0 / P1 / P2)
 
@@ -44,7 +44,7 @@ Every item maps to at least one judging criterion. No orphan items.
 | `DEVPOST_SUBMISSION.md` | tech-writer.md | Banned-phrase check = 0; every number cited | 🔄 This mission |
 | `DEMO_SCRIPT.md` | tech-writer.md | 60–90 s shot list; Branch A + Branch B per scene | 🔄 This mission |
 | `STRATEGY.md` | hackathon-strategist.md | Criteria mapping, backlog, runbook, timeline | 🔄 This mission |
-| `TEST_RESULTS_*.md` | qa-engineer.md | Build/lint 0/0, axe 0 violations, live/cached/offline matrix | ✅ v3 committed |
+| `TEST_RESULTS_*.md` | qa-engineer.md | Build/lint 0/0, axe 0 violations, live/cached/offline matrix | ✅ v4 committed |
 | Demo video recorded | tech-writer.md + qa-engineer.md | Recorded against runbook Branch A or B, with honest status badge visible | ⏳ Blocked on API status or final UI polish |
 | Final Orchestrator sign-off | 01_ORCHESTRATOR.md | All gates above; Honesty Contract intact; no unmapped items | ⏳ Pending deliverables |
 
@@ -100,7 +100,7 @@ This arc is the spine of `DEMO_SCRIPT.md`:
 | 5–15 | Problem | Six categories (Phishing · Malware · Unauthorized Access · Data Breach · DDoS · False Positive) and the need for fast triage. | Same problem framing |
 | 15–45 | Core demo | Live classify one ticket via `/predict`; show `processing_time_ms`, LIVE badge, real Event Log entry. | Show amber `CACHED` badge and explain honest degraded mode; demonstrate that the UI never lies about data freshness. |
 | 45–60 | Why ARM64/INT8 | 0.22 MB INT8 model on a `t4g.micro` (~$0.004/hour on-demand) — cite `model/quantization.md` and `model/latency_t4g_micro.json`. | Same cost story, with values marked PENDING until API returns. |
-| 60–75 | Design/UX | Enterprise density, design tokens, keyboard shortcuts, `npx axe` = 0 — cite `A11Y_REPORT.md` / `TEST_RESULTS_v3.md`. | Same design evidence |
+| 60–75 | Design/UX | Enterprise density, design tokens, keyboard shortcuts, `npx axe` = 0 — cite `A11Y_REPORT.md` / `TEST_RESULTS_v4.md`. | Same design evidence |
 | 75–90 | CTA | "Vote for TicketSec Arm64 on Devpost." + URL. | Same CTA |
 
 ## 6. Conflict-Resolution Ladder Applied

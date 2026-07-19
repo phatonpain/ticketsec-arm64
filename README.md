@@ -1,8 +1,8 @@
 # TicketSec Arm64 — Security Operations Dashboard
 
-[![build](https://img.shields.io/badge/build-passing-10B981)](./TEST_RESULTS_v3.md)
-[![lint](https://img.shields.io/badge/lint-0%2F0-6366F1)](./TEST_RESULTS_v3.md)
-[![axe](https://img.shields.io/badge/axe-0%20violations-06B6D4)](./TEST_RESULTS_v3.md)
+[![build](https://img.shields.io/badge/build-passing-10B981)](./TEST_RESULTS_v4.md)
+[![lint](https://img.shields.io/badge/lint-0%2F0-6366F1)](./TEST_RESULTS_v4.md)
+[![axe](https://img.shields.io/badge/axe-0%20violations-06B6D4)](./TEST_RESULTS_v4.md)
 [![api](https://img.shields.io/badge/API-offline%20(PENDING)-F43F5E)](http://3.23.60.61:8000/health)
 
 A security-operations dashboard that classifies IT/security tickets with a small ONNX Runtime model served by FastAPI on an AWS Graviton `t4g.micro`. Built for a Devpost hackathon by a solo developer transitioning from IT analysis to cybersecurity.
@@ -211,7 +211,7 @@ ticketsec-arm64-dashboard/
 ├── DEVOPS_RUNBOOK.md           # Graviton operations runbook
 ├── MODEL_CARD.md               # Model card
 ├── STRATEGY.md                 # Hackathon strategy and demo-day runbook
-├── TEST_RESULTS_v3.md          # QA verification evidence
+├── TEST_RESULTS_v4.md          # QA verification evidence
 └── README.md                   # This file
 ```
 
@@ -219,10 +219,10 @@ ticketsec-arm64-dashboard/
 
 ## Quality bars
 
-- `npm run build` — passing ([`TEST_RESULTS_v3.md`](./TEST_RESULTS_v3.md)).
-- `npm run lint` — 0 warnings, 0 errors ([`TEST_RESULTS_v3.md`](./TEST_RESULTS_v3.md)).
-- `npx axe http://localhost:5173` — 0 violations ([`TEST_RESULTS_v3.md`](./TEST_RESULTS_v3.md)).
-- Main JS chunk < 600 KB ([`TEST_RESULTS_v3.md`](./TEST_RESULTS_v3.md)).
+- `npm run build` — passing ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+- `npm run lint` — 0 warnings, 0 errors ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+- `npx axe http://localhost:5173` — 0 violations ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+- Main JS chunk < 600 KB ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
 
 ---
 
@@ -231,7 +231,7 @@ ticketsec-arm64-dashboard/
 - [Model Card](./MODEL_CARD.md)
 - [DevOps Runbook](./DEVOPS_RUNBOOK.md)
 - [Hackathon Strategy & Demo Runbook](./STRATEGY.md)
-- [QA Test Results](./TEST_RESULTS_v3.md)
+- [QA Test Results](./TEST_RESULTS_v4.md)
 - [Performance Budget](./PERF_BUDGET.md) *(owned by performance-engineer.md)*
 - [Accessibility Report](./A11Y_REPORT.md) *(owned by a11y-specialist.md)*
 - [Security Review](./SECURITY_REVIEW.md) *(owned by security-engineer.md)*
@@ -244,7 +244,7 @@ ticketsec-arm64-dashboard/
 
 | Claim | Artifact | SHA-256 | Date |
 |---|---|---|---|
-| Build/lint/axe 0 violations | `TEST_RESULTS_v3.md` | `75555737574f1092507958f33b32b714270f8e3f9cf0f53a019ad1866f03b75b` | 2026-07-17 |
+| Build/lint/axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |
 | Model accuracy / P/R/F1 | `model/eval_results.json` | `e50792484983362d9587851dce1ef8a2c5b4ad67d91a0a5e158c0f6d6680fe68` | 2026-07-18T05:24:08Z |
 | Confusion matrix | `model/confusion_matrix.json` | `1ff9ef6eed879e4a44d2806d8d56ba68cf86fb50de4b788899f47f488dd4d39b` | 2026-07-18T05:24:08Z |
 | Probe results | `model/probe_results.json` | `bca444408934c75178354264d576928203df491baabb2bc29166213ed2ef8f0d` | 2026-07-18T05:24:59Z |
