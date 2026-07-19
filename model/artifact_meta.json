@@ -1,0 +1,9 @@
+{
+  "status": "COMPLETE",
+  "generated_at": "2026-07-19T06:52:40.745850+00:00",
+  "artifact_path": "model/artifact.onnx",
+  "artifact_sha256": "9c8da3f9866e58bdec2f6b66ce9ea00d8bdacab95a0bf3b32d00c30f143d716b",
+  "size_bytes": 401770,
+  "size_mb": 0.38,
+  "memory_max_mb": 700
+}
