@@ -7,6 +7,7 @@ __pycache__/
 screenshots/p1/
 scripts/screenshot_p1.py
 scripts/screenshot_p1_selenium.mjs
+scripts/test_write.txt
 *.log
 .vitest_*.log
 working_tree.diff
