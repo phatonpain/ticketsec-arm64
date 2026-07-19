@@ -32,7 +32,7 @@ import { SettingsDrawer } from './components/SettingsDrawer';
 import { useCommandPalette, openCommandPalette } from './hooks/useCommandPalette';
 const CommandPalette = React.lazy(() => import('./components/CommandPalette').then(m => ({ default: m.CommandPalette })));
 import { Footer } from './components/Footer';
-import { useEventLog } from './hooks/useEventLog';
+import { useEventLogActions } from './hooks/useEventLog';
 import { useTickets, loadTicketSnapshot, type Ticket } from './hooks/useTickets';
 import { useApi, type PredictionResult, type Classification } from './hooks/useApi';
 import { useSettingsDrawer, closeSettingsDrawer } from './hooks/useSettingsDrawer';
@@ -71,7 +71,7 @@ function isTypingTarget(target: EventTarget | null): boolean {
 
 export const App: React.FC = () => {
   const { lastSync, getClassifications, checkHealth } = useApi();
-  const { addInfo, addError } = useEventLog(50);
+  const { addInfo, addError } = useEventLogActions();
   const { seed, add } = useTickets();
   const settingsOpen = useSettingsDrawer();
   const { open: paletteOpen } = useCommandPalette();

@@ -153,6 +153,24 @@ function getUnreadCount(): number {
   return state.logs.filter(entry => entry.timestamp.getTime() > state.lastRead).length;
 }
 
+/**
+ * Writer-only hook for components that need to append log entries but must NOT
+ * re-render when the log changes (e.g. the root <App>). Uses the same module-
+ * level addLogEntry as useEventLog without subscribing to the store.
+ */
+export function useEventLogActions() {
+  const addLog = useCallback((level: LogLevel, message: string) => {
+    addLogEntry(level, message);
+  }, []);
+
+  const addInfo = useCallback((message: string) => addLog('INFO', message), [addLog]);
+  const addWarn = useCallback((message: string) => addLog('WARN', message), [addLog]);
+  const addError = useCallback((message: string) => addLog('ERROR', message), [addLog]);
+  const addDebug = useCallback((message: string) => addLog('DEBUG', message), [addLog]);
+
+  return { addLog, addInfo, addWarn, addError, addDebug };
+}
+
 export function useEventLog(maxEntries = MAX_ENTRIES) {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot);
   const bottomRef = useRef<HTMLDivElement>(null);

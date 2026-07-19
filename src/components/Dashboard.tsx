@@ -14,6 +14,7 @@ const SeverityMixDonut = React.lazy(() => import('./SeverityMixDonut').then(m =>
 import { ModelPerformancePanel } from './ModelPerformancePanel';
 import { useApi } from '../hooks/useApi';
 import { useTickets } from '../hooks/useTickets';
+import { ErrorBoundary } from './ErrorBoundary';
 
 const ModelHealthDonut = React.lazy(() => import('./ModelHealthDonut').then(m => ({ default: m.ModelHealthDonut })));
 
@@ -29,7 +30,7 @@ export const Dashboard: React.FC = () => {
         : 'cache';
 
   return (
-    <>
+    <ErrorBoundary title="Dashboard">
       {/* Analytics row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 'var(--density-card-gap)' }}>
         <Suspense fallback={<ChartSkeleton height={240} />}>
@@ -46,6 +47,6 @@ export const Dashboard: React.FC = () => {
 
       {/* Hero table */}
       <ClassificationTable />
-    </>
+    </ErrorBoundary>
   );
 };

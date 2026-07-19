@@ -10,6 +10,7 @@ import { ChartSkeleton } from './ChartSkeleton';
 const TimelineChart = React.lazy(() => import('./TimelineChart').then(m => ({ default: m.TimelineChart })));
 import { CategoryCountBlocks } from './CategoryCountBlocks';
 import { HealthStatRow } from './HealthStatRow';
+import { ErrorBoundary } from './ErrorBoundary';
 import { useTicketQuery } from '../hooks/useTicketQuery';
 import { useTickets } from '../hooks/useTickets';
 import type { PredictionResult } from '../hooks/useApi';
@@ -28,7 +29,8 @@ interface PredictionsViewProps {
 export const DetectionsView: React.FC = () => {
   const { query, setQuery, clear } = useTicketQuery();
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
+    <ErrorBoundary title="Detections">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
       <div
         style={{
           display: 'flex',
@@ -75,44 +77,53 @@ export const DetectionsView: React.FC = () => {
       </div>
       <ClassificationTable />
     </div>
+    </ErrorBoundary>
   );
 };
 
 export const PredictionsView: React.FC<PredictionsViewProps> = ({ onClassify, onError, onSubmit }) => (
-  <div style={{ maxWidth: 720, margin: '0 auto', width: '100%' }}>
-    <LivePrediction onClassify={onClassify} onError={onError} onSubmit={onSubmit} />
-  </div>
+  <ErrorBoundary title="Live Predictions">
+    <div style={{ maxWidth: 720, margin: '0 auto', width: '100%' }}>
+      <LivePrediction onClassify={onClassify} onError={onError} onSubmit={onSubmit} />
+    </div>
+  </ErrorBoundary>
 );
 
 export const ThreatAnalyticsView: React.FC = () => {
   const { tickets } = useTickets();
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
-      <Suspense fallback={<ChartSkeleton height={260} />}>
-        <TimelineChart tickets={tickets} />
-      </Suspense>
-      <CategoryCountBlocks tickets={tickets} />
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 7fr) minmax(0, 5fr)', gap: 'var(--density-card-gap)' }}>
-        <Suspense fallback={<ChartSkeleton height={320} />}>
-          <ThreatBarChart />
+    <ErrorBoundary title="Threat Analytics">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
+        <Suspense fallback={<ChartSkeleton height={260} />}>
+          <TimelineChart tickets={tickets} />
         </Suspense>
-        <Suspense fallback={<ChartSkeleton height={280} />}>
-          <PerformanceLineChart />
-        </Suspense>
+        <CategoryCountBlocks tickets={tickets} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 7fr) minmax(0, 5fr)', gap: 'var(--density-card-gap)' }}>
+          <Suspense fallback={<ChartSkeleton height={320} />}>
+            <ThreatBarChart />
+          </Suspense>
+          <Suspense fallback={<ChartSkeleton height={280} />}>
+            <PerformanceLineChart />
+          </Suspense>
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 
 export const ModelRegistryView: React.FC = () => (
-  <Suspense fallback={<ChartSkeleton height={480} />}>
-    <ModelRegistry />
-  </Suspense>
+  <ErrorBoundary title="Model Registry">
+    <Suspense fallback={<ChartSkeleton height={480} />}>
+      <ModelRegistry />
+    </Suspense>
+  </ErrorBoundary>
 );
 
 export const SystemHealthView: React.FC = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
-    <HealthStatRow />
-    <SystemMonitor />
-  </div>
+  <ErrorBoundary title="System Health">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
+      <HealthStatRow />
+      <SystemMonitor />
+    </div>
+  </ErrorBoundary>
 );
