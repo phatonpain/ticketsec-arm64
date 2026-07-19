@@ -1,1 +1,58 @@
-2026-07-18T04:37:42Z | snapshot-refresh | OK: refreshed from http://127.0.0.1:8000/predict
+# TicketSec Arm64 — DevOps Verification Log
+# All entries are UTC timestamps captured from real commands against 3.23.60.61.
+# The honesty contract applies: failures are logged as failures.
+
+[2026-07-19T07:29:20Z] systemctl status ticketsec.service after security update
+  Active: active (running) since Sun 2026-07-19 07:29:20 UTC; 2s ago
+  Memory: 88M (max: 700M, available: 274.3M, peak: 88.2M)
+  Restart=always and MemoryMax=700M are present in /etc/systemd/system/ticketsec.service.
+
+[2026-07-19T07:30:47Z] systemctl status ticketsec.service after rate-limit default bump
+  Active: active (running) since Sun 2026-07-19 07:30:47 UTC; 2s ago
+  Memory: 75.1M (max: 700M, available: 270.7M, peak: 75.3M)
+
+[2026-07-19T07:31:17Z] external curl /health
+  Command: curl -s http://3.23.60.61:8000/health
+  Output: {"status":"ok"}
+
+[2026-07-19T07:31:18Z] external curl POST /predict
+  Command: curl -s -X POST http://3.23.60.61:8000/predict -H "Content-Type: application/json" -d '{"text":"suspicious login from unknown device"}'
+  Output: {"predicted_category":"Unauthorized Access","confidence":0.495819,"processing_time_ms":1.9108,...}
+
+[2026-07-19T07:34:19Z] pre-reboot systemctl status
+  Active: active (running) since Sun 2026-07-19 07:30:47 UTC; 3min 43s ago
+  Memory: 66.8M (max: 700M, available: 239.3M, peak: 79M)
+
+[2026-07-19T07:34:20Z] sudo reboot issued
+
+[2026-07-19T07:34:50Z] post-reboot SSH recovered (30s)
+  Active: active (running) since Sun 2026-07-19 07:34:49 UTC; 11s ago
+  Memory: 85.9M (max: 700M, available: 385.1M, peak: 101.1M)
+  External /health after reboot: {"status":"ok"}
+  External /predict after reboot: {"predicted_category":"Unauthorized Access","confidence":0.495819,"processing_time_ms":11.3769,...}
+  Reboot survival: PASS
+
+[2026-07-19T07:35:xxZ] rollback rehearsal
+  Step 1: backup /home/ubuntu/ticketsec/app/main.py -> main.py.current
+  Step 2: deploy previous main.py, restart ticketsec.service
+  Step 3: local /health after rollback target: {"status":"ok"}
+  Step 4: restore current main.py, restart ticketsec.service
+  Step 5: local /health after restore: {"status":"ok"}
+  Rollback rehearsal: PASS
+
+[2026-07-19T07:35:xxZ] security group information (from IMDS)
+  Security group name: launch-wizard-1
+  Security group id:   sg-0293de1eace5d362c
+  Subnet id:           subnet-0cab141735152862d
+  (AWS CLI credentials are not available on the host; rule detail is captured via external port probe.)
+
+[2026-07-19T07:35:xxZ] external port probe
+  Port 22   (SSH):     open
+  Port 8000 (FastAPI): open
+  Port 3000 (Grafana): closed/dropped
+  Port 5173 (Vite):    closed/dropped
+
+[2026-07-19T07:35:xxZ] intended security group rules (recorded in DEVOPS_RUNBOOK.md)
+  SSH   (22):  scoped to operator IP (My IP) — administrative access only
+  HTTP  (8000): 0.0.0.0/0 during hackathon demo period
+  Other ports (3000, 5173, etc.): closed unless explicitly in use

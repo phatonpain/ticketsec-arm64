@@ -7,7 +7,7 @@ set -euo pipefail
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_FILE="${APP_DIR}/ops/logs/verification.log"
-BACKEND_DIR="/opt/ticketsec/backend"
+BACKEND_DIR="/home/ubuntu/ticketsec"
 SERVICE="ticketsec.service"
 
 ts() { date -u +"%Y-%m-%dT%H:%M:%SZ"; }

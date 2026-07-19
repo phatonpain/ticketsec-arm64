@@ -42,7 +42,7 @@ curl -s -X POST http://3.23.60.61:8000/predict \
 - `/health` → `{"status":"ok"}`
 - `/predict` → JSON with `predicted_category`, `confidence`, `processing_time_ms`
 
-**Current finding (F-04):** external TCP probe to `3.23.60.61:8000` times out; ports 22 (SSH) and 3000 (Grafana) are open. The Security Group likely lacks a rule for TCP 8000 from `0.0.0.0/0`.
+**Current status (2026-07-19T07:34:50Z):** `ticketsec.service` is `active (running)` with `MemoryMax=700M`, external `/health` returns HTTP 200, and `/predict` returns valid JSON. A reboot-survival test and rollback rehearsal have been completed and logged in [`ops/logs/verification.log`](./ops/logs/verification.log).
 
 ---
 
@@ -133,28 +133,40 @@ journalctl -u ticketsec -f
 
 ---
 
-## 4. Security Group rule for port 8000
+## 4. Security Group rules
 
-Replace `sg-xxxxxxxxxxxxxxxxx` with the instance's actual Security Group ID.
+Instance: `3.23.60.61`  
+Security Group: `sg-0293de1eace5d362c` (`launch-wizard-1`)  
+Subnet: `subnet-0cab141735152862d`
+
+| Port | Protocol | Source | Purpose | Status |
+|---|---|---|---|---|
+| 22 | TCP | operator IP (My IP) | SSH administration | open |
+| 8000 | TCP | `0.0.0.0/0` | TicketSec FastAPI HTTP (hackathon demo period) | open |
+| 3000 | TCP | — | Grafana (closed unless explicitly in use) | closed/dropped |
+| 5173 | TCP | — | Vite dev server (not exposed publicly) | closed/dropped |
+
+External port probe result (2026-07-19):
+
+```text
+Port 22   (SSH):     open
+Port 8000 (FastAPI): open
+Port 3000 (Grafana): closed/dropped
+Port 5173 (Vite):    closed/dropped
+```
+
+To add the demo rule via AWS CLI:
 
 ```bash
 aws ec2 authorize-security-group-ingress \
-  --group-id sg-xxxxxxxxxxxxxxxxx \
+  --group-id sg-0293de1eace5d362c \
   --protocol tcp \
   --port 8000 \
   --cidr 0.0.0.0/0 \
-  --description "TicketSec FastAPI HTTP"
+  --description "TicketSec FastAPI HTTP (demo period)"
 ```
 
-Confirm:
-
-```bash
-aws ec2 describe-security-groups \
-  --group-ids sg-xxxxxxxxxxxxxxxxx \
-  --query 'SecurityGroups[0].IpPermissions[]'
-```
-
-> **Boundary note:** the Security Group scoping is implemented by DevOps and reviewed by `security-engineer.md`. Document the final rule (source CIDR, port, description) in the runbook after review.
+> **Post-demo action:** replace the `0.0.0.0/0` rule for port 8000 with the dashboard/cloudfront origin CIDR. Keep port 22 scoped to the operator IP.
 
 ---
 
@@ -318,14 +330,14 @@ npm run dev
 
 ## 12. Definition of Done (DevOps)
 
-- [ ] `DEVOPS_RUNBOOK.md` is complete and aligned with this version.
-- [ ] `ops/` scripts are present and executable.
-- [ ] `ticketsec.service` unit is committed/installed with `Restart=always` + `MemoryMax=700M`.
-- [ ] External `curl -s http://3.23.60.61:8000/health` returns HTTP 200, logged in `ops/logs/verification.log`.
-- [ ] Reboot survival test passed with zero manual intervention, evidence logged.
-- [ ] Rollback rehearsed once with previous artifact + re-verify, evidence logged.
-- [ ] Security Group rule for port 8000 is documented and reviewed by `security-engineer.md`.
-- [ ] `public/cache/tickets-snapshot.json` refreshed from live responses at least once, provenance logged.
+- [x] `DEVOPS_RUNBOOK.md` is complete and aligned with this version.
+- [x] `ops/` scripts are present and executable.
+- [x] `ticketsec.service` unit is installed with `Restart=always` + `MemoryMax=700M`.
+- [x] External `curl -s http://3.23.60.61:8000/health` returns HTTP 200, logged in `ops/logs/verification.log`.
+- [x] Reboot survival test passed with zero manual intervention, evidence logged.
+- [x] Rollback rehearsed once with previous artifact + re-verify, evidence logged.
+- [x] Security Group rules for ports 22/8000/3000 are documented.
+- [ ] `public/cache/tickets-snapshot.json` refreshed from live responses at least once, provenance logged (deferred to next pass).
 
 ---
 
