@@ -327,7 +327,7 @@ const ConfusionMatrixSection: React.FC = () => {
         bottom: 0,
         show: false,
         inRange: {
-          color: [chartColors.cardBg, chartColors.indigoStrongHover, chartColors.onnx, chartColors.accentStrong],
+          color: [chartColors.donutTrack, chartColors.indigoStrongHover, chartColors.onnx, chartColors.int8],
         },
       },
       series: [
@@ -342,7 +342,7 @@ const ConfusionMatrixSection: React.FC = () => {
             formatter: (p: { value: [number, number, number] }) => String(p.value[2]),
           },
           itemStyle: {
-            borderColor: chartColors.cardBg,
+            borderColor: chartColors.axisLine,
             borderWidth: 1,
             borderRadius: 2,
           },

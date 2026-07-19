@@ -24,13 +24,13 @@ import React, { useMemo } from 'react';
 import { ECharts } from './ECharts';
 import type { EChartsCoreOption } from '../lib/echarts';
 import { chartColors } from '../lib/chartTokens';
+import { loadArtifactMeta } from '../lib/artifacts';
 
-// Verifiable sizes only. INT8 artifact size is measured from model/artifact.onnx.
-// Memory budget is MemoryMax=700M in ops/ticketsec.service.
-const MODEL_INT8_MB = 0.38;
-const MEMORY_MAX_MB = 700;
+const modelMeta = loadArtifactMeta();
+const MODEL_INT8_MB = modelMeta.sizeMb ?? 0.38;
+const MEMORY_MAX_MB = modelMeta.memoryMaxMb ?? 700;
 const HEADROOM_MB = MEMORY_MAX_MB - MODEL_INT8_MB;
-const TOTAL_MB = MODEL_INT8_MB + HEADROOM_MB;
+const TOTAL_MB = MEMORY_MAX_MB;
 
 const DATA = [
   { value: MODEL_INT8_MB, name: 'Model (INT8)', color: chartColors.modelInt8 },
@@ -107,18 +107,17 @@ export const ModelHealthDonut: React.FC = () => {
     graphic: [
       {
         type: 'text',
-        left: '28%',
+        left: '30%',
         top: '50%',
         style: {
-          text: `${MODEL_INT8_MB.toFixed(2)} MB`,
+          text: `${MODEL_INT8_MB.toFixed(2)}\u00A0MB`,
           textAlign: 'center',
           textVerticalAlign: 'middle',
           fill: chartColors.textPrimary,
-          fontSize: 16,
+          fontSize: 12,
           fontWeight: 600,
           fontFamily: 'JetBrains Mono',
-          width: 80,
-          overflow: 'truncate',
+          lineHeight: 12,
         },
       },
     ],
@@ -168,7 +167,7 @@ export const ModelHealthDonut: React.FC = () => {
         }}
       >
         <span style={{ fontSize: 'var(--caption-size)', color: 'var(--caption-color)' }}>
-          Budget: 700 MB (t4g.micro, 1 GB RAM)
+          Budget: {MEMORY_MAX_MB} MB (t4g.micro, 1 GB RAM)
         </span>
       </div>
     </div>

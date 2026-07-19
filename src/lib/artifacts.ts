@@ -212,6 +212,10 @@ function extractQuantizationInfo(md: string): QuantizationInfo {
   return { sizeText, baselineAccuracy, int8Accuracy, delta };
 }
 
+export function loadArtifactMeta(): ModelMetaArtifact {
+  return modelMetaArtifact();
+}
+
 export const artifacts = {
   eval: evalArtifact(),
   confusion: confusionArtifact(),

@@ -119,7 +119,8 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
           <EmptyState
             icon={Activity}
             title="Collecting live detections"
-            description="Submit a ticket to populate this timeline."
+            description={`${tickets.length} detection${tickets.length === 1 ? '' : 's'} so far. Submit a ticket to populate this timeline.`}
+            nextStep="Open the command palette (Ctrl+K) and choose Classify ticket."
             minHeight={180}
           />
         )}

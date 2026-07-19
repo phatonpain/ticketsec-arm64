@@ -19,13 +19,14 @@
  */
 
 import { init, use as registerEchartsModules, type EChartsCoreOption, type EChartsType } from 'echarts/core';
-import { BarChart, LineChart, PieChart } from 'echarts/charts';
+import { BarChart, LineChart, PieChart, HeatmapChart } from 'echarts/charts';
 import {
   TooltipComponent,
   LegendComponent,
   GridComponent,
   GraphicComponent,
   TitleComponent,
+  VisualMapComponent,
 } from 'echarts/components';
 import { LegacyGridContainLabel } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -34,11 +35,13 @@ registerEchartsModules([
   BarChart,
   LineChart,
   PieChart,
+  HeatmapChart,
   TooltipComponent,
   LegendComponent,
   GridComponent,
   GraphicComponent,
   TitleComponent,
+  VisualMapComponent,
   LegacyGridContainLabel, // FIX-07: honors grid.containLabel on ECharts 6
   CanvasRenderer,
 ]);

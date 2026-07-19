@@ -19,12 +19,9 @@ import {
   enableActEnvironment,
   installFetchMock,
   networkError,
-  type FetchMock,
 } from './testUtils';
 
 enableActEnvironment();
-
-let fetchMock: FetchMock;
 
 const FABRICATION_PATTERNS = [
   /API reachable/i,
@@ -42,7 +39,7 @@ function fabricatedEntries(logs: Array<{ level: string; message: string }>) {
 beforeEach(() => {
   vi.resetModules();
   localStorage.clear();
-  fetchMock = installFetchMock(() => networkError());
+  installFetchMock(() => networkError());
 });
 
 afterEach(() => {
