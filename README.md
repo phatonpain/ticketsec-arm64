@@ -4,6 +4,7 @@
 [![lint](https://img.shields.io/badge/lint-0%2F0-6366F1)](./TEST_RESULTS_v4.md)
 [![axe](https://img.shields.io/badge/axe-0%20violations-06B6D4)](./TEST_RESULTS_v4.md)
 [![api](https://img.shields.io/badge/API-online-10B981)](http://3.23.60.61:8000/health)
+[![license](https://img.shields.io/badge/license-MIT-8B5CF6)](./LICENSE)
 
 A security-operations dashboard that classifies IT/security tickets with a small ONNX Runtime model served by FastAPI on an AWS Graviton `t4g.micro`. Built for a Devpost hackathon by a solo developer transitioning from IT analysis to cybersecurity.
 
@@ -141,11 +142,11 @@ The canonical classification call is:
 
 ```bash
 curl -s -X POST http://3.23.60.61:8000/predict \
-  -H 'Content-Type: application/json' \
+  -H "Content-Type: application/json" \
   -d '{"text":"suspicious login from unknown device"}'
 ```
 
-As of the latest check, the host returned a network error, so the dashboard is currently in `cached`/`offline` mode. The runbook in [`DEVOPS_RUNBOOK.md`](./DEVOPS_RUNBOOK.md) covers restore steps.
+As of 2026-07-19, the Graviton host is reachable and the dashboard shows a green `LIVE` badge. If it goes down, the dashboard falls back to the committed cached snapshot and shows `CACHED` / `API OFFLINE` — never fabricated live data.
 
 ---
 
@@ -161,8 +162,9 @@ Model evaluation follows the methodology in [`model/train.py`](./model/train.py)
 | Per-class precision/recall/F1 | See `model/eval_results.json` | [`model/eval_results.json`](./model/eval_results.json) |
 | Confusion matrix | See `model/confusion_matrix.json` | [`model/confusion_matrix.json`](./model/confusion_matrix.json) |
 | Adversarial probe results | 14 probes, 0 mismatches | [`model/probe_results.json`](./model/probe_results.json) |
-| Latency p50/p95 on t4g.micro | 0.230 ms / 0.310 ms | [`model/latency_t4g_micro.json`](./model/latency_t4g_micro.json) |
-| INT8 size / accuracy delta | ~0.38 MB / +0.16 pp | [`model/quantization.md`](./model/quantization.md) |
+| Latency p50/p95 on t4g.micro | 0.224 ms / 0.296 ms | [`model/latency_t4g_micro.json`](./model/latency_t4g_micro.json) |
+| INT8 size / accuracy delta | 0.38 MB / +0.16 pp | [`model/quantization.md`](./model/quantization.md) |
+| Calibration (ECE / assessment) | 0.3946 / under-confident | [`model/calibration.json`](./model/calibration.json) |
 
 The approved accuracy wording is:
 
@@ -178,11 +180,11 @@ Screenshots are stored in [`./screenshots/`](./screenshots/).
 
 | File | Caption |
 |---|---|
-| `screenshots/final-overview.png` | Full dashboard overview with KPI cards, threat bar, model-health donut, performance line, ticket table, Event Log, and Live Prediction panel. |
-| `screenshots/final-top.png` | Top of the dashboard: header, KPI row, and threat-category bar chart. |
-| `screenshots/current-full.png` | Earlier full-layout reference captured during the redesign sprint. |
+| `screenshots/dashboard-live.png` | Dashboard overview with green `LIVE` badge, KPI cards, threat distribution, model-health donut, and classification table. |
+| `screenshots/model-registry-live.png` | Model Registry view showing eval results, per-class metrics, and artifact metadata. |
+| `screenshots/detections-live.png` | Detections view with the cached snapshot table, filters, and `CACHED` badge. |
 
-> Placeholder note: replace or extend these screenshots after the final UI polish and after the API is live.
+All screenshots were captured on 2026-07-19 against the live Graviton backend.
 
 ---
 
@@ -244,12 +246,12 @@ ticketsec-arm64-dashboard/
 
 | Claim | Artifact | SHA-256 | Date |
 |---|---|---|---|
-| Build/lint/axe 0 violations | `TEST_RESULTS_v4.md` | `43cf2f4c9c83eadda72046f979cc56fea2ba6a98af87e4ec7d4f8eaa9bded187` | 2026-07-19 |
-| Model accuracy / P/R/F1 | `model/eval_results.json` | `e50792484983362d9587851dce1ef8a2c5b4ad67d91a0a5e158c0f6d6680fe68` | 2026-07-18T05:24:08Z |
-| Confusion matrix | `model/confusion_matrix.json` | `1ff9ef6eed879e4a44d2806d8d56ba68cf86fb50de4b788899f47f488dd4d39b` | 2026-07-18T05:24:08Z |
-| Probe results | `model/probe_results.json` | `bca444408934c75178354264d576928203df491baabb2bc29166213ed2ef8f0d` | 2026-07-18T05:24:59Z |
-| Latency p50/p95 | `model/latency_t4g_micro.json` | `12af06413242e25dab5cf1f237176724b63b943f5d238e7ef11570e8c1635c02` | 2026-07-18T05:25:17Z |
-| INT8 quantization notes | `model/quantization.md` | `70538123a0df1032cf7dc0a321e77e88064398894b2c6aac95ddd3656f790be2` | 2026-07-18 |
-| Accuracy wording rule | `MODEL_CARD.md` | `45c15d2546c4f7a2099c7d0e1fc8c3087eab36926f9eb7906c52ead956d6f0f6` | 2026-07-18 |
+| Build/lint/axe 0 violations | `TEST_RESULTS_v4.md` | `545d5b64aeccb0e8828f3963f8e986a755c8191642a3efc72e12e46506501c06` | 2026-07-19 |
+| Model accuracy / P/R/F1 | `model/eval_results.json` | `74adeac8c07735303dfe77beb39a3a1a2b5218c05f5e5f5dc23246e9d6fb4002` | 2026-07-19 |
+| Confusion matrix | `model/confusion_matrix.json` | `7b437d7d472dc9d856e17963fec34997fcf150e348d69ccc461cadd5a5c45517` | 2026-07-19 |
+| Probe results | `model/probe_results.json` | `833975a34e0730e79eff11453a2c925bf1158d80d84f953840916338fff75380` | 2026-07-19 |
+| Latency p50/p95 | `model/latency_t4g_micro.json` | `bcf9439154bb97225380da106d2662c247857726ac2500b49c5a33244098c096` | 2026-07-19 |
+| INT8 quantization notes | `model/quantization.md` | `d9425f3122adba02183189b39b3ab1d5f75bf04e9caf43aa158cd78570579d2d` | 2026-07-19 |
+| Accuracy wording rule | `MODEL_CARD.md` | `45c15d2546c4f7a2099c7d0e1fc8c3087eab36926f9eb7906c52ead956d6f0f6` | 2026-07-19 |
 
-*Note: SHA-256 for Markdown files is marked PENDING because it should be computed on the final committed version; the JSON artifact hashes above are the current file hashes.*
+*SHA-256 values above are computed on the committed files.*
