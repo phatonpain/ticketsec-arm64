@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
+import { Activity } from 'lucide-react';
 import { ECharts } from './ECharts';
 import type { EChartsCoreOption } from '../lib/echarts';
 import { chartColors } from '../lib/chartTokens';
+import { EmptyState } from './EmptyState';
 import type { Ticket } from '../hooks/useTickets';
 
 interface TimelineTooltipParam {
@@ -19,7 +21,7 @@ function formatDateLabel(iso: string): string {
 }
 
 export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
-  const { categories, values } = useMemo(() => {
+  const { categories, values, hasData } = useMemo(() => {
     const counts = new Map<string, number>();
     for (const ticket of tickets) {
       const iso = ticket.createdAt.toISOString().slice(0, 10);
@@ -29,6 +31,7 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
     return {
       categories: sorted.map(([iso]) => formatDateLabel(iso)),
       values: sorted.map(([, count]) => count),
+      hasData: sorted.length > 0,
     };
   }, [tickets]);
 
@@ -110,7 +113,16 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
         </div>
       </div>
       <div style={{ padding: '0 var(--density-card-pad) var(--density-card-pad)', flex: 1, position: 'relative' }}>
-        <ECharts option={option} style={{ width: '100%', height: '260px' }} />
+        {hasData ? (
+          <ECharts option={option} style={{ width: '100%', height: '260px' }} />
+        ) : (
+          <EmptyState
+            icon={Activity}
+            title="Collecting live detections"
+            description="Submit a ticket to populate this timeline."
+            minHeight={180}
+          />
+        )}
       </div>
     </div>
   );
