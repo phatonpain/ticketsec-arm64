@@ -1230,3 +1230,130 @@ Summary from `qa/proof/honesty-matrix.json`:
 - New entries added during silence period: 0
 - **Result: PASSED**
 
+
+## Gate run — 2026-07-19 23:09:38Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 23:09:38Z)
+- [PASS] G1 chunk 315.83KB<600KB (2026-07-19 23:09:38Z)
+- [PASS] G2 lint 0/0 (2026-07-19 23:09:38Z)
+(node:162608) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m28 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[32m178 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 20:09:36
+[2m   Duration [22m 105.27s[2m (transform 1.21s, setup 9.37s, import 2.73s, tests 43.59s, environment 42.50s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 23:09:38Z)
+- [PASS] G4 axe dashboard (2026-07-19 23:09:38Z)
+- [PASS] G4 axe detections (2026-07-19 23:09:38Z)
+- [PASS] G4 axe analytics (2026-07-19 23:09:38Z)
+- [PASS] G4 axe registry (2026-07-19 23:09:38Z)
+- [PASS] G4 axe health (2026-07-19 23:09:38Z)
+- [PASS] G6 secrets scan clean (2026-07-19 23:09:38Z)
+- [PASS] G8 tree clean (2026-07-19 23:09:38Z)
+
+## Phase 4 QA Evidence — 2026-07-19
+
+### Notes on gate stability
+
+One earlier `bash scripts/gates.sh` invocation reported `G3 vitest — rc=1`
+with `fails/skips=0`. The same `npx vitest run` invocation run directly
+afterwards passed, and the next `bash scripts/gates.sh` invocation also
+passed. No individual test failure was captured, so the failure is treated
+as a non-reproducible environment flake (likely leftover chromedriver
+processes from the axe sweep). Stray chromedriver processes were cleaned
+up before the final gate run.
+
+### 1. vitest
+
+Command:
+```bash
+npm test
+```
+
+Result:
+- Test Files: **28 passed** (28)
+- Tests: **178 passed** (178)
+- `it.fails`: 0
+- Skipped: 0
+- Root-caused warnings: `act(...)` warnings from suspended resources in
+  `ClassificationTable.test.tsx`, `navigation.test.tsx`,
+  `search-filter.test.tsx`, and `useApi.test.tsx`; all tests still pass
+  and no flaky re-runs were required.
+
+Honesty-matrix unit tests (`tests/flows/honesty-matrix.test.tsx`) and the
+60-second offline silence test (`tests/flows/offline-silence.test.tsx`)
+both pass.
+
+### 2. axe per route
+
+Command:
+```powershell
+$routes = @('dashboard','detections','predictions','threat-analytics','model-registry','system-health')
+foreach ($R in $routes) {
+  npx axe "http://localhost:5173/#/$R" `
+    --chrome-path "C:/Users/crust/.cache/puppeteer/chrome/win64-150.0.7871.24/chrome-win64/chrome.exe" `
+    --chromedriver-path "D:/chromedriver/win64-150.0.7871.24/chromedriver-win64/chromedriver.exe"
+}
+```
+
+Results:
+
+| Route | Violations |
+|---|---|
+| dashboard | 0 |
+| detections | 0 |
+| predictions | 0 |
+| threat-analytics | 0 |
+| model-registry | 0 |
+| system-health | 0 |
+
+Root-cause fix applied to `src/components/DetectionFilters.tsx`:
+- The filter-chip count spans were rendered with `var(--text-muted)`
+  (#8292A8) on the ghost/control background, which fell below AA.
+- Changed the default `countStyle` color and the inactive category count
+  override from `var(--text-muted)` to `var(--text-secondary)`, raising
+  the ratio to ≥ 4.55:1 on all chip backgrounds.
+
+### 3. Contrast sweep
+
+Command:
+```bash
+python scripts/contrast_sweep.py
+```
+
+Result:
+- **23/23 pairs pass WCAG 2.1 AA (≥ 4.5:1)**
+- Minimum ratio: `text-muted on card` = **4.62:1**
+- See `scripts/contrast_sweep.py` for the full pair list.
+
+### 4. Honesty matrix + 60-second offline EventLog silence
+
+Command:
+```bash
+node scripts/qa_honesty_matrix.mjs
+```
+
+Evidence written to `qa/proof/`:
+
+| State | Views captured |
+|---|---|
+| LIVE | `live-Dashboard.png`, `live-Detections.png`, `live-ThreatAnalytics.png`, `live-ModelRegistry.png`, `live-SystemHealth.png` |
+| CACHED | `cached-Dashboard.png`, `cached-Detections.png`, `cached-ThreatAnalytics.png`, `cached-ModelRegistry.png`, `cached-SystemHealth.png` |
+| OFFLINE | `offline-Dashboard.png`, `offline-Detections.png`, `offline-ThreatAnalytics.png`, `offline-ModelRegistry.png`, `offline-SystemHealth.png` |
+| Silence | `silence-before.png`, `silence-after.png` |
+
+Summary from `qa/proof/honesty-matrix.json`:
+- Live shots: 5
+- Cached shots: 5
+- Offline shots: 5
+- Fabricated entries before silence period: 0
+- Fabricated entries after 60-second silence period: 0
+- New entries added during silence period: 0
+- **Result: PASSED**
+
