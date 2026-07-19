@@ -16,6 +16,7 @@ scripts/*
 audit/*
 !audit/HANDOFF_TEMPLATE.md
 !audit/HANDOFF_P1.md
+!audit/HANDOFF_P2.md
 !audit/RUBRIC_P1.md
 !audit/HANDOFF_v4.md
 !audit/STATE_MAP_v4.md
