@@ -91,8 +91,8 @@ Measured server-side inference latency is recorded in `model/latency_t4g_micro.j
 
 | Metric | Value | Status |
 |---|---|---|
-| p50 `processing_time_ms` | 0.230 ms | `OK` |
-| p95 `processing_time_ms` | 0.310 ms | `OK` |
+| p50 `processing_time_ms` | 0.224 ms | `OK` |
+| p95 `processing_time_ms` | 0.296 ms | `OK` |
 | Model load time | < 1 s (measured via `systemctl restart ticketsec`) | `OK` |
 | Sample count | 100 | `OK` |
 
@@ -148,16 +148,16 @@ it first appears in one of the artifacts above.
 
 ## Current Artifact Hashes
 
-Generated at: `2026-07-18T05:25:17.000000+00:00`
+Generated at: `2026-07-19T19:55:00.000000+00:00`
 
 | Artifact | File SHA-256 |
 |---|---|
 | `model/artifact.onnx` | `9c8da3f9866e58bdec2f6b66ce9ea00d8bdacab95a0bf3b32d00c30f143d716b` |
-| `model/eval_results.json` | `e50792484983362d9587851dce1ef8a2c5b4ad67d91a0a5e158c0f6d6680fe68` |
-| `model/confusion_matrix.json` | `1ff9ef6eed879e4a44d2806d8d56ba68cf86fb50de4b788899f47f488dd4d39b` |
-| `model/probe_results.json` | `bca444408934c75178354264d576928203df491baabb2bc29166213ed2ef8f0d` |
-| `model/latency_t4g_micro.json` | `12af06413242e25dab5cf1f237176724b63b943f5d238e7ef11570e8c1635c02` |
-| `model/quantization.md` | `70538123a0df1032cf7dc0a321e77e88064398894b2c6aac95ddd3656f790be2` |
+| `model/eval_results.json` | `74adeac8c07735303dfe77beb39a3a1a2b5218c05f5e5f5dc23246e9d6fb4002` |
+| `model/confusion_matrix.json` | `7b437d7d472dc9d856e17963fec34997fcf150e348d69ccc461cadd5a5c45517` |
+| `model/probe_results.json` | `833975a34e0730e79eff11453a2c925bf1158d80d84f953840916338fff75380` |
+| `model/latency_t4g_micro.json` | `bcf9439154bb97225380da106d2662c247857726ac2500b49c5a33244098c096` |
+| `model/quantization.md` | `d9425f3122adba02183189b39b3ab1d5f75bf04e9caf43aa158cd78570579d2d` |
 
 These hashes are recorded inside each JSON artifact under `artifact_sha256` where applicable.
 
