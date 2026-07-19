@@ -278,7 +278,7 @@ const ModelCardSection: React.FC = () => {
 };
 
 const AccuracySection: React.FC = () => {
-  if (typedEval.status !== 'OK' || !typedEval.per_class_metrics) {
+  if (!['OK', 'COMPLETE'].includes(typedEval.status) || !typedEval.per_class_metrics) {
     return (
       <Panel icon={Target} title="Accuracy & Eval" subtitle="Per-class precision / recall / F1">
         <EmptyState

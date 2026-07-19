@@ -588,3 +588,29 @@
 - [PASS] G4 axe health (2026-07-19 06:47:13Z)
 - [PASS] G6 secrets scan clean (2026-07-19 06:47:13Z)
 - [FAIL] G8 git — uncommitted changes (2026-07-19 06:47:13Z)
+
+## Gate run — 2026-07-19 06:55:58Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 06:55:58Z)
+- [PASS] G1 chunk 299.37KB<600KB (2026-07-19 06:55:58Z)
+- [PASS] G2 lint 0/0 (2026-07-19 06:55:58Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m145 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 03:56:07
+[2m   Duration [22m 78.44s[2m (transform 838ms, setup 6.26s, import 1.80s, tests 37.71s, environment 28.40s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-19 06:55:58Z)
+- [PASS] G4 axe dashboard (2026-07-19 06:55:58Z)
+- [PASS] G4 axe detections (2026-07-19 06:55:58Z)
+- [PASS] G4 axe analytics (2026-07-19 06:55:58Z)
+- [PASS] G4 axe registry (2026-07-19 06:55:58Z)
+- [PASS] G4 axe health (2026-07-19 06:55:58Z)
+- [PASS] G6 secrets scan clean (2026-07-19 06:55:58Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 06:55:58Z)

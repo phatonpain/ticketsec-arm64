@@ -1,14 +1,14 @@
 {
-  "status": "OK",
-  "generated_at": "2026-07-18T05:25:44.776250+00:00",
+  "status": "COMPLETE",
+  "generated_at": "2026-07-19T06:55:12.423849+00:00",
   "host": "local development machine",
   "endpoint": "http://127.0.0.1:8000/predict",
   "sample_count": 100,
-  "p50_ms": 0.19,
-  "p95_ms": 0.424,
+  "p50_ms": 0.207,
+  "p95_ms": 0.316,
   "model_load_s": null,
-  "per_request_inference_p50_ms": 0.19,
-  "per_request_inference_p95_ms": 0.424,
+  "per_request_inference_p50_ms": 0.207,
+  "per_request_inference_p95_ms": 0.316,
   "measurement_protocol": {
     "per_request": "Sequential 100 canonical POST /predict calls with payloads spanning the six categories. p50/p95 computed from processing_time_ms.",
     "model_load": "sudo systemctl restart ticketsec, then curl /health in a loop until 200. Load time = restart-to-healthy interval.",
@@ -18,7 +18,7 @@
     {
       "predicted_category": "Phishing",
       "confidence": 0.582792,
-      "processing_time_ms": 0.1419,
+      "processing_time_ms": 0.2621,
       "probabilities": {
         "Phishing": 0.5827917965830595,
         "Malware": 0.10038716196436939,
@@ -31,7 +31,7 @@
     {
       "predicted_category": "Malware",
       "confidence": 0.424923,
-      "processing_time_ms": 0.1832,
+      "processing_time_ms": 0.2507,
       "probabilities": {
         "Phishing": 0.11911519670513847,
         "Malware": 0.42492282259691805,
@@ -44,7 +44,7 @@
     {
       "predicted_category": "Unauthorized Access",
       "confidence": 0.412676,
-      "processing_time_ms": 0.1776,
+      "processing_time_ms": 0.205,
       "probabilities": {
         "Phishing": 0.10165212227663306,
         "Malware": 0.16449516889084004,
@@ -57,7 +57,7 @@
     {
       "predicted_category": "Data Breach",
       "confidence": 0.574662,
-      "processing_time_ms": 0.157,
+      "processing_time_ms": 0.3003,
       "probabilities": {
         "Phishing": 0.07174260700516084,
         "Malware": 0.08569151652778635,
@@ -70,7 +70,7 @@
     {
       "predicted_category": "DDoS",
       "confidence": 0.562983,
-      "processing_time_ms": 0.1224,
+      "processing_time_ms": 0.2333,
       "probabilities": {
         "Phishing": 0.06571740167458343,
         "Malware": 0.12895627849129748,
