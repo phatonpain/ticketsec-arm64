@@ -43,7 +43,7 @@ TEST_SET_PATH = PROJECT_ROOT / "model" / "test_set.jsonl"
 EVAL_RESULTS_PATH = PROJECT_ROOT / "model" / "eval_results.json"
 MAX_TEXT_LEN = 10_000
 
-PREDICT_RATE_LIMIT_RPM = int(os.environ.get("PREDICT_RATE_LIMIT_RPM", "120"))
+PREDICT_RATE_LIMIT_RPM = int(os.environ.get("PREDICT_RATE_LIMIT_RPM", "60"))
 ALLOW_ORIGINS = [
     origin.strip()
     for origin in os.environ.get("ALLOW_ORIGINS", "*").split(",")
