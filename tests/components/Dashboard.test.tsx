@@ -2,10 +2,10 @@
 /**
  * M8-PHASE1 — Dashboard composition tests.
  *
- * Verifies the Splunk ES-style dashboard: status/filter rail, analytics row
- * (Threat Distribution, Severity Mix, Model Footprint, Model Performance),
- * and the hero classifications table. Event Log and Live Prediction are
- * removed from the Dashboard view in Phase 1.
+ * Verifies the Splunk ES-style dashboard: analytics row (Threat Distribution,
+ * Severity Mix, Model Footprint, Model Performance) and the hero classifications
+ * table. Status/filter chrome is owned by the global Header and must NOT be
+ * duplicated inside Dashboard.
  */
 import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen } from '@testing-library/react';
@@ -42,15 +42,6 @@ afterEach(() => {
 });
 
 describe('Dashboard composition', () => {
-  it('renders the dashboard status/filter rail', async () => {
-    render(<Dashboard />);
-    expect(await screen.findByText(/Connecting|LIVE|CACHED|API OFFLINE/)).toBeInTheDocument();
-    expect(screen.getByText(/Probe/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /refresh data/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /notifications/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /settings/i })).toBeInTheDocument();
-  });
-
   it('renders the analytics row panels', async () => {
     render(<Dashboard />);
     expect(await screen.findByText('Threat Distribution')).toBeInTheDocument();
@@ -74,5 +65,16 @@ describe('Dashboard composition', () => {
     expect(screen.queryByRole('log', { name: /event log/i })).not.toBeInTheDocument();
     expect(screen.queryByText('Live Classification')).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: /ticket text/i })).not.toBeInTheDocument();
+  });
+
+  it('does not duplicate the global status/filter rail', async () => {
+    render(<Dashboard />);
+    await screen.findByText('Threat Distribution');
+    // These are owned by Header.tsx, not Dashboard.tsx.
+    expect(screen.queryByText(/Probe/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /refresh data/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /notifications/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /settings/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/Synced/i)).not.toBeInTheDocument();
   });
 });

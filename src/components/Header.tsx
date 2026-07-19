@@ -42,6 +42,8 @@ export const Header: React.FC = () => {
   const { activeView } = useActiveView();
   const { breadcrumb } = VIEW_CONFIG[activeView];
   const { status, checkHealth, checking, diagnostics, lastSync } = useApi();
+  const healthProbe = diagnostics.endpoints.find(e => e.url.endsWith('/health') && e.ok);
+  const probeLatency = healthProbe ? `${healthProbe.latencyMs} ms` : checking ? '…' : '—';
   const { logs, unreadCount, markAllRead } = useEventLog();
   const { range, setRange } = useTimeRange();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -330,6 +332,27 @@ export const Header: React.FC = () => {
                 </div>
               </div>
             </div>
+          )}
+        </div>
+
+        {/* Probe latency + last sync (folded in from the old Dashboard rail). */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span>Probe</span>
+            <span
+              style={{
+                fontFamily: 'var(--font-numeric)',
+                fontVariantNumeric: 'tabular-nums',
+                color: 'var(--text-secondary)',
+              }}
+            >
+              {probeLatency}
+            </span>
+          </div>
+          {lastSync && (
+            <span>
+              Synced {formatRelativeTime(lastSync)}
+            </span>
           )}
         </div>
 
