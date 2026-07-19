@@ -39,8 +39,12 @@ npm run lint >/dev/null 2>&1 && pass "G2 lint 0/0" || fail "G2 lint" "see npm ru
 TOUT=$(npx vitest run 2>&1); RC=$?
 echo "$TOUT" | tail -8 | tee -a "$TMP_LOG" >/dev/null
 FAILS=$(echo "$TOUT" | grep -cE 'it\.fails|\.skip' || true)
-{ [ $RC -eq 0 ] && [ "$FAILS" = "0" ]; } && pass "G3 vitest green, 0 it.fails/skips" \
-  || fail "G3 vitest" "rc=$RC fails/skips=$FAILS"
+if { [ $RC -eq 0 ] && [ "$FAILS" = "0" ]; }; then
+  pass "G3 vitest green, 0 it.fails/skips"
+else
+  echo "$TOUT" > .vitest_fail.log
+  fail "G3 vitest" "rc=$RC fails/skips=$FAILS (see .vitest_fail.log)"
+fi
 # G4 a11y (per hash route — adjust route list to the app)
 for R in dashboard detections analytics registry health; do
   npx axe "http://localhost:5173/#/$R" \
