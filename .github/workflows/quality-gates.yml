@@ -1,0 +1,33 @@
+name: quality-gates
+on: [push, pull_request]
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: G1 build + chunk budget
+        run: |
+          npm run build 2>&1 | tee build.log
+          MAIN=$(grep -oE 'index-[A-Za-z0-9_-]+\.js +[0-9.]+' build.log | head -1 | grep -oE '[0-9.]+$')
+          echo "main chunk: ${MAIN}KB"
+          awk "BEGIN{exit !($MAIN < 600)}"
+      - name: G2 lint
+        run: npm run lint
+      - name: G3 tests (no it.fails, no skips)
+        run: |
+          npx vitest run 2>&1 | tee test.log
+          ! grep -qE 'it\.fails|\.skip\(' test.log
+      - name: G6 secrets scan
+        run: |
+          ! grep -rEn '(api[_-]?key|secret|token|password|BEGIN.*PRIVATE KEY)' \
+            src/ public/ model/ ops/ app/ data/ | grep -vE 'PLACEHOLDER|EXAMPLE'
+          ! find . -name 'ticketsec-key.pem' -not -path './node_modules/*' | grep .
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: gate-evidence, path: |
+          build.log
+          test.log }
