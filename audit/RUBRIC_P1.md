@@ -41,4 +41,4 @@ All screenshots captured at **1348×616 px viewport** (Chrome headless, `--windo
 - Lint: `npm run lint` — **0 warnings, 0 errors**.
 - Tests: `npx vitest run` — **173/173 passed**.
 - Axe: `scripts/gates.sh` G4 (dashboard/detections/analytics/registry/health) — all PASS.
-- Full gates run `2026-07-19 21:04:55Z` — **G1–G8 all PASS / 11 of 11 gates green** (recorded in `TEST_RESULTS_v4.md`).
+- Full gates run `2026-07-19 21:09:41Z` — **G1–G8 all PASS / 11 of 11 gates green** (recorded in `TEST_RESULTS_v4.md`).

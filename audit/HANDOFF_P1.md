@@ -58,8 +58,7 @@ Phase 1 commit: `9f39f67`
 - `npm run lint` → **0 warnings, 0 errors**
 - `npm run build` → 0 errors; main chunk **309.75 kB** / gzip 90.06 kB (< 600 kB)
 - `npx vitest run` → **173/173 passed**
-- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 21:04:55Z` (recorded in `TEST_RESULTS_v4.md`)  
-  *(The `21:04:55Z` run passed G1-G7/G8 functional checks; the only red line was the expected G8 "uncommitted changes" marker because the evidence file itself was being written.)*
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 21:09:41Z` (recorded in `TEST_RESULTS_v4.md`)
   - G1 build + chunk budget, G2 lint, G3 vitest, G4 axe (5 routes), G6 secrets scan, G8 tree clean
 
 ## Open items for Phase 2 / later phases
