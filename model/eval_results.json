@@ -1,0 +1,174 @@
+{
+  "status": "OK",
+  "generated_at": "2026-07-18T05:24:08.150604+00:00",
+  "artifact_sha256": "9c8da3f9866e58bdec2f6b66ce9ea00d8bdacab95a0bf3b32d00c30f143d716b",
+  "methodology": {
+    "split": "GroupShuffleSplit(test_size=0.2, groups=seed_id)",
+    "seed": 42,
+    "categories": [
+      "Phishing",
+      "Malware",
+      "Unauthorized Access",
+      "Data Breach",
+      "DDoS",
+      "False Positive"
+    ],
+    "f1_floor": 0.7
+  },
+  "dataset_size": 3058,
+  "train_size": 2449,
+  "test_size": 609,
+  "class_balance": {
+    "Phishing": 511,
+    "Malware": 512,
+    "Unauthorized Access": 514,
+    "Data Breach": 503,
+    "DDoS": 506,
+    "False Positive": 512
+  },
+  "winner_candidate_id": "C2_char3-5_word1-2_LR_C2.0",
+  "deployed_candidate_id": "C1_word_1-2_LR_C2.0",
+  "deployed_note": "skl2onnx does not support char_wb TfidfVectorizer, so the accuracy winner (C2_char3-5_word1-2_LR_C2.0) cannot be exported to ONNX. The deployed artifact uses the best ONNX-exportable candidate.",
+  "overall_accuracy": 0.9294,
+  "per_class_metrics": {
+    "Phishing": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 104
+    },
+    "Malware": {
+      "precision": 0.987,
+      "recall": 0.8539,
+      "f1": 0.9157,
+      "support": 89
+    },
+    "Unauthorized Access": {
+      "precision": 0.9,
+      "recall": 0.8534,
+      "f1": 0.8761,
+      "support": 116
+    },
+    "Data Breach": {
+      "precision": 0.9612,
+      "recall": 0.9118,
+      "f1": 0.9358,
+      "support": 136
+    },
+    "DDoS": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 64
+    },
+    "False Positive": {
+      "precision": 0.792,
+      "recall": 0.99,
+      "f1": 0.88,
+      "support": 100
+    }
+  },
+  "ablation": [
+    {
+      "candidate_id": "C1_word_1-2_LR_C2.0",
+      "overall_accuracy": 0.9278,
+      "min_f1": 0.8761,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 1.0,
+        "Malware": 0.9091,
+        "Unauthorized Access": 0.8761,
+        "Data Breach": 0.9358,
+        "DDoS": 1.0,
+        "False Positive": 0.8761
+      }
+    },
+    {
+      "candidate_id": "C2_char3-5_word1-2_LR_C0.5",
+      "overall_accuracy": 0.9343,
+      "min_f1": 0.8609,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 0.9952,
+        "Malware": 0.9714,
+        "Unauthorized Access": 0.8609,
+        "Data Breach": 0.9132,
+        "DDoS": 1.0,
+        "False Positive": 0.91
+      }
+    },
+    {
+      "candidate_id": "C2_char3-5_word1-2_LR_C1.0",
+      "overall_accuracy": 0.9343,
+      "min_f1": 0.8559,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 0.9952,
+        "Malware": 0.9773,
+        "Unauthorized Access": 0.8559,
+        "Data Breach": 0.9167,
+        "DDoS": 1.0,
+        "False Positive": 0.9057
+      }
+    },
+    {
+      "candidate_id": "C2_char3-5_word1-2_LR_C2.0",
+      "overall_accuracy": 0.936,
+      "min_f1": 0.8609,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 0.9952,
+        "Malware": 0.9773,
+        "Unauthorized Access": 0.8609,
+        "Data Breach": 0.9167,
+        "DDoS": 1.0,
+        "False Positive": 0.91
+      }
+    },
+    {
+      "candidate_id": "C2_char3-5_word1-2_LR_C4.0",
+      "overall_accuracy": 0.936,
+      "min_f1": 0.8609,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 0.9952,
+        "Malware": 0.9773,
+        "Unauthorized Access": 0.8609,
+        "Data Breach": 0.9167,
+        "DDoS": 1.0,
+        "False Positive": 0.91
+      }
+    },
+    {
+      "candidate_id": "C3_char3-5_word1-2_LinearSVC_calibrated",
+      "overall_accuracy": 0.9228,
+      "min_f1": 0.8559,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 0.9585,
+        "Malware": 0.9944,
+        "Unauthorized Access": 0.8559,
+        "Data Breach": 0.9098,
+        "DDoS": 1.0,
+        "False Positive": 0.8657
+      }
+    },
+    {
+      "candidate_id": "C4_char3-5_word1-2_LR_weighted",
+      "overall_accuracy": 0.9327,
+      "min_f1": 0.8511,
+      "all_f1_above_floor": true,
+      "per_class_f1": {
+        "Phishing": 1.0,
+        "Malware": 0.9711,
+        "Unauthorized Access": 0.8511,
+        "Data Breach": 0.907,
+        "DDoS": 1.0,
+        "False Positive": 0.9167
+      }
+    }
+  ],
+  "weak_classes": null,
+  "honesty_contract": "Every datum shown is either live (from the API), cached (amber CACHED badge, sourced from public/cache/tickets-snapshot.json), or shown as 'Unavailable — API offline'. The Event Log records ONLY real events. Nothing is ever fabricated and presented as live.",
+  "caveat": "Small synthetic hackathon dataset; near-perfect scores on such data carry train/test leakage risk if groups are not respected. This is a demo metric, not production accuracy."
+}

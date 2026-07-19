@@ -1,0 +1,25 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mprobe timeout ÔÇö settles (refutes "never settles"; refines FIX-01)[2m > [22ma hanging fetch is aborted at 10s and the probe lock is released[32m 21[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mprobe rounds land at 5s, 10s, 20s, 40s, 60s (capped exponential with jitter stubbed to 1)[32m 31[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mdoes not probe again before the backoff elapses[32m 6[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useTicketQuery propagates setTicketQuery to subscribers (immutable snapshot)[32m 22[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useApi leaves checking=false after a failed probe settles (no stuck pill)[32m 7[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useEventLog propagates appended entries (no frozen Event Log)[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mdocuments the corrected behavior: a successful probe is published to subscribers (status flips to live)[32m 11[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mHEALTHY stores (immutable snapshot ÔÇö control group)[2m > [22museTickets propagates adds (array replaced immutably)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mHEALTHY stores (immutable snapshot ÔÇö control group)[2m > [22museSettings propagates setApiBase (settings object replaced)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22msorts newest-first by createdAt[32m 24[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22mtickets propagate to subscribers (immutable array identity ÔÇö the one store that does)[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22msets nextId to max numeric id + 1 (ignores non-matching ids)[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22mempty seed resets nextId to the 8467 floor[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22missues strictly increasing ids within a session[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mis unique across 10k consecutive adds[33m 422[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mis safe past 2^31 (no int32 wrap)[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mprepends new tickets (newest first) and defaults createdAt to now[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mEXPOSED-03: duplicate explicit ids are accepted ÔÇö addTicket never checks/uniquifies (React key collision at ClassificationTable.tsx:267)[32m 9[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mEXPOSED-03: explicit id above nextId does not advance the counter ÔÇö later auto ids can collide with it[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mloads the real snapshot, preserves ids, derives createdAt from minutesAgo[32m 11[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mreturns false on HTTP error and leaves the store unchanged[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mreturns false on network failure (offline honesty)[32m 2[2mms[22m[39m

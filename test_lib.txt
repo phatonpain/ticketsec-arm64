@@ -1,0 +1,47 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mempty list ÔåÆ NO download (early return, exportCsv.ts:12)[32m 8[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mheader row is the real 7-column header; one line per ticket[32m 8[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mserializes a plain ticket unquoted; confidence as fixed-1 number; ISO time[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mconfidence uses (c*100).toFixed(1) ÔÇö one decimal, no % sign (pins real copy)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mcommas in a field are quoted[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mdouble quotes are doubled and the field quoted[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mnewlines and carriage returns are quoted[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mquotes + commas escape both rules at once[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mround-trips through a strict RFC 4180 parser (7 fields per row)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22municode passes through unescaped[32m 6[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22mserializes all six exact categories verbatim[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22muses the requested filename and revokes the object URL[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mCATEGORY_COLORS + CATEGORY_BG cover exactly the six spec categories[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mCATEGORY_SEVERITY covers exactly the six categories with the real mapping[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mSEVERITY_LABEL/SEVERITY_COLORS cover every severity rank used[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mSTATUS_COLORS covers exactly the three real TicketStatus values[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mreturns short strings unchanged (incl. exact boundary)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mtruncates to max-1 chars + ellipsis[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mBMP unicode (accents, CJK) truncates cleanly[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mEXPOSED-04: truncate slices UTF-16 code units ÔÇö splits surrogate pairs into mojibake on astral chars (utils.ts:66-67)[32m 12[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mformatNumber[2m > [22mformats with en-US grouping[32m 77[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mextractLatencySeries keeps positive values in order, drops 0/undefined[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mextractThroughputSeries keeps positive values in order, drops 0/undefined[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mempty input ÔåÆ empty series[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcn (clsx wrapper)[2m > [22mjoins truthy class values[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mproduces the TKT-#### shape[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mEXPOSED-02: not unique ÔÇö constant RNG yields duplicate ids (Math.random 4-digit space, ~1/9000 collision per draw)[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mEXPOSED-02: not monotonic ÔÇö descending RNG draws yield descending ids[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mdocuments that generateTicketId is dead code (no caller in src/)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m0ms and 30s ÔåÆ "just now" (< 60s bucket)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m61s and 2m ÔåÆ minutes bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m59m30s ÔåÆ "59m ago" (upper minutes region)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m61m and 5h ÔåÆ hours bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m23h30m ÔåÆ "23h ago"; 25h and 3d ÔåÆ days bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö clock skew (future timestamps)[2m > [22msmall and large future skews ÔåÆ "just now" (never negative)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mEXPOSED-01: invalid Date returns "NaNd ago" ÔÇö should return "ÔÇö" (formatRelativeTime.ts:3-11)[32m 10[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mEXPOSED-01: unparsable date string returns "NaNd ago" ÔÇö should return "ÔÇö"[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mdocuments the actual broken output for invalid input[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m33 passed[39m[22m[2m | [22m[36m5 expected fail[39m[90m (38)[39m
+[2m   Start at [22m 18:51:32
+[2m   Duration [22m 5.10s[2m (transform 173ms, setup 1.35s, import 201ms, tests 179ms, environment 12.12s)[22m
+

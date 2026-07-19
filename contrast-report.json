@@ -1,0 +1,209 @@
+[
+  {
+    "label": "text-primary",
+    "fg": "#F8FAFC",
+    "effective_bg": "#0b0f19",
+    "ratio": 18.3,
+    "pass_aa": true,
+    "pass_aaa": true,
+    "layered": false
+  },
+  {
+    "label": "text-primary",
+    "fg": "#F8FAFC",
+    "effective_bg": "#1e293b",
+    "ratio": 13.98,
+    "pass_aa": true,
+    "pass_aaa": true,
+    "layered": false
+  },
+  {
+    "label": "text-secondary",
+    "fg": "#94A3B8",
+    "effective_bg": "#0b0f19",
+    "ratio": 7.47,
+    "pass_aa": true,
+    "pass_aaa": true,
+    "layered": false
+  },
+  {
+    "label": "text-secondary",
+    "fg": "#94A3B8",
+    "effective_bg": "#1e293b",
+    "ratio": 5.71,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "text-muted",
+    "fg": "#8292A8",
+    "effective_bg": "#0b0f19",
+    "ratio": 6.04,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "text-muted",
+    "fg": "#8292A8",
+    "effective_bg": "#1e293b",
+    "ratio": 4.62,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "link",
+    "fg": "#818CF8",
+    "effective_bg": "#1e293b",
+    "ratio": 4.9,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "accent-indigo-strong + white",
+    "fg": "#FFFFFF",
+    "effective_bg": "#4f46e5",
+    "ratio": 6.29,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "badge-alert + white",
+    "fg": "#FFFFFF",
+    "effective_bg": "#e11d48",
+    "ratio": 4.7,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "cat-1-text on tint/card",
+    "fg": "#A5B4FC",
+    "effective_bg": "#293258",
+    "ratio": 6.23,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "cat-2-text on tint/card",
+    "fg": "#22D3EE",
+    "effective_bg": "#1a3b50",
+    "ratio": 6.51,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "cat-3-text on tint/card",
+    "fg": "#FBBF24",
+    "effective_bg": "#3f3731",
+    "ratio": 6.98,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "cat-4-text on tint/card",
+    "fg": "#FB7185",
+    "effective_bg": "#41263d",
+    "ratio": 4.97,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "cat-5-text on tint/card",
+    "fg": "#A78BFA",
+    "effective_bg": "#2e2c5b",
+    "ratio": 4.74,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "cat-6-text on tint/card",
+    "fg": "#94A3B8",
+    "effective_bg": "#2a3649",
+    "ratio": 4.76,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "status-ok text on tint/card",
+    "fg": "#34D399",
+    "effective_bg": "#1c3d44",
+    "ratio": 6.07,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "status-warn text on tint/card",
+    "fg": "#FBBF24",
+    "effective_bg": "#3c3934",
+    "ratio": 6.89,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "status-err text on tint/card",
+    "fg": "#FB7185",
+    "effective_bg": "#3b2c3f",
+    "ratio": 4.82,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": true
+  },
+  {
+    "label": "sev-critical on card",
+    "fg": "#FB7185",
+    "effective_bg": "#1e293b",
+    "ratio": 5.44,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "sev-high on card",
+    "fg": "#F97316",
+    "effective_bg": "#1e293b",
+    "ratio": 5.22,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "sev-medium on card",
+    "fg": "#F59E0B",
+    "effective_bg": "#1e293b",
+    "ratio": 6.81,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "sev-low on card",
+    "fg": "#38BDF8",
+    "effective_bg": "#1e293b",
+    "ratio": 6.83,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  },
+  {
+    "label": "sev-info on card",
+    "fg": "#60A5FA",
+    "effective_bg": "#1e293b",
+    "ratio": 5.75,
+    "pass_aa": true,
+    "pass_aaa": false,
+    "layered": false
+  }
+]

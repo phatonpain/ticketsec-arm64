@@ -1,0 +1,70 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'bg-body': '#0B0F19',
+        'bg-sidebar': '#0F172A',
+        'bg-card': '#1E293B',
+        'bg-card-hover': '#334155',
+        'bg-input': '#0F172A',
+        'bg-elevated': '#111827',
+        'border-default': 'rgba(255,255,255,0.06)',
+        'border-hover': 'rgba(255,255,255,0.10)',
+        'border-accent': 'rgba(99,102,241,0.30)',
+        'text-primary': '#F8FAFC',
+        'text-secondary': '#94A3B8',
+        'text-muted': '#64748B',
+        'text-inverse': '#C5C1B9',
+        'accent-indigo': '#6366F1',
+        'accent-violet': '#8B5CF6',
+        'accent-cyan': '#06B6D4',
+        'accent-emerald': '#10B981',
+        'accent-rose': '#F43F5E',
+        'accent-amber': '#F59E0B',
+        'accent-orange': '#F97316',
+      },
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['JetBrains Mono', 'SF Mono', 'Fira Code', 'monospace'],
+      },
+      fontSize: {
+        'xs': ['11px', '16px'],
+        'sm': ['12px', '18px'],
+        'base': ['13px', '20px'],
+        'md': ['14px', '22px'],
+        'lg': ['15px', '24px'],
+        'xl': ['20px', '28px'],
+        '2xl': ['24px', '32px'],
+        'metric': ['32px', '40px'],
+      },
+      spacing: {
+        '1': '2px',
+        '2': '4px',
+        '3': '8px',
+        '4': '12px',
+        '5': '16px',
+        '6': '20px',
+        '7': '24px',
+        '8': '28px',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'md': '8px',
+        'lg': '10px',
+      },
+      transitionDuration: {
+        'instant': '150ms',
+        'fast': '200ms',
+      },
+      transitionTimingFunction: {
+        'default': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+    },
+  },
+  plugins: [],
+}

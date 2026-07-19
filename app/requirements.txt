@@ -1,0 +1,5 @@
+# Server dependencies for TicketSec Arm64 FastAPI + ONNX Runtime
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+onnxruntime>=1.16.0
+numpy>=1.24.0

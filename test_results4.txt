@@ -1,0 +1,835 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m0ms and 30s ÔåÆ "just now" (< 60s bucket)[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m61s and 2m ÔåÆ minutes bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m59m30s ÔåÆ "59m ago" (upper minutes region)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m61m and 5h ÔåÆ hours bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö real buckets[2m > [22m23h30m ÔåÆ "23h ago"; 25h and 3d ÔåÆ days bucket[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö clock skew (future timestamps)[2m > [22msmall and large future skews ÔåÆ "just now" (never negative)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mEXPOSED-01: invalid Date returns "NaNd ago" ÔÇö should return "ÔÇö" (formatRelativeTime.ts:3-11)[32m 10[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mEXPOSED-01: unparsable date string returns "NaNd ago" ÔÇö should return "ÔÇö"[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/formatRelativeTime.test.ts[2m > [22mformatRelativeTime ÔÇö invalid input (EXPOSED defect)[2m > [22mdocuments the actual broken output for invalid input[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mempty list ÔåÆ NO download (early return, exportCsv.ts:12)[32m 7[2mms[22m[39m
+ [31m├ù[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mheader row is the real 7-column header; one line per ticket[32m 16[2mms[22m[39m
+[31m   ÔåÆ expected 'ID,Subject,Category,Confidence,StatusÔÇª' to be 'ID,Subject,Category,Confidence,StatusÔÇª' // Object.is equality[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mserializes a plain ticket unquoted; confidence as fixed-1 number; ISO time[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö structure (real format)[2m > [22mconfidence uses (c*100).toFixed(1) ÔÇö one decimal, no % sign (pins real copy)[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mcommas in a field are quoted[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mdouble quotes are doubled and the field quoted[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mnewlines and carriage returns are quoted[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mquotes + commas escape both rules at once[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö RFC 4180 escaping[2m > [22mround-trips through a strict RFC 4180 parser (7 fields per row)[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22municode passes through unescaped[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22mserializes all six exact categories verbatim[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/exportCsv.test.ts[2m > [22mexportTicketsToCsv ÔÇö unicode + exact categories[2m > [22muses the requested filename and revokes the object URL[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mCATEGORY_COLORS + CATEGORY_BG cover exactly the six spec categories[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mCATEGORY_SEVERITY covers exactly the six categories with the real mapping[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mSEVERITY_LABEL/SEVERITY_COLORS cover every severity rank used[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcategory/severity/status key systems[2m > [22mSTATUS_COLORS covers exactly the three real TicketStatus values[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mreturns short strings unchanged (incl. exact boundary)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mtruncates to max-1 chars + ellipsis[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mBMP unicode (accents, CJK) truncates cleanly[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mtruncate[2m > [22mEXPOSED-04: truncate slices UTF-16 code units ÔÇö splits surrogate pairs into mojibake on astral chars (utils.ts:66-67)[32m 8[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mformatNumber[2m > [22mformats with en-US grouping[32m 87[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mextractLatencySeries keeps positive values in order, drops 0/undefined[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mextractThroughputSeries keeps positive values in order, drops 0/undefined[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mchart series extractors[2m > [22mempty input ÔåÆ empty series[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mcn (clsx wrapper)[2m > [22mjoins truthy class values[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mproduces the TKT-#### shape[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mEXPOSED-02: not unique ÔÇö constant RNG yields duplicate ids (Math.random 4-digit space, ~1/9000 collision per draw)[32m 8[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mEXPOSED-02: not monotonic ÔÇö descending RNG draws yield descending ids[32m 3[2mms[22m[39m
+ [32mÔ£ô[39m tests/lib/utils.test.ts[2m > [22mgenerateTicketId (EXPOSED defects ÔÇö dead code, utils.ts:70-76)[2m > [22mdocuments that generateTicketId is dead code (no caller in src/)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mprobe timeout ÔÇö settles (refutes "never settles"; refines FIX-01)[2m > [22ma hanging fetch is aborted at 10s and the probe lock is released[32m 53[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mprobe rounds land at 5s, 10s, 20s, 40s, 60s (capped exponential with jitter stubbed to 1)[32m 42[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mdoes not probe again before the backoff elapses[32m 9[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useTicketQuery propagates setTicketQuery to subscribers (immutable snapshot)[32m 31[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useApi leaves checking=false after a failed probe settles (no stuck pill)[32m 9[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mFIX-01: useEventLog propagates appended entries (no frozen Event Log)[32m 6[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mBROKEN stores (mutated same-identity snapshot ÔÇö FIX-01 mechanism)[2m > [22mdocuments the corrected behavior: a successful probe is published to subscribers (status flips to live)[32m 29[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mHEALTHY stores (immutable snapshot ÔÇö control group)[2m > [22museTickets propagates adds (array replaced immutably)[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/storeIdentity.test.tsx[2m > [22mHEALTHY stores (immutable snapshot ÔÇö control group)[2m > [22museSettings propagates setApiBase (settings object replaced)[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22msorts newest-first by createdAt[32m 26[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22mtickets propagate to subscribers (immutable array identity ÔÇö the one store that does)[32m 6[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22msets nextId to max numeric id + 1 (ignores non-matching ids)[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mseedTickets[2m > [22mempty seed resets nextId to the 8467 floor[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22missues strictly increasing ids within a session[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mis unique across 10k consecutive adds[33m 457[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mis safe past 2^31 (no int32 wrap)[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mprepends new tickets (newest first) and defaults createdAt to now[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mEXPOSED-03: duplicate explicit ids are accepted ÔÇö addTicket never checks/uniquifies (React key collision at ClassificationTable.tsx:267)[32m 10[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22maddTicket ÔÇö monotonic ID contract (the REAL ids.ts)[2m > [22mEXPOSED-03: explicit id above nextId does not advance the counter ÔÇö later auto ids can collide with it[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mloads the real snapshot, preserves ids, derives createdAt from minutesAgo[32m 7[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mreturns false on HTTP error and leaves the store unchanged[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m tests/hooks/useTickets.test.ts[2m > [22mloadTicketSnapshot ÔÇö REAL snapshot shape (array + minutesAgo)[2m > [22mreturns false on network failure (offline honesty)[32m 1[2mms[22m[39m
+node.exe : [90mstderr[2m | tests/components/Header.test.tsx[2m > [22m[2mstatus pill[2m > [22m[2minitial render shows "CheckingÔÇª" (initial store state)
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\crust\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([90mstderr[2m...al store state):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[22m[39mAn update to Header inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Header inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mstatus pill[2m > [22minitial render shows "CheckingÔÇª" (initial store state)[33m 378[2mms[22m[39m
+[90mstderr[2m | tests/components/ClassificationTable.test.tsx[2m > [22m[2moffline honesty (initial status is offline ÔÇö no store update needed)[2m > [22m[2mempty store ÔåÆ 
+honest empty state, NO rows fabricated, NO export button
+[22m[39mAn update to SnapshotFooter inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to ClassificationTable inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [31m├ù[39m tests/components/ClassificationTable.test.tsx[2m > [22moffline honesty (initial status is offline ÔÇö no store update needed)[2m > [22mrenders cached snapshot rows with the honest offline badge + subtitle[33m 389[2mms[22m[39m
+[31m   ÔåÆ Found multiple elements with the text: Cached snapshot
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<p[31m
+  [33mstyle[31m=[32m"font-size: var(--font-size-sm, 12px); color: var(--text-muted); margin-top: 1px;"[31m
+[36m>[31m
+  [0mCached snapshot[0m
+[36m</p>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mstyle[31m=[32m"font-size: var(--caption-size); color: var(--caption-color);"[31m
+[36m>[31m
+  [0mCached snapshot[0m
+[36m</span>[31m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mid[31m=[32m"classifications-table"[31m
+      [33mstyle[31m=[32m"background: var(--bg-card); border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); overflow: hidden; transition: border-color 150ms ease;"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"height: var(--density-widget-head-h); padding: 0 var(--density-widget-pad-x, 20px); box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-default);"[31m
+      [36m>[31m
+        [36m<div>[31m
+          [36m<h2[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-md, 15px); font-weight: 600; color: var(--text-primary); letter-spacing: var(--tracking-title, -0.2px);"[31m
+          [36m>[31m
+            [0mRecent Classifications[0m
+          [36m</h2>[31m
+          [36m<p[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-sm, 12px); color: var(--text-muted); margin-top: 1px;"[31m
+          [36m>[31m
+            [0mCached snapshot[0m
+          [36m</p>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mstyle[31m=[32m"display: flex; align-items: center; gap: 10px;"[31m
+        [36m>[31m
+          [36m<button[31m
+            [33mstyle[31m=[32m"display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--radius-sm, 6px); border: 1px solid var(--border-default); background: var(--color-control-ghost-bg, transparent); color: var(--text-secondary); font-size: var(--font-size-sm, 12px); cursor: pointer;"[31m
+            [33mtitle[31m=[32m"Export filtered results as CSV"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33maria-hidden[31m=[32m"true"[31m
+              [33mclass[31m=[32m"lucide lucide-download"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mheight[31m=[32m"14"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mstroke-linecap[31m=[32m"round"[31m
+              [33mstroke-linejoin[31m=[32m"round"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+              [33mwidth[31m=[32m"14"[31m
+              [33mxmlns[31m=[32m"http://www.w3.org/2000/svg"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M12 15V3"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"m7 10 5 5 5-5"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+            [0mExport CSV[0m
+          [36m</button>[31m
+          [36m<span[31m
+            [33mstyle[31m=[32m"font-size: var(--badge-font-size, 11px); font-weight: var(--badge-font-weight, 600); letter-spacing: var(--badge-letter-spacing, 0.4px); line-height: var(--badge-line-height, 16px); text-transform: uppercase; padding: var(--badge-pad-y, 2px) var(--badge-pad-x, 8px); border-radius: var(--radius-badge, 4px); color: var(--badge-cached-fg); background: var(--badge-cached-bg); border: 1px solid var(--badge-cached-border); white-space: nowrap;"[31m
+          [36m>[31m
+            [0mCached[0m
+          [36m</span>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"overflow-x: auto;"[31m
+      [36m>[31m
+        [36m<table[31m
+          [33mstyle[31m=[32m"width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 960px;"[31m
+        [36m>[31m
+          [36m<thead>[31m
+            [36m<tr[31m
+              [33mstyle[31m=[32m"border-bottom: 1px solid var(--border-default);"[31m
+            [36m>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 96px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mTicket ID[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 26%;"[31m
+              [36m>[31m
+                [0mSubject[0m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 170px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mCategory[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33mar...[39m
+[90mstderr[2m | tests/components/ClassificationTable.test.tsx[2m > [22m[2moffline honesty (initial status is offline ÔÇö no store update needed)[2m > [22m[2mfooter reads 
+"Snapshot: cached" (never claims live)
+[22m[39mAn update to SnapshotFooter inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to ClassificationTable inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22moffline honesty (initial status is offline ÔÇö no store update needed)[2m > [22mempty store ÔåÆ honest empty state, NO rows fabricated, NO export button[33m 432[2mms[22m[39m
+[90mstderr[2m | tests/flows/search-filter.test.tsx[2m > [22m[2mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22m[2mthe search input exists with its real 
+a11y wiring
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+[90mstderr[2m | tests/flows/search-filter.test.tsx[2m > [22m[2mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22m[2mthe search input exists with its real 
+a11y wiring
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mstatus pill[2m > [22mFIX-01 (S1 reproduction): pill must flip to "System Offline" after the failed probe settles ÔÇö it never does (store-identity bail-out)[33m 804[2mms[22m[39m
+[90mstderr[2m | tests/flows/search-filter.test.tsx[2m > [22m[2mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22m[2mthe search input exists with its real 
+a11y wiring
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [31m├ù[39m tests/components/ClassificationTable.test.tsx[2m > [22moffline honesty (initial status is offline ÔÇö no store update needed)[2m > [22mfooter reads "Snapshot: cached" (never claims live)[32m 203[2mms[22m[39m
+[31m   ÔåÆ Found multiple elements with the text: /Cached snapshot/
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<p[31m
+  [33mstyle[31m=[32m"font-size: var(--font-size-sm, 12px); color: var(--text-muted); margin-top: 1px;"[31m
+[36m>[31m
+  [0mCached snapshot[0m
+[36m</p>[31m
+
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mstyle[31m=[32m"font-size: var(--caption-size); color: var(--caption-color);"[31m
+[36m>[31m
+  [0mCached snapshot[0m
+[36m</span>[31m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mid[31m=[32m"classifications-table"[31m
+      [33mstyle[31m=[32m"background: var(--bg-card); border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); overflow: hidden; transition: border-color 150ms ease;"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"height: var(--density-widget-head-h); padding: 0 var(--density-widget-pad-x, 20px); box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-default);"[31m
+      [36m>[31m
+        [36m<div>[31m
+          [36m<h2[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-md, 15px); font-weight: 600; color: var(--text-primary); letter-spacing: var(--tracking-title, -0.2px);"[31m
+          [36m>[31m
+            [0mRecent Classifications[0m
+          [36m</h2>[31m
+          [36m<p[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-sm, 12px); color: var(--text-muted); margin-top: 1px;"[31m
+          [36m>[31m
+            [0mCached snapshot[0m
+          [36m</p>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mstyle[31m=[32m"display: flex; align-items: center; gap: 10px;"[31m
+        [36m>[31m
+          [36m<button[31m
+            [33mstyle[31m=[32m"display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--radius-sm, 6px); border: 1px solid var(--border-default); background: var(--color-control-ghost-bg, transparent); color: var(--text-secondary); font-size: var(--font-size-sm, 12px); cursor: pointer;"[31m
+            [33mtitle[31m=[32m"Export filtered results as CSV"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33maria-hidden[31m=[32m"true"[31m
+              [33mclass[31m=[32m"lucide lucide-download"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mheight[31m=[32m"14"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mstroke-linecap[31m=[32m"round"[31m
+              [33mstroke-linejoin[31m=[32m"round"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+              [33mwidth[31m=[32m"14"[31m
+              [33mxmlns[31m=[32m"http://www.w3.org/2000/svg"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M12 15V3"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"m7 10 5 5 5-5"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+            [0mExport CSV[0m
+          [36m</button>[31m
+          [36m<span[31m
+            [33mstyle[31m=[32m"font-size: var(--badge-font-size, 11px); font-weight: var(--badge-font-weight, 600); letter-spacing: var(--badge-letter-spacing, 0.4px); line-height: var(--badge-line-height, 16px); text-transform: uppercase; padding: var(--badge-pad-y, 2px) var(--badge-pad-x, 8px); border-radius: var(--radius-badge, 4px); color: var(--badge-cached-fg); background: var(--badge-cached-bg); border: 1px solid var(--badge-cached-border); white-space: nowrap;"[31m
+          [36m>[31m
+            [0mCached[0m
+          [36m</span>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"overflow-x: auto;"[31m
+      [36m>[31m
+        [36m<table[31m
+          [33mstyle[31m=[32m"width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 960px;"[31m
+        [36m>[31m
+          [36m<thead>[31m
+            [36m<tr[31m
+              [33mstyle[31m=[32m"border-bottom: 1px solid var(--border-default);"[31m
+            [36m>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 96px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mTicket ID[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 26%;"[31m
+              [36m>[31m
+                [0mSubject[0m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 170px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mCategory[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33mar...[39m
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mstatus pill[2m > [22mhovering the pill opens the Connection Diagnostics tooltip[33m 352[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mrefresh button[2m > [22maria-label "Refresh data"; clicking issues a new 3-endpoint probe round[32m 111[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22mrendering details[2m > [22mrows are 40px-token height (density contract)[32m 285[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mnotification bell (FIX-08 refuted: count IS store-derived)[2m > [22mshows the unread count from the log store and marks all read on open[32m 122[2mms[22m[39m
+[90mstderr[2m | tests/flows/pagination.test.tsx[2m > [22m[2mFlow (c): pagination over cached snapshot rows[2m > [22m[2mNext shows the 6th row ("Showing 6ÔÇô6 of 6") and 
+disables itself
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+[90mstderr[2m | tests/flows/pagination.test.tsx[2m > [22m[2mFlow (c): pagination over cached snapshot rows[2m > [22m[2mNext shows the 6th row ("Showing 6ÔÇô6 of 6") and 
+disables itself
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22mserves the six cached snapshot rows (one per exact category) while offline[33m 1222[2mms[22m[39m
+[90mstderr[2m | tests/flows/pagination.test.tsx[2m > [22m[2mFlow (c): pagination over cached snapshot rows[2m > [22m[2mNext shows the 6th row ("Showing 6ÔÇô6 of 6") and 
+disables itself
+[22m[39mA suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+A suspended resource finished loading inside a test, but the event was not wrapped in act(...).
+
+When testing, code that resolves suspended data should be wrapped into act(...):
+
+act(() => {
+  /* finish loading suspended data */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22mtime-range listbox (FIX-26: cosmetic over cached data)[2m > [22mswitches the label and issues NO data refetch (pinned current behavior)[32m 195[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/Header.test.tsx[2m > [22msettings gear[2m > [22maria-label "Settings" opens the settings drawer store[32m 99[2mms[22m[39m
+ [31m├ù[39m tests/components/ClassificationTable.test.tsx[2m > [22mrendering details[2m > [22mseverity dots carry accessible labels derived from category[33m 320[2mms[22m[39m
+[31m   ÔåÆ Unable to find a label with the text of: Severity: Info
+
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mid[31m=[32m"classifications-table"[31m
+      [33mstyle[31m=[32m"background: var(--bg-card); border: 1px solid var(--border-default); border-radius: var(--radius-md, 8px); overflow: hidden; transition: border-color 150ms ease;"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"height: var(--density-widget-head-h); padding: 0 var(--density-widget-pad-x, 20px); box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-default);"[31m
+      [36m>[31m
+        [36m<div>[31m
+          [36m<h2[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-md, 15px); font-weight: 600; color: var(--text-primary); letter-spacing: var(--tracking-title, -0.2px);"[31m
+          [36m>[31m
+            [0mRecent Classifications[0m
+          [36m</h2>[31m
+          [36m<p[31m
+            [33mstyle[31m=[32m"font-size: var(--font-size-sm, 12px); color: var(--text-muted); margin-top: 1px;"[31m
+          [36m>[31m
+            [0mCached snapshot[0m
+          [36m</p>[31m
+        [36m</div>[31m
+        [36m<div[31m
+          [33mstyle[31m=[32m"display: flex; align-items: center; gap: 10px;"[31m
+        [36m>[31m
+          [36m<button[31m
+            [33mstyle[31m=[32m"display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--radius-sm, 6px); border: 1px solid var(--border-default); background: var(--color-control-ghost-bg, transparent); color: var(--text-secondary); font-size: var(--font-size-sm, 12px); cursor: pointer;"[31m
+            [33mtitle[31m=[32m"Export filtered results as CSV"[31m
+            [33mtype[31m=[32m"button"[31m
+          [36m>[31m
+            [36m<svg[31m
+              [33maria-hidden[31m=[32m"true"[31m
+              [33mclass[31m=[32m"lucide lucide-download"[31m
+              [33mfill[31m=[32m"none"[31m
+              [33mheight[31m=[32m"14"[31m
+              [33mstroke[31m=[32m"currentColor"[31m
+              [33mstroke-linecap[31m=[32m"round"[31m
+              [33mstroke-linejoin[31m=[32m"round"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+              [33mviewBox[31m=[32m"0 0 24 24"[31m
+              [33mwidth[31m=[32m"14"[31m
+              [33mxmlns[31m=[32m"http://www.w3.org/2000/svg"[31m
+            [36m>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M12 15V3"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"[31m
+              [36m/>[31m
+              [36m<path[31m
+                [33md[31m=[32m"m7 10 5 5 5-5"[31m
+              [36m/>[31m
+            [36m</svg>[31m
+            [0mExport CSV[0m
+          [36m</button>[31m
+          [36m<span[31m
+            [33mstyle[31m=[32m"font-size: var(--badge-font-size, 11px); font-weight: var(--badge-font-weight, 600); letter-spacing: var(--badge-letter-spacing, 0.4px); line-height: var(--badge-line-height, 16px); text-transform: uppercase; padding: var(--badge-pad-y, 2px) var(--badge-pad-x, 8px); border-radius: var(--radius-badge, 4px); color: var(--badge-cached-fg); background: var(--badge-cached-bg); border: 1px solid var(--badge-cached-border); white-space: nowrap;"[31m
+          [36m>[31m
+            [0mCached[0m
+          [36m</span>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mstyle[31m=[32m"overflow-x: auto;"[31m
+      [36m>[31m
+        [36m<table[31m
+          [33mstyle[31m=[32m"width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 960px;"[31m
+        [36m>[31m
+          [36m<thead>[31m
+            [36m<tr[31m
+              [33mstyle[31m=[32m"border-bottom: 1px solid var(--border-default);"[31m
+            [36m>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 96px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mTicket ID[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 26%;"[31m
+              [36m>[31m
+                [0mSubject[0m
+              [36m</th>[31m
+              [36m<th[31m
+                [33maria-sort[31m=[32m"none"[31m
+                [33mscope[31m=[32m"col"[31m
+                [33mstyle[31m=[32m"padding: 6px 12px; font-size: var(--font-size-micro, 11px); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-th, 0.5px); color: var(--text-muted); text-align: left; white-space: nowrap; height: var(--density-table-head-h, 36px); box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; width: 170px;"[31m
+              [36m>[31m
+                [36m<button[31m
+                  [33mstyle[31m=[32m"background: transparent; border: medium; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0px; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; max-width: 100%;"[31m
+                  [33mtype[31m=[32m"button"[31m
+                [36m>[31m
+                  [0mCategory[0m
+                  [36m<span[31m
+                    [33mstyle[31m=[32m"font-size: var(--font-size-micro, 11px); color: var(--text-muted);"[31m
+                  [36m/>[31m
+                [36m</button>[31m
+              [36m</th>[31m
+              [36m<th[31m
+                [33mar...[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mreal keyboard shortcuts (App.tsx:94-130)[2m > [22m"/" focuses the ticket-query input[33m 1706[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22mrendering details[2m > [22mconfidence renders as integer percent (evidence: "96%")[32m 131[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/pagination.test.tsx[2m > [22mFlow (c): pagination over cached snapshot rows[2m > [22mpage 1: 5 rows, "Showing 1ÔÇô5 of 6", Previous disabled, Next enabled[33m 1761[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mopens a labelled dialog with the saved default base URL[33m 1832[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22msubmit is disabled until text is entered (evidenced disabled state)[33m 1910[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22mthe search input exists with its real a11y wiring[33m 718[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22mrendering details[2m > [22mall six exact categories render verbatim, incl. False Positive[33m 331[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mreal keyboard shortcuts (App.tsx:94-130)[2m > [22m"r" triggers a manual refresh ÔÇö a new 3-endpoint probe round[33m 607[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msorting (local state ÔÇö works)[2m > [22mdefault: Time desc (newest first), aria-sort on the Time column[32m 290[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): offline cached table (the GREEN honest baseline)[2m > [22m"/" focuses the search input (real shortcut, App.tsx:109-115)[33m 684[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/pagination.test.tsx[2m > [22mFlow (c): pagination over cached snapshot rows[2m > [22mNext shows the 6th row ("Showing 6ÔÇô6 of 6") and disables itself[33m 991[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mcloses via the "Close settings" button[33m 1063[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msorting (local state ÔÇö works)[2m > [22mCategory: new key starts desc; second click flips to asc[33m 560[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mreal keyboard shortcuts (App.tsx:94-130)[2m > [22m"?" opens the Keyboard Shortcuts modal; Escape closes it[33m 800[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msorting (local state ÔÇö works)[2m > [22mSeverity desc: Critical categories first by rank (not alphabetically)[33m 468[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/pagination.test.tsx[2m > [22mFlow (c): pagination over cached snapshot rows[2m > [22mPrevious returns to page 1[33m 1120[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): search narrows the table (FIX-01 replaced)[2m > [22mFIX-01: typing "trojan" echoes in the input and narrows the table to TKT-8470[33m 939[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22moffline submit really POSTs to /predict and fabricates NOTHING (GREEN honesty)[33m 1663[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mreal keyboard shortcuts (App.tsx:94-130)[2m > [22mshortcuts are ignored while typing in a text field (isTypingTarget guard)[33m 749[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mblur normalizes a bare host:port (adds http://) and persists[33m 1011[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msorting (local state ÔÇö works)[2m > [22mConfidence asc: lowest confidence first (numeric, not lexicographic)[33m 522[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mcommand palette ÔÇö MISSING FEATURE (stated plainly)[2m > [22mMISSING FEATURE (no FIX assigned): Ctrl+K must open a command palette ÔÇö no palette component or handler exists anywhere in src/[33m 477[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/keyboard-shortcuts.test.tsx[2m > [22mcommand palette ÔÇö MISSING FEATURE (stated plainly)[2m > [22mMISSING FEATURE (no FIX assigned): Cmd+K (macOS) must open the same palette[33m 446[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msorting (local state ÔÇö works)[2m > [22mEXPOSED-05: Ticket ID sort is lexicographic ÔÇö "TKT-10000" sorts before "TKT-9999" ascending (ClassificationTable.tsx:28)[33m 361[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22mpagination (local state ÔÇö works)[2m > [22mpage 1: "Showing 1ÔÇô5 of 12", Previous disabled, page size 5[32m 232[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mEXPOSED-08 (FIX-39): trailing slash is stripped during normalization[33m 940[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22mFIX-01: offline submit must surface the honest "Classification failed" error box (store now republishes)[33m 1264[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): search narrows the table (FIX-01 replaced)[2m > [22mFIX-01: case-insensitive multi-field match ÔÇö "SECURITY TEAM" matches assignedTo (substring, not fuzzy)[33m 1268[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22mpagination (local state ÔÇö works)[2m > [22mwalks to the last page and back (FIX-28 verified: bounds are correct)[33m 677[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msearch filter (FIX-01 replaced ÔÇö store now republishes)[2m > [22mFIX-01: query from the useTicketQuery store narrows the table (substring, case-insensitive)[32m 216[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/search-filter.test.tsx[2m > [22mFlow (b): search narrows the table (FIX-01 replaced)[2m > [22mFIX-01: a no-match query shows the honest empty state (no fabricated rows)[33m 1036[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msearch filter (FIX-01 replaced ÔÇö store now republishes)[2m > [22mFIX-01: "Clear filter" button appears while a query is active and resets it[33m 388[2mms[22m[39m
+ [32mÔ£ô[39m tests/components/ClassificationTable.test.tsx[2m > [22msearch filter (FIX-01 replaced ÔÇö store now republishes)[2m > [22mFIX-01: no-match query shows the honest empty state (no fabricated rows)[32m 134[2mms[22m[39m
+ [31m├ù[39m tests/components/ClassificationTable.test.tsx[2m > [22mCSV export wiring (FIX-25: the wiring EXISTS in the real code)[2m > [22mExport CSV produces a blob from the currently sorted rows[32m 176[2mms[22m[39m
+[31m   ÔåÆ expected 'ID,Subject,Category,Confidence,StatusÔÇª' to be 'ID,Subject,Category,Confidence,StatusÔÇª' // Object.is equality[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22m"Test Connection" probes /health, / and /docs under the NEW base[33m 1252[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22mFIX-01: the button shows "ClassifyingÔÇª" feedback while a prediction is in flight[33m 1227[2mms[22m[39m
+ [31m├ù[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mMISSING BEHAVIOR (FIX-01 replacement): changing the base URL should immediately re-probe the new base ÔÇö today it only applies on the next scheduled/manual health check[33m 964[2mms[22m[39m
+[31m   ÔåÆ Expect test to fail[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22mFIX-01: a REAL Event Log entry is appended for the failed classification[33m 1330[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mRestore defaults resets the base URL[33m 1125[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22mEXPOSED-06: the log entry carries the REAL network error, not a fallback closure value[33m 1205[2mms[22m[39m
+ [31m├ù[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mtoggle flips aria-pressed and sets <html data-reduced-motion>[33m 515[2mms[22m[39m
+[31m   ÔåÆ [2mexpect([22m[31melement[31m[2m).toHaveAttribute([22m[32m[32m"aria-pressed"[32m[31m[2m, [22m[32m[32m"false"[32m[31m[2m) // element.getAttribute("aria-pressed") === "false"[22m
+
+Expected the element to have attribute:
+[32m  aria-pressed="false"[31m
+Received:
+[31m  aria-pressed="true"[31m[39m
+ [32mÔ£ô[39m tests/flows/classify-offline.test.tsx[2m > [22mFlow (a): classify submit while offline[2m > [22msample chips classify immediately (POST body carries the chip text)[33m 667[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mEXPOSED-07: the Reduced-motion toggle must expose an accessible name + switch role (WCAG 4.1.2) ÔÇö today it is an unnamed <button aria-pressed> (SettingsDrawer.tsx:192-195)[33m 661[2mms[22m[39m

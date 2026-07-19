@@ -1,0 +1,39 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mopens a labelled dialog with the saved default base URL[33m 1407[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mcloses via the "Close settings" button[33m 804[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mblur normalizes a bare host:port (adds http://) and persists[33m 936[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mEXPOSED-08 (FIX-39): trailing slash is stripped during normalization[33m 783[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22m"Test Connection" probes /health, / and /docs under the NEW base[33m 946[2mms[22m[39m
+[90mstdout[2m | tests/flows/settings-reprobe.test.tsx[2m > [22m[2mFlow (e): API URL override + re-probe[2m > [22m[2mMISSING BEHAVIOR (FIX-01 replacement): changing the base URL should immediately re-probe the new base ÔÇö today it only applies on the next scheduled/manual health check
+[22m[39mMISSING calls [
+  [32m'http://3.23.60.61:8000/health'[39m,
+  [32m'http://3.23.60.61:8000/'[39m,
+  [32m'http://3.23.60.61:8000/docs'[39m,
+  [32m'http://3.23.60.61:8000/api/v1/performance/history'[39m,
+  [32m'http://3.23.60.61:8000/api/v1/classifications'[39m,
+  [32m'/cache/tickets-snapshot.json'[39m,
+  [32m'http://3.23.60.61:8000/health'[39m,
+  [32m'http://3.23.60.61:8000/'[39m,
+  [32m'http://3.23.60.61:8000/docs'[39m,
+  [32m'http://3.23.60.61:8000/api/v1/stats/categories'[39m,
+  [32m'http://3.23.60.61:8000/api/v1/performance/history'[39m,
+  [32m'http://3.23.60.61:8000/health'[39m,
+  [32m'http://3.23.60.61:8000/'[39m,
+  [32m'http://3.23.60.61:8000/docs'[39m
+]
+
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mMISSING BEHAVIOR (FIX-01 replacement): changing the base URL should immediately re-probe the new base ÔÇö today it only applies on the next scheduled/manual health check[33m 1526[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mRestore defaults resets the base URL[33m 1000[2mms[22m[39m
+[90mstdout[2m | tests/flows/settings-reprobe.test.tsx[2m > [22m[2mFlow (e): reduced-motion preference (real feature)[2m > [22m[2mtoggle flips aria-pressed and sets <html data-reduced-motion>
+[22m[39mLS {"apiBase":"http://3.23.60.61:8000","reducedMotion":false}
+
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mtoggle flips aria-pressed and sets <html data-reduced-motion>[33m 473[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mEXPOSED-07: the Reduced-motion toggle must expose an accessible name + switch role (WCAG 4.1.2) ÔÇö today it is an unnamed <button aria-pressed> (SettingsDrawer.tsx:192-195)[33m 571[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[2m | [22m[36m2 expected fail[39m[90m (9)[39m
+[2m   Start at [22m 18:42:14
+[2m   Duration [22m 11.33s[2m (transform 490ms, setup 252ms, import 435ms, tests 8.45s, environment 1.88s)[22m
+

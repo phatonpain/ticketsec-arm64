@@ -1,0 +1,160 @@
+T
+TicketSec
+Arm64 Guardian
+OVERVIEW
+Dashboard
+Cases
+Detections
+Threat Analytics
+OPERATIONS
+Ticket Query
+Live Predictions
+Model Registry
+SYSTEM
+System Health
+API Metrics
+Settings
+FI
+Felipe Inacio
+Security Analyst
+Dashboard
+›
+Security Operations
+Checking…
+Last 24 hours
+3
+Security Operations Center
+Real-time ML ticket classification on AWS Graviton ARM64
+MODEL LATENCY
+—
+Cached
+Last known latency · cached snapshot
+THROUGHPUT
+—
+Cached
+Last known throughput · cached snapshot
+MODEL ACCURACY
+—
+Pending Validation
+Awaiting eval — see MODEL_CARD.md
+MODEL FOOTPRINT
+8.73MB
+Model Card
+ONNX INT8
+Threat Category Distribution
+Detections by category
+CACHED
+Data Breach: 634
+Snapshot: cached
+Model Footprint
+INT8 artifact vs t4g.micro memory budget
+CACHED
+Memory headroom: 691.27MB
+Snapshot: cached
+Budget: 700MB
+Classification Performance
+Accuracy over the last 24 hours
+CACHED
+Awaiting live performance data
+Historical accuracy will appear once the API returns real metrics.
+Snapshot: cached
+System Monitor
+ARM64 infrastructure resources
+CACHED
+CPU (Neoverse N1)
+—
+Unavailable — API offline
+Memory (RAM)
+—
+Unavailable — API offline
+API Latency
+—
+Unavailable — API offline
+Requests / Min
+—
+Unavailable — API offline
+Snapshot: cached
+Recent Classifications
+Cached predictions — API offline
+Export CSV
+API Offline — Displaying cached data
+Ticket ID
+⇅
+Subject
+Category
+⇅
+Severity
+⇅
+Confidence
+⇅
+Status
+⇅
+Assigned To
+Time
+▼
+TKT-8471
+Suspicious email asking for bank credenti…
+Phishing
+96%
+Resolved
+Auto
+2m ago
+TKT-8470
+Trojan horse detected in downloaded file
+Malware
+91%
+Resolved
+Auto
+5m ago
+TKT-8469
+Multiple failed login attempts from unkno…
+Unauthorized Access
+87%
+Escalated
+Security Team
+8m ago
+TKT-8468
+Customer database export without approval
+Data Breach
+82%
+Pending
+Security Team
+14m ago
+TKT-8467
+DDoS attack pattern detected on edge rout…
+DDoS
+79%
+Escalated
+NOC
+18m ago
+Showing 1–5 of 6
+Previous
+Page 1
+Next
+Snapshot: cached
+Event Log
+System activity stream
+All
+Info
+Debug
+Error
+13:19:50
+INFO
+Dashboard initialized
+13:19:50
+DEBUG
+Health probe started
+Snapshot: cached
+Live Classification
+Submit a ticket for real-time prediction
+Ctrl+Enter to submit
+suspicious email asking for bank credentials
+trojan horse detected in downloaded file
+multiple failed login attempts from unknown IP
+Classify Ticket
+Submit a ticket to see the real-time prediction result.
+TicketSec Arm64 Guardian | AWS Graviton Deployment | ONNX Runtime ·
+API Docs
+·
+GitHub
+Ferramentas de IA

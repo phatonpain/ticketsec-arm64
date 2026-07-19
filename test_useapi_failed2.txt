@@ -1,0 +1,10 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+[90mstdout[2m | tests/hooks/useApi.test.tsx[2m > [22m[2mcheckHealth ÔÇö offline honesty (no cache yet)[2m > [22m[2mfailed probe ÔåÆ status "offline" (NOT "cached"), diagnostics populated
+[22m[39mbefore checkHealth
+
+[90mstdout[2m | tests/hooks/useApi.test.tsx[2m > [22m[2mcheckHealth ÔÇö offline honesty (no cache yet)[2m > [22m[2mfailed probe ÔåÆ status "offline" (NOT "cached"), diagnostics populated
+[22m[39mafter checkHealth
+after currentApiState [33mtrue[39m offline
+

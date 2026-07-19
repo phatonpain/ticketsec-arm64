@@ -1,0 +1,428 @@
+/* ==========================================================================
+   TicketSec Arm64 — design tokens (single source of truth)
+   Enterprise SOC dark theme. No gradients, no neon, no glows, no pastel fills.
+   Fonts: Inter (UI) + JetBrains Mono (data streams); metrics use Inter tnum.
+
+   ARCHITECTURE (v2 — TOKENS_ROOTCAUSE.md):
+   - Tailwind v4 stays (components use its utilities: bg-bg-card, text-xs, ...).
+   - ALL raw values live once in `@theme static` below. `static` forces every
+     variable to be emitted on :root — default v4 tree-shaking of "unused"
+     @theme vars already broke `duration-instant` in production and would
+     silently break any token consumed only through a var() alias.
+   - :root contains aliases (var refs into @theme) and component-contract
+     tokens (badges, tints, chart chrome, z-scale) that generate no utilities.
+   - ECharts canvas cannot resolve var() from JS option strings; chart colors
+     are mirrored in src/lib/chartTokens.ts — keep that file in sync (D2).
+   ========================================================================== */
+
+@import "tailwindcss";
+
+@theme static {
+  /* ==========================================================================
+     BASE SCALES — single source of truth for raw values.
+     `static` (Tailwind v4): always emit every variable to :root.
+     Without `static`, v4 tree-shakes "unused" @theme vars — this already broke
+     `duration-instant` (utility emitted, --transition-duration-instant not)
+     and would silently break any token whose only consumer is a var() alias.
+     ========================================================================== */
+
+  /* ---------- Typography ---------- */
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+  --font-metric: var(--font-family-sans);   /* display metrics — Inter + tabular-nums */
+  --font-numeric: "JetBrains Mono", "SF Mono", "Fira Code", monospace; /* data streams */
+
+  --font-size-micro: 11px;   /* badges, group labels, meta — the rendered floor */
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 15px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-kpi: 28px;     /* KPI primary values */
+  --font-size-metric: 32px;
+  --font-size-label: 11px;   /* uppercase micro labels (KPI titles, table th) */
+  --font-size-badge: 10px;   /* type floor exception — badges only */
+  --font-size-caption: 11px; /* panel footers, hints, timestamps */
+
+  --line-height-xs: 16px;
+  --line-height-sm: 18px;
+  --line-height-base: 20px;
+  --line-height-md: 22px;
+  --line-height-lg: 24px;
+  --line-height-xl: 28px;
+  --line-height-2xl: 32px;
+  --line-height-metric: 40px;
+
+  --tracking-caps: 0.6px;    /* uppercase micro labels */
+  --tracking-th: 0.5px;      /* table header cells */
+  --tracking-title: -0.2px;  /* card/page titles */
+  --tracking-kpi: -0.5px;    /* large KPI numerals */
+
+  /* Freshness caption (CrowdStrike pattern) */
+  --caption-size: 11px;
+  --caption-color: var(--color-text-muted);
+
+  /* ---------- Surfaces (dark elevation scale: lighter = higher) ---------- */
+  --color-bg-body: #0B0F19;
+  --color-bg-sidebar: #0F172A;
+  --color-bg-card: #1E293B;
+  --color-bg-card-hover: #334155;
+  --color-bg-input: #0F172A;
+  --color-bg-elevated: #27324A;        /* FIXED: was #111827 — darker than card (inverted elevation; tooltips must rise) */
+
+  /* ---------- Borders ---------- */
+  --color-border-default: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.10);
+  --color-border-accent: rgba(99, 102, 241, 0.30);
+
+  /* ---------- Text ---------- */
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #8292A8;
+  --color-text-inverse: #0B0F19;       /* FIXED: was #C5C1B9 (unusable beige) */
+  --color-text-on-accent: #FFFFFF;
+
+  /* ---------- Brand / accents (500-level; fills, not text) ---------- */
+  --color-accent-indigo: #6366F1;
+  --color-accent-indigo-strong: #4F46E5;       /* primary buttons — white text 6.29:1 */
+  --color-accent-indigo-strong-hover: #4338CA;
+  --color-accent-indigo-bg: rgba(99, 102, 241, 0.12); /* nav active, selected rows */
+  --color-accent-violet: #8B5CF6;  /* reserve: not for data fills on dashboard */
+  --color-accent-cyan: #06B6D4;
+  --color-accent-emerald: #10B981;
+  --color-accent-rose: #F43F5E;
+  --color-accent-amber: #F59E0B;
+  --color-accent-orange: #F97316;
+  --color-link: #818CF8;           /* text links on dark: 4.90:1 on card */
+
+  /* ---------- Categorical identity — six categories, muted 600-level ----------
+     Order: 1 Phishing, 2 Malware, 3 Data Breach, 4 Unauthorized Access,
+            5 DDoS, 6 False Positive.
+     NOTE: chartTokens.ts must mirror these (it still hardcodes the old
+     400-level hexes) — see TOKENS_ROOTCAUSE.md decision D2. */
+  --color-cat-1: #6366F1;
+  --color-cat-2: #0891B2;
+  --color-cat-3: #D97706;
+  --color-cat-4: #E11D48;
+  --color-cat-5: #7C3AED;
+  --color-cat-6: #64748B;
+  /* text/dot variants (400-level) — AA >= 4.5:1 on their -bg tints over card */
+  --color-cat-1-text: #818CF8;
+  --color-cat-2-text: #22D3EE;
+  --color-cat-3-text: #FBBF24;
+  --color-cat-4-text: #FB7185;
+  --color-cat-5-text: #A78BFA;
+  --color-cat-6-text: #94A3B8;
+  /* chip tints */
+  --color-cat-1-bg: rgba(99, 102, 241, 0.16);
+  --color-cat-2-bg: rgba(8, 145, 178, 0.18);
+  --color-cat-3-bg: rgba(217, 119, 6, 0.18);
+  --color-cat-4-bg: rgba(225, 29, 72, 0.18);
+  --color-cat-5-bg: rgba(124, 58, 237, 0.18);
+  --color-cat-6-bg: rgba(100, 116, 139, 0.18);
+
+  /* ---------- Severity scale (functional, Splunk-class) ---------- */
+  --color-sev-critical: #F43F5E;
+  --color-sev-high: #F97316;
+  --color-sev-medium: #F59E0B;
+  --color-sev-low: #38BDF8;
+  --color-sev-info: #60A5FA;   /* PRESERVED — consumed via --sev-info by utils.ts (False Positive) */
+  --color-sev-none: #64748B;
+
+  /* ---------- Status badge tones (text AA on tint over card) ---------- */
+  --color-status-ok-text: #34D399;
+  --color-status-ok-bg: rgba(16, 185, 129, 0.14);
+  --color-status-warn-text: #FBBF24;
+  --color-status-warn-bg: rgba(245, 158, 11, 0.14);
+  --color-status-err-text: #FB7185;
+  --color-status-err-bg: rgba(244, 63, 94, 0.14);
+  --color-status-neutral-text: var(--color-text-secondary);
+  --color-status-neutral-bg: rgba(148, 163, 184, 0.12);
+
+  /* ---------- Controls ---------- */
+  --color-control-ghost-bg: rgba(255, 255, 255, 0.04);
+  --color-control-ghost-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-icon-chip-bg: rgba(255, 255, 255, 0.05);
+
+  /* ---------- Notification count badge (bell) ---------- */
+  --color-badge-alert-bg: #E11D48;   /* white count 4.70:1 */
+
+  /* ---------- Density ---------- */
+  --density-row-h: 40px;          /* spec */
+  --density-card-pad: 16px;       /* spec */
+  --density-card-gap: 14px;
+  --density-kpi-h: 128px;
+  --density-widget-head-h: 44px;
+  --density-header-h: 56px;       /* top header */
+  --density-sidebar-w: 260px;     /* == Sidebar.tsx width + main marginLeft (real source) */
+  --density-table-head-h: 32px;   /* th height (was misusing 44px widget head) */
+  --density-widget-pad-x: 16px;   /* widget header/body/footer horizontal pad */
+
+  /* ---------- Layout ---------- */
+  --layout-page-px: 24px;         /* header + main horizontal gutter — one value */
+  --layout-sidebar-w: 260px;      /* FIXED from patch draft 240px: real Sidebar/App use 260 */
+
+  /* ---------- Spacing ---------- */
+  --spacing-1: 2px;
+  --spacing-2: 4px;
+  --spacing-3: 8px;
+  --spacing-4: 12px;
+  --spacing-5: 16px;
+  --spacing-6: 20px;
+  --spacing-7: 24px;
+  --spacing-8: 28px;
+
+  /* ---------- Radius ---------- */
+  --radius-sm: 6px;    /* controls, inputs, icon buttons */
+  --radius-md: 8px;    /* cards, panels */
+  --radius-lg: 10px;
+  --radius-badge: 4px;
+  --radius-pill: 999px;
+
+  /* ---------- Elevation shadow (no glows) ---------- */
+  --shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.40);
+
+  /* ---------- Motion ---------- */
+  --transition-duration-instant: 150ms;
+  --transition-duration-fast: 200ms;
+  --transition-timing-function-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root {
+  /* ==========================================================================
+     ALIASES + COMPONENT-CONTRACT TOKENS — no raw values duplicated here that
+     exist in @theme; aliases reference the base scales so there is exactly
+     one literal per value.
+     ========================================================================== */
+
+  /* ---------- Legacy semantic aliases (consumed by existing components) ---------- */
+  --bg-body: var(--color-bg-body);
+  --bg-sidebar: var(--color-bg-sidebar);
+  --bg-card: var(--color-bg-card);
+  --bg-card-hover: var(--color-bg-card-hover);
+  --bg-input: var(--color-bg-input);
+  --bg-elevated: var(--color-bg-elevated);
+
+  --border-default: var(--color-border-default);
+  --border-hover: var(--color-border-hover);
+  --border-accent: var(--color-border-accent);
+
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --text-inverse: var(--color-text-inverse);
+
+  --accent-indigo: var(--color-accent-indigo);
+  --accent-violet: var(--color-accent-violet);
+  --accent-cyan: var(--color-accent-cyan);
+  --accent-emerald: var(--color-accent-emerald);
+  --accent-rose: var(--color-accent-rose);
+  --accent-amber: var(--color-accent-amber);
+  --accent-orange: var(--color-accent-orange);
+
+  --font-primary: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+
+  /* ---------- FIX-02 repair: --sev-* aliases consumed by src/lib/utils.ts ----------
+     SEVERITY_COLORS references var(--sev-critical|high|medium|info); these were
+     defined NOWHERE, so severity dots painted transparent (invisible column).
+     NOTE: --sev-info is required (False Positive -> 'info'); the first-pass
+     patch missed it. */
+  --sev-critical: var(--color-sev-critical);
+  --sev-high: var(--color-sev-high);
+  --sev-medium: var(--color-sev-medium);
+  --sev-low: var(--color-sev-low);
+  --sev-info: var(--color-sev-info);
+
+  /* ---------- FIX-03 repair: --cat-* aliases consumed by src/lib/utils.ts ----------
+     CATEGORY_COLORS references var(--cat-1..6); undefined -> badge text fell
+     back to inherited white and dots were invisible. Aliased to the -text
+     (400-level, AA on tint) variants. */
+  --cat-1: var(--color-cat-1-text);
+  --cat-2: var(--color-cat-2-text);
+  --cat-3: var(--color-cat-3-text);
+  --cat-4: var(--color-cat-4-text);
+  --cat-5: var(--color-cat-5-text);
+  --cat-6: var(--color-cat-6-text);
+
+  /* W-05 badge contract aliases (names kept for component patches; values
+     delegated to the --color-cat-* system — single source of truth) */
+  --cat-1-fg: var(--color-cat-1-text);
+  --cat-2-fg: var(--color-cat-2-text);
+  --cat-3-fg: var(--color-cat-3-text);
+  --cat-4-fg: var(--color-cat-4-text);
+  --cat-5-fg: var(--color-cat-5-text);
+  --cat-6-fg: var(--color-cat-6-text);
+  --cat-1-bg: var(--color-cat-1-bg);
+  --cat-2-bg: var(--color-cat-2-bg);
+  --cat-3-bg: var(--color-cat-3-bg);
+  --cat-4-bg: var(--color-cat-4-bg);
+  --cat-5-bg: var(--color-cat-5-bg);
+  --cat-6-bg: var(--color-cat-6-bg);
+
+  /* W-05 status badge aliases -> --color-status-* system */
+  --status-resolved-fg: var(--color-status-ok-text);
+  --status-resolved-bg: var(--color-status-ok-bg);
+  --status-escalated-fg: var(--color-status-err-text);
+  --status-escalated-bg: var(--color-status-err-bg);
+  --status-pending-fg: var(--color-status-warn-text);
+  --status-pending-bg: var(--color-status-warn-bg);
+
+  /* ---------- Honesty badges (CACHED / API OFFLINE — one semantic pair) ---------- */
+  --badge-cached-fg: var(--color-accent-amber);
+  --badge-cached-bg: rgba(245, 158, 11, 0.10);
+  --badge-cached-border: rgba(245, 158, 11, 0.30);
+
+  /* Neutral badge (PENDING VALIDATION / MODEL CARD) */
+  --badge-neutral-fg: var(--color-text-secondary);
+  --badge-neutral-bg: rgba(148, 163, 184, 0.10);
+  --badge-neutral-border: rgba(148, 163, 184, 0.25);
+
+  /* Header status pill ("Checking…" / LIVE / CACHED / API OFFLINE) */
+  --pill-neutral-bg: rgba(148, 163, 184, 0.08);
+  --pill-neutral-border: rgba(148, 163, 184, 0.30);
+
+  /* ---------- Badge geometry — one spec for every badge/chip/pill ---------- */
+  --badge-font-size: 11px;
+  --badge-font-weight: 600;
+  --badge-letter-spacing: 0.4px;
+  --badge-line-height: 16px;
+  --badge-pad-y: 2px;
+  --badge-pad-x: 8px;
+  --badge-dot-size: 6px;
+  --badge-gap: 6px;
+  --badge-max-width: 100%;
+  --badge-count-size: 16px;      /* bell count badge */
+  --badge-count-font-size: 10px; /* documented floor exception, white on --color-badge-alert-bg */
+
+  /* ---------- Charts (ECharts canvas cannot resolve var() in JS option
+     strings — mirror in src/lib/chartTokens.ts; see TOKENS_ROOTCAUSE.md D2) -- */
+  --chart-series-baseline: #64748B;
+  --chart-series-onnx: #6366F1;
+  --chart-series-int8: #06B6D4;
+  --chart-series-accent: var(--chart-series-onnx);
+  --chart-series-accent-strong: #818CF8;  /* hover/emphasis only */
+  --chart-grid: rgba(255, 255, 255, 0.05);
+  --chart-axis: var(--color-text-muted);
+  --chart-axis-line: rgba(255, 255, 255, 0.08);
+  --chart-bar-track: rgba(255, 255, 255, 0.04);
+  --chart-donut-track: #334155;           /* neutral remainder slice */
+  --chart-tooltip-bg: var(--color-bg-elevated);
+  --chart-tooltip-border: var(--color-border-hover);
+
+  /* ---------- Recurring tints ---------- */
+  --tint-track: rgba(255, 255, 255, 0.06);   /* progress-bar track */
+  --tint-row: rgba(255, 255, 255, 0.03);     /* table/event-log row hairline + hover */
+  --tint-indigo-10: rgba(99, 102, 241, 0.10);  /* KPI icon tile, sidebar active nav */
+  --tint-indigo-12: rgba(99, 102, 241, 0.12);  /* Event Log active filter */
+  --tint-cyan-10: rgba(6, 182, 212, 0.10);     /* KPI icon tile */
+  --tint-emerald-10: rgba(16, 185, 129, 0.10); /* KPI icon tile */
+  --tint-violet-10: rgba(139, 92, 246, 0.10);  /* KPI icon tile */
+
+  /* ---------- Z-index scale (ECharts tooltip must not fight the header) ---------- */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-header: 100;
+  --z-overlay: 1000;
+  --z-tooltip: 1100;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg-body);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.20);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-indigo);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Manual reduced-motion override controlled by Settings drawer */
+html[data-reduced-motion="true"],
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@layer components {
+  .font-mono {
+    font-family: var(--font-family-mono);
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .font-numeric {
+    font-family: var(--font-numeric);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 200ms ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+}

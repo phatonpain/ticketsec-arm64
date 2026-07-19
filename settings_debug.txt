@@ -1,0 +1,60 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mopens a labelled dialog with the saved default base URL[33m 1387[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): settings drawer basics[2m > [22mcloses via the "Close settings" button[33m 841[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mblur normalizes a bare host:port (adds http://) and persists[33m 812[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mEXPOSED-08 (FIX-39): trailing slash is stripped during normalization[33m 804[2mms[22m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22m"Test Connection" probes /health, / and /docs under the NEW base[33m 915[2mms[22m[39m
+ [31m├ù[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mMISSING BEHAVIOR (FIX-01 replacement): changing the base URL should immediately re-probe the new base ÔÇö today it only applies on the next scheduled/manual health check[33m 1621[2mms[22m[39m
+[31m   ÔåÆ Expect test to fail[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mRestore defaults resets the base URL[33m 1024[2mms[22m[39m
+[90mstdout[2m | tests/flows/settings-reprobe.test.tsx[2m > [22m[2mFlow (e): reduced-motion preference (real feature)[2m > [22m[2mtoggle flips aria-pressed and sets <html data-reduced-motion>
+[22m[39mLS {"apiBase":"http://3.23.60.61:8000","reducedMotion":false}
+
+ [31m├ù[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mtoggle flips aria-pressed and sets <html data-reduced-motion>[33m 528[2mms[22m[39m
+[31m   ÔåÆ [2mexpect([22m[31melement[31m[2m).toHaveAttribute([22m[32m[32m"aria-pressed"[32m[31m[2m, [22m[32m[32m"false"[32m[31m[2m) // element.getAttribute("aria-pressed") === "false"[22m
+
+Expected the element to have attribute:
+[32m  aria-pressed="false"[31m
+Received:
+[31m  aria-pressed="true"[31m[39m
+ [32mÔ£ô[39m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mEXPOSED-07: the Reduced-motion toggle must expose an accessible name + switch role (WCAG 4.1.2) ÔÇö today it is an unnamed <button aria-pressed> (SettingsDrawer.tsx:192-195)[33m 680[2mms[22m[39m
+node.exe : 
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\crust\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m[1m[41m Failed Tests 2 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): API URL override + re-probe[2m > [22mMISSING BEHAVIOR (FIX-01 replacement): changing the base URL should 
+immediately re-probe the new base ÔÇö today it only applies on the next scheduled/manual health check
+[31m[1mError[22m: Expect test to fail[39m
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/2]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m tests/flows/settings-reprobe.test.tsx[2m > [22mFlow (e): reduced-motion preference (real feature)[2m > [22mtoggle flips aria-pressed and sets <html data-reduced-motion>
+[31m[1mError[22m: [2mexpect([22m[31melement[31m[2m).toHaveAttribute([22m[32m[32m"aria-pressed"[32m[31m[2m, [22m[32m[32m"false"[32m[31m[2m) // element.getAttribute("aria-pressed") 
+=== "false"[22m
+
+Expected the element to have attribute:
+[32m  aria-pressed="false"[31m
+Received:
+[31m  aria-pressed="true"[31m[39m
+[36m [2mÔØ»[22m tests/flows/settings-reprobe.test.tsx:[2m174:20[22m[39m
+    [90m172|[39m     console[33m.[39m[34mlog[39m([32m'LS'[39m[33m,[39m localStorage[33m.[39m[34mgetItem[39m([32m'ticketsec-settings-v1'[39m))[33m;[39m
+    [90m173|[39m     [35mconst[39m toggle [33m=[39m [34mmotionToggle[39m()[33m;[39m
+    [90m174|[39m     expect(toggle).toHaveAttribute('aria-pressed', 'false'); // DEFAULÔÇª
+    [90m   |[39m                    [31m^[39m
+    [90m175|[39m     // applyReducedMotion(false) REMOVES the attribute (it never writeÔÇª
+    [90m176|[39m     expect(document.documentElement.dataset.reducedMotion).toBeUndefinÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/2]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m6 passed[39m[22m[2m | [22m[36m1 expected fail[39m[90m (9)[39m
+[2m   Start at [22m 18:40:38
+[2m   Duration [22m 11.40s[2m (transform 494ms, setup 235ms, import 473ms, tests 8.62s, environment 1.79s)[22m
+

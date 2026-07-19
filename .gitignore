@@ -1,0 +1,6 @@
+﻿node_modules/
+dist/
+.localstorage
+*.pem
+__pycache__/
+*.pyc

@@ -1,0 +1,35 @@
+﻿
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/ComfyUI/ticketsec-arm64-dashboard[39m
+
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mprobe timeout ÔÇö settles (refutes "never settles"; refines FIX-01)[2m > [22ma hanging fetch is aborted at 10s and the probe lock is released[32m 33[2mms[22m[39m
+ [31m├ù[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mprobe rounds land at 5s, 10s, 20s, 40s, 60s (capped exponential with jitter stubbed to 1)[32m 17[2mms[22m[39m
+[31m   ÔåÆ expected "vi.fn()" to be called 9 times, but got 6 times[39m
+ [32mÔ£ô[39m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mdoes not probe again before the backoff elapses[32m 3[2mms[22m[39m
+node.exe : 
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\crust\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m[1m[41m Failed Tests 1 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m tests/hooks/useApiBackoff.test.tsx[2m > [22mauto-recovery backoff schedule ÔÇö real, deterministic (no jitter)[2m > [22mprobe 
+rounds land at 5s, 10s, 20s, 40s, 60s (capped exponential with jitter stubbed to 1)
+[31m[1mAssertionError[22m: expected "vi.fn()" to be called 9 times, but got 6 times[39m
+[36m [2mÔØ»[22m tests/hooks/useApiBackoff.test.tsx:[2m93:23[22m[39m
+    [90m 91|[39m       [35mawait[39m vi[33m.[39m[34madvanceTimersByTimeAsync[39m([34m5[39m [33m*[39m [33mS[39m)[33m;[39m
+    [90m 92|[39m     })[33m;[39m
+    [90m 93|[39m     expect(fetchMock).toHaveBeenCalledTimes(9); // failures=2 ÔåÆ 10s toÔÇª
+    [90m   |[39m                       [31m^[39m
+    [90m 94|[39m
+    [90m 95|[39m     [35mawait[39m [34mact[39m([35masync[39m () [33m=>[39m {
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/1]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 18:30:25
+[2m   Duration [22m 2.30s[2m (transform 116ms, setup 216ms, import 228ms, tests 55ms, environment 1.54s)[22m
+

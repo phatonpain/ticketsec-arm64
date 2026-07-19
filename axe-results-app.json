@@ -1,0 +1,20 @@
+{
+  "testEngine": {
+    "name": "axe-core",
+    "version": "4.10.2"
+  },
+  "testEnvironment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+    "windowWidth": 1432,
+    "windowHeight": 721,
+    "orientationAngle": 0,
+    "orientationType": "landscape-primary"
+  },
+  "timestamp": "2026-07-18T15:14:55.219Z",
+  "url": "http://localhost:4173/#/dashboard",
+  "app_violations": [],
+  "raw_violations_count": 2,
+  "excluded_targets": [
+    "chatgpt-sidebar"
+  ]
+}

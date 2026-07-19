@@ -1,0 +1,5 @@
+# ML evaluation dependencies for TicketSec Arm64
+# Install: pip install -r model/requirements.txt
+numpy>=1.24.0
+scikit-learn>=1.3.0
+onnxruntime>=1.16.0
