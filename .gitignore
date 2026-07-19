@@ -1,6 +1,13 @@
-﻿node_modules/
+node_modules/
 dist/
 .localstorage
 *.pem
 __pycache__/
 *.pyc
+screenshots/p1/
+scripts/screenshot_p1.py
+scripts/screenshot_p1_selenium.mjs
+*.log
+.vitest_*.log
+working_tree.diff
+lint_output.txt
