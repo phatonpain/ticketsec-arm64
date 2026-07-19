@@ -99,7 +99,7 @@ Phase 3 final commit: `eda3c8a`
 - `python -m model.check_calibration` → ECE **0.0172**, Brier **0.1089**, `WELL_CALIBRATED`
 - `python -m model.run_probe_suite` → **14/14 pass**
 - `python -m model.measure_latency` → local p50 **0.249 ms**, p95 **0.525 ms**
-- `bash scripts/gates.sh` → **PENDING** (run after commit)
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-19 22:26:28Z` (recorded in `TEST_RESULTS_v4.md`)
 
 ## Open Items
 
