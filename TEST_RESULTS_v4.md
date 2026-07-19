@@ -206,3 +206,55 @@
 - [PASS] G4 axe health (2026-07-19 05:32:26Z)
 - [PASS] G6 secrets scan clean (2026-07-19 05:32:26Z)
 - [PASS] G8 tree clean (2026-07-19 05:32:26Z)
+
+## Gate run — 2026-07-19 05:40:30Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:40:30Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:40:30Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:40:30Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m145 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:40:38
+[2m   Duration [22m 20.49s[2m (transform 3.24s, setup 21.62s, import 6.25s, tests 53.48s, environment 84.24s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-19 05:40:30Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:40:30Z)
+- [PASS] G4 axe detections (2026-07-19 05:40:30Z)
+- [PASS] G4 axe analytics (2026-07-19 05:40:30Z)
+- [PASS] G4 axe registry (2026-07-19 05:40:30Z)
+- [PASS] G4 axe health (2026-07-19 05:40:30Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:40:30Z)
+- [PASS] G8 tree clean (2026-07-19 05:40:30Z)
+
+## Gate run — 2026-07-19 05:42:33Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:42:33Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:42:33Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:42:33Z)
+     [33m[2m✓[22m[39m Restore defaults resets the base URL [33m 880[2mms[22m[39m
+     [33m[2m✓[22m[39m toggle flips aria-pressed and sets <html data-reduced-motion> [33m 429[2mms[22m[39m
+     [33m[2m✓[22m[39m EXPOSED-07: the Reduced-motion toggle exposes an accessible name (WCAG 4.1.2) [33m 449[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:42:42
+[2m   Duration [22m 21.40s[2m (transform 3.96s, setup 25.11s, import 6.35s, tests 56.91s, environment 95.31s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 05:42:33Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:42:33Z)
+- [PASS] G4 axe detections (2026-07-19 05:42:33Z)
+- [PASS] G4 axe analytics (2026-07-19 05:42:33Z)
+- [PASS] G4 axe registry (2026-07-19 05:42:33Z)
+- [PASS] G4 axe health (2026-07-19 05:42:33Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:42:33Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 05:42:33Z)
