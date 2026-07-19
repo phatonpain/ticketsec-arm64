@@ -23,6 +23,7 @@ audit/*
 !audit/PHASE4_QA_EVIDENCE.md
 !audit/RETRO_v4.md
 !audit/FINAL_REPORT_v4.md
+!audit/RUBRIC_SCORES_v4.md
 model/decision_threshold.json
 *.log
 .vitest_*.log
