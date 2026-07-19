@@ -362,3 +362,47 @@
 - [PASS] G4 axe health (2026-07-19 05:46:54Z)
 - [PASS] G6 secrets scan clean (2026-07-19 05:46:54Z)
 - [FAIL] G8 git — uncommitted changes (2026-07-19 05:46:54Z)
+
+## Gate run — 2026-07-19 05:51:19Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:51:19Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:51:19Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:51:19Z)
+- [FAIL] G3 vitest — rc=0 fails/skips= (see .vitest_fail.log) (2026-07-19 05:51:19Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:51:19Z)
+- [PASS] G4 axe detections (2026-07-19 05:51:19Z)
+- [PASS] G4 axe analytics (2026-07-19 05:51:19Z)
+- [PASS] G4 axe registry (2026-07-19 05:51:19Z)
+- [PASS] G4 axe health (2026-07-19 05:51:19Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:51:19Z)
+- [PASS] G8 tree clean (2026-07-19 05:51:19Z)
+
+## Gate run — 2026-07-19 05:52:33Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-19 05:52:33Z)
+- [PASS] G1 chunk 301.14KB<600KB (2026-07-19 05:52:33Z)
+- [PASS] G2 lint 0/0 (2026-07-19 05:52:33Z)
+     [33m[2m✓[22m[39m Restore defaults resets the base URL [33m 832[2mms[22m[39m
+     [33m[2m✓[22m[39m toggle flips aria-pressed and sets <html data-reduced-motion> [33m 422[2mms[22m[39m
+     [33m[2m✓[22m[39m EXPOSED-07: the Reduced-motion toggle exposes an accessible name (WCAG 4.1.2) [33m 444[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 02:52:32
+[2m   Duration [22m 20.41s[2m (transform 3.19s, setup 22.54s, import 5.62s, tests 53.53s, environment 89.91s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-19 05:52:33Z)
+- [PASS] G4 axe dashboard (2026-07-19 05:52:33Z)
+- [PASS] G4 axe detections (2026-07-19 05:52:33Z)
+- [PASS] G4 axe analytics (2026-07-19 05:52:33Z)
+- [PASS] G4 axe registry (2026-07-19 05:52:33Z)
+- [PASS] G4 axe health (2026-07-19 05:52:33Z)
+- [PASS] G6 secrets scan clean (2026-07-19 05:52:33Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-19 05:52:33Z)
