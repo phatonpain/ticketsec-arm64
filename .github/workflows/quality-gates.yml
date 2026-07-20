@@ -9,70 +9,24 @@ jobs:
         with: { node-version: 22, cache: npm }
       - run: npm ci
 
-      - name: G1 build + chunk budget
+      - name: Install axe-core CLI if Chrome is available
         run: |
-          npm run build 2>&1 | tee build.log
-          MAIN=$(grep -oE 'index-[A-Za-z0-9_-]+\.js +[0-9.]+' build.log | head -1 | grep -oE '[0-9.]+$')
-          echo "main chunk: ${MAIN}KB"
-          awk "BEGIN{exit !($MAIN < 600)}"
-
-      - name: G2 lint
-        run: npm run lint
-
-      - name: G3 tests (no it.fails, no skips)
-        run: |
-          npx vitest run 2>&1 | tee test.log
-          ! grep -qE 'it\.fails|\.skip\(' test.log
-
-      - name: G4 a11y — axe per route (optional; requires Chrome)
-        run: |
-          if command -v google-chrome >/dev/null 2>&1 || [ -n "$CHROME_BIN" ]; then
+          if command -v google-chrome >/dev/null 2>&1; then
             npm install -g @axe-core/cli
-            nohup npm run dev -- --port 5173 >/tmp/vite.log 2>&1 &
-            sleep 5
-            for R in dashboard detections analytics registry health; do
-              echo "=== axe $R ==="
-              npx axe "http://localhost:5173/#/$R" --exit
-            done
-            pkill -f "vite --port 5173" || true
-          else
-            echo "No Chrome binary available in CI; skipping axe."
-            echo "Run 'bash scripts/gates.sh' locally for the full G4 axe check."
           fi
 
-      - name: G6 secrets scan (allowlist-aware, same as scripts/gates.sh)
+      - name: Run all quality gates (local script mirror)
         run: |
-          # Scan only text source/config files. Excluded paths and comment lines
-          # match scripts/gates.sh exactly.
-          if grep -rP \
-               --include='*.ts' --include='*.tsx' --include='*.css' --include='*.html' \
-               --include='*.json' --include='*.py' --include='*.sh' --include='*.yml' --include='*.md' \
-               --exclude='seeds*.py' --exclude='tickets_dataset*.jsonl' --exclude='expand.py' \
-               --exclude='test_set.jsonl' --exclude='probe_suite.json' --exclude='probe_results.json' --exclude='eval.py' \
-               --exclude='tokens.css' --exclude='chartTokens.ts' \
-               --exclude='query_imds.sh' \
-               '(api[_-]?key|secret|password|BEGIN.*PRIVATE KEY|\btoken(?!s|izer))' \
-               src/ public/ model/ ops/ app/ data/ 2>/dev/null \
-               | grep -vE 'PLACEHOLDER|EXAMPLE' \
-               | grep -vE '^\s*(\*|//|/\*|#|<!--)' \
-               | grep -q .; then
-            echo "FAIL: G6 secrets scan found matches"
-            exit 1
+          nohup npm run dev -- --port 5173 >/tmp/vite.log 2>&1 &
+          sleep 5
+          if command -v google-chrome >/dev/null 2>&1; then
+            export CHROME_BIN=/usr/bin/google-chrome
+            export CHROMEDRIVER_PATH=$(command -v chromedriver || echo "")
           fi
-          if find . -name 'ticketsec-key.pem' -not -path './node_modules/*' | grep -q .; then
-            echo "FAIL: ticketsec-key.pem found in tree"
-            exit 1
-          fi
-          echo "G6 secrets scan clean"
-
-      - name: G8 tree clean
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "FAIL: uncommitted changes"
-            git status --short
-            exit 1
-          fi
-          echo "G8 tree clean"
+          bash scripts/gates.sh
+          RC=$?
+          pkill -f "vite --port 5173" || true
+          exit $RC
 
       - name: Upload evidence
         if: always()
@@ -80,5 +34,5 @@ jobs:
         with:
           name: gate-evidence
           path: |
-            build.log
-            test.log
+            TEST_RESULTS_v4.md
+            /tmp/vite.log
