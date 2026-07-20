@@ -1,7 +1,7 @@
 # TicketSec Arm64 — Component Specs
 
-> These specs are derived from `DESIGN_BRIEF.md` §4 and the actual component
-> inventory in `src/`. Every value maps to a token in `01_DESIGN_TOKENS.md`.
+> Component specifications for the TicketSec Arm64 prototype.  
+> Every value maps to a token in `01_DESIGN_TOKENS.md`.
 
 ## 1. TopBar
 

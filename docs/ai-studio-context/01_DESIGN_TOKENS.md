@@ -1,7 +1,7 @@
 # TicketSec Arm64 — Design Tokens
 
-> Source of truth: `src/styles/tokens.css` in the repo.  
-> This document is a standalone copy for external prototyping tools.
+> Standalone design token reference for the TicketSec Arm64 prototype.  
+> Use these values exclusively; no external token sheet is required.
 
 ## Hard rule
 

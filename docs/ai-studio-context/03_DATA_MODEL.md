@@ -1,7 +1,7 @@
 # TicketSec Arm64 — Data Model
 
-> Source: `app/main.py`, `model/test_set.jsonl`.  
-> This document is standalone — no need to read the backend code.
+> Data model and API contract for the TicketSec Arm64 prototype.  
+> No external backend code needs to be read.
 
 ## API endpoints
 

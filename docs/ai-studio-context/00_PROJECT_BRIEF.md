@@ -14,7 +14,7 @@ resolve, or auto-close — honestly, even when the backend is offline.
 | Charts | ECharts 6 (lazy-chunked) |
 | Icons | lucide-react |
 | Lint / test | oxlint, vitest |
-| Backend | FastAPI (`app/main.py`) |
+| Backend | FastAPI |
 | Model | ONNX INT8 classifier served on AWS Graviton arm64 (systemd unit `ticketsec`) |
 | Public endpoint | `http://3.23.60.61:8000` during hackathon/demo period |
 
