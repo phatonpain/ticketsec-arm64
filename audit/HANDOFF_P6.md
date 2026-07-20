@@ -96,7 +96,8 @@ Phase 6 final commit: `54c3e7a`
 
 ## Gate Status
 
-- `bash scripts/gates.sh` → **PENDING** (run after commit).
+- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-20 00:55:48Z`
+  (recorded in `TEST_RESULTS_v4.md`; gate-evidence commit `f566e1b`).
 
 ## Open Items
 
