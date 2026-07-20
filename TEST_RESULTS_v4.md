@@ -1591,3 +1591,81 @@ Summary from `qa/proof/honesty-matrix.json`:
 - [PASS] G4 axe health (2026-07-20 01:46:53Z)
 - [PASS] G6 secrets scan clean (2026-07-20 01:46:53Z)
 - [FAIL] G8 git — uncommitted changes (2026-07-20 01:46:53Z)
+
+## Gate run — 2026-07-20 01:50:40Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 01:50:40Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 01:50:40Z)
+- [PASS] G2 lint 0/0 (2026-07-20 01:50:40Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m27 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m177 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 22:50:38
+[2m   Duration [22m 100.00s[2m (transform 1.15s, setup 9.06s, import 2.56s, tests 41.50s, environment 40.58s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-20 01:50:40Z)
+- [PASS] G4 axe dashboard (2026-07-20 01:50:40Z)
+- [PASS] G4 axe detections (2026-07-20 01:50:40Z)
+- [PASS] G4 axe analytics (2026-07-20 01:50:40Z)
+- [PASS] G4 axe registry (2026-07-20 01:50:40Z)
+- [PASS] G4 axe health (2026-07-20 01:50:40Z)
+- [PASS] G6 secrets scan clean (2026-07-20 01:50:40Z)
+- [PASS] G8 tree clean (2026-07-20 01:50:40Z)
+
+## Gate run — 2026-07-20 01:56:22Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 01:56:22Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 01:56:22Z)
+- [PASS] G2 lint 0/0 (2026-07-20 01:56:22Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m27 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m177 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 22:56:20
+[2m   Duration [22m 101.54s[2m (transform 1.06s, setup 9.12s, import 2.60s, tests 43.40s, environment 39.50s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-20 01:56:22Z)
+- [PASS] G4 axe dashboard (2026-07-20 01:56:22Z)
+- [PASS] G4 axe detections (2026-07-20 01:56:22Z)
+- [PASS] G4 axe analytics (2026-07-20 01:56:22Z)
+- [PASS] G4 axe registry (2026-07-20 01:56:22Z)
+- [PASS] G4 axe health (2026-07-20 01:56:22Z)
+- [PASS] G6 secrets scan clean (2026-07-20 01:56:22Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-20 01:56:22Z)
+
+## Gate run — 2026-07-20 02:09:59Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 02:09:59Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 02:09:59Z)
+- [PASS] G2 lint 0/0 (2026-07-20 02:09:59Z)
+(node:129888) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m28 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[32m178 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 23:09:58
+[2m   Duration [22m 125.66s[2m (transform 1.30s, setup 11.15s, import 3.14s, tests 53.34s, environment 49.98s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-20 02:09:59Z)
+- [PASS] G4 axe dashboard (2026-07-20 02:09:59Z)
+- [PASS] G4 axe detections (2026-07-20 02:09:59Z)
+- [PASS] G4 axe analytics (2026-07-20 02:09:59Z)
+- [PASS] G4 axe registry (2026-07-20 02:09:59Z)
+- [PASS] G4 axe health (2026-07-20 02:09:59Z)
+- [PASS] G6 secrets scan clean (2026-07-20 02:09:59Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-20 02:09:59Z)
