@@ -1565,3 +1565,29 @@ Summary from `qa/proof/honesty-matrix.json`:
 - [PASS] G4 axe health (2026-07-20 01:43:43Z)
 - [PASS] G6 secrets scan clean (2026-07-20 01:43:43Z)
 - [FAIL] G8 git — uncommitted changes (2026-07-20 01:43:43Z)
+
+## Gate run — 2026-07-20 01:46:53Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 01:46:53Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 01:46:53Z)
+- [PASS] G2 lint 0/0 (2026-07-20 01:46:53Z)
+(node:185260) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m28 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[32m178 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 22:46:51
+[2m   Duration [22m 99.82s[2m (transform 1.04s, setup 8.78s, import 2.63s, tests 41.74s, environment 39.99s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-20 01:46:53Z)
+- [PASS] G4 axe dashboard (2026-07-20 01:46:53Z)
+- [PASS] G4 axe detections (2026-07-20 01:46:53Z)
+- [PASS] G4 axe analytics (2026-07-20 01:46:53Z)
+- [PASS] G4 axe registry (2026-07-20 01:46:53Z)
+- [PASS] G4 axe health (2026-07-20 01:46:53Z)
+- [PASS] G6 secrets scan clean (2026-07-20 01:46:53Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-20 01:46:53Z)
