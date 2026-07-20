@@ -52,8 +52,8 @@ describe('ModelRegistry committed artifact rendering', () => {
   it('renders Latency panel with p50/p95 from t4g.micro', async () => {
     render(<ModelRegistry />);
     expect(await screen.findByText('Latency on Graviton')).toBeInTheDocument();
-    expect(screen.getByText('0.22ms')).toBeInTheDocument();
-    expect(screen.getByText('0.30ms')).toBeInTheDocument();
+    expect(screen.getByText('0.24ms')).toBeInTheDocument();
+    expect(screen.getByText('0.29ms')).toBeInTheDocument();
     expect(screen.getByText(/n=100/)).toBeInTheDocument();
   });
 

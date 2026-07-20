@@ -1435,3 +1435,55 @@ Summary from `qa/proof/honesty-matrix.json`:
 - [PASS] G4 axe health (2026-07-19 23:50:35Z)
 - [PASS] G6 secrets scan clean (2026-07-19 23:50:35Z)
 - [PASS] G8 tree clean (2026-07-19 23:50:35Z)
+
+## Gate run — 2026-07-20 00:39:35Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 00:39:35Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 00:39:35Z)
+- [PASS] G2 lint 0/0 (2026-07-20 00:39:35Z)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m26 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m176 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 21:39:36
+[2m   Duration [22m 136.16s[2m (transform 1.27s, setup 13.60s, import 3.72s, tests 48.79s, environment 60.49s)[22m
+- [FAIL] G3 vitest — rc=1 fails/skips=0 (2026-07-20 00:39:35Z)
+- [FAIL] G4 axe dashboard — violations (2026-07-20 00:39:35Z)
+- [FAIL] G4 axe detections — violations (2026-07-20 00:39:35Z)
+- [FAIL] G4 axe analytics — violations (2026-07-20 00:39:35Z)
+- [FAIL] G4 axe registry — violations (2026-07-20 00:39:35Z)
+- [FAIL] G4 axe health — violations (2026-07-20 00:39:35Z)
+- [PASS] G6 secrets scan clean (2026-07-20 00:39:35Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-20 00:39:35Z)
+
+## Gate run — 2026-07-20 00:52:00Z
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+- [PASS] G1 build (2026-07-20 00:52:00Z)
+- [PASS] G1 chunk 315.86KB<600KB (2026-07-20 00:52:00Z)
+- [PASS] G2 lint 0/0 (2026-07-20 00:52:00Z)
+(node:166016) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ [32m✓[39m tests/lib/formatRelativeTime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m28 passed[39m[22m[90m (28)[39m
+[2m      Tests [22m [1m[32m178 passed[39m[22m[90m (178)[39m
+[2m   Start at [22m 21:51:58
+[2m   Duration [22m 109.26s[2m (transform 1.02s, setup 10.56s, import 2.96s, tests 41.77s, environment 46.80s)[22m
+- [PASS] G3 vitest green, 0 it.fails/skips (2026-07-20 00:52:00Z)
+- [PASS] G4 axe dashboard (2026-07-20 00:52:00Z)
+- [PASS] G4 axe detections (2026-07-20 00:52:00Z)
+- [PASS] G4 axe analytics (2026-07-20 00:52:00Z)
+- [PASS] G4 axe registry (2026-07-20 00:52:00Z)
+- [PASS] G4 axe health (2026-07-20 00:52:00Z)
+- [PASS] G6 secrets scan clean (2026-07-20 00:52:00Z)
+- [FAIL] G8 git — uncommitted changes (2026-07-20 00:52:00Z)

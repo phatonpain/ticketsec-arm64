@@ -3,7 +3,7 @@
 Date: 2026-07-20  
 Branch: `mission/v4`  
 Phase 5 final commit: `0dca304`  
-Phase 6 final commit: `PENDING` (to be recorded after `git commit`)
+Phase 6 final commit: `23559eb`
 
 ## Done
 

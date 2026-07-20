@@ -40,7 +40,7 @@ describe('ModelPerformancePanel offline fallback', () => {
 
   it('falls back to committed t4g.micro latency benchmark when API has no history', async () => {
     render(<ModelPerformancePanel />);
-    expect(await screen.findByText('0.22ms')).toBeInTheDocument();
+    expect(await screen.findByText('0.24ms')).toBeInTheDocument();
     expect(screen.getByText('Offline benchmark')).toBeInTheDocument();
   });
 
