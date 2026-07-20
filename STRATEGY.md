@@ -40,9 +40,9 @@ Every item maps to at least one judging criterion. No orphan items.
 | Deliverable | Owning agent file | Evidence gate | Status |
 |---|---|---|---|
 | `MODEL_CARD.md` | ml-engineer.md | All metrics traceable to `model/eval_results.json` etc.; accuracy wording with caveats | ✅ Draft committed (PENDING values honest) |
-| `README.md` | tech-writer.md | Architecture ASCII, stack, quickstart, metrics slots, claim ledger | 🔄 This mission |
-| `DEVPOST_SUBMISSION.md` | tech-writer.md | Banned-phrase check = 0; every number cited | 🔄 This mission |
-| `DEMO_SCRIPT.md` | tech-writer.md | 60–90 s shot list; Branch A + Branch B per scene | 🔄 This mission |
+| `README.md` | tech-writer.md | Architecture diagram, stack, Windows + Graviton quickstart, metrics table with protocol, claim ledger | ✅ Updated in Phase 7 |
+| `DEVPOST_SUBMISSION.md` | tech-writer.md | Banned-phrase check = 0; every number cited; C2→C1 story and roadmap | ✅ Updated in Phase 7 |
+| `DEMO_SCRIPT.md` | tech-writer.md | 60–90 s shot list; live → registry → honesty drill → fallback narration | ✅ Updated in Phase 7 |
 | `STRATEGY.md` | hackathon-strategist.md | Criteria mapping, backlog, runbook, timeline | 🔄 This mission |
 | `TEST_RESULTS_*.md` | qa-engineer.md | Build/lint 0/0, axe 0 violations, live/cached/offline matrix | ✅ v4 committed |
 | Demo video recorded | tech-writer.md + qa-engineer.md | Recorded against runbook Branch A or B, with honest status badge visible | ⏳ Blocked on API status or final UI polish |
