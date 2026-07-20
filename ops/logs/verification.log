@@ -57,3 +57,4 @@
   HTTP  (8000): 0.0.0.0/0 during hackathon demo period
   Other ports (3000, 5173, etc.): closed unless explicitly in use
 2026-07-19T18:08:16Z | snapshot-refresh | OK: snapshot refreshed from http://3.23.60.61:8000/predict at 2026-07-19T18:08:14Z
+2026-07-20T00:29:46Z | reboot-survival | restart_cmd=ssh ubuntu@3.23.60.61 sudo systemctl restart ticketsec restart_seconds=1.69 healthy_seconds=2.72 health={"status":"ok"}\n

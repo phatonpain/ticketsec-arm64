@@ -123,11 +123,11 @@ probability vectors.
 | Host | p50 | p95 |
 |---|---:|---:|
 | Local dev machine | 0.25 ms | 0.53 ms |
-| AWS Graviton t4g.micro | 0.224 ms | 0.296 ms (pending fresh measurement) |
+| AWS Graviton t4g.micro | 0.237 ms | 0.286 ms |
 
 Local numbers were measured against `127.0.0.1:8000/predict` with the calibrated
-artifact. Graviton numbers are from the previous deployment and should be
-refreshed after redeploy (`TICKETSEC_API_URL=http://3.23.60.61:8000/predict
+artifact. Graviton numbers were refreshed after Phase 6 redeploy
+(`TICKETSEC_API_URL=http://3.23.60.61:8000/predict
 python -m model.measure_latency --host "AWS Graviton t4g.micro"`).
 
 ## Adversarial Probes

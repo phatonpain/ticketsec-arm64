@@ -17,7 +17,7 @@ Phase 3.
 | Calibration report | `model/calibration.json` | committed | `model/calibrate.py` | `0b2c91e726065637c805d6fdc6f138cdcb751946f616d918d7e3eab3479f96f1` |
 | Quantization report | `model/quantization.md` | committed | `model/export_onnx.py` | `d9425f3122adba02183189b39b3ab1d5f75bf04e9caf43aa158cd78570579d2d` |
 | Local latency | `model/latency_local.json` | committed | `model/measure_latency.py` | `f48ec5876d1364dedc60ff5f79d74c989129baad47ffaf321dccdf3f8ad19122` |
-| Graviton latency | `model/latency_t4g_micro.json` | committed | `model/measure_latency.py` | `bcf9439154bb97225380da106d2662c247857726ac2500b49c5a33244098c096` |
+| Graviton latency | `model/latency_t4g_micro.json` | committed | `model/measure_latency.py` | `835355a1c8410f589b190e1778b51b7c3ddce2064dcce7f9396e1e44c7144f81` |
 | Probe results | `model/probe_results.json` | committed | `model/run_probe_suite.py` | `e69b92e321c616f12ce21bc8ca285ab36c96dc078ae5ec9e7ccd6872f7c97ce9` |
 | Model meta | `model/artifact_meta.json` | committed | `model/calibrate.py` | `*` |
 | Model card | `model/MODEL_CARD.md` | committed | hand-written, synced to artifacts | same as model |
@@ -120,8 +120,8 @@ python -m model.run_probe_suite
 2. The winning ablation candidate (`C2_char3-5_word1-2_LR_C2.0`) cannot be
    exported to ONNX because `skl2onnx` does not support `analyzer="char_wb"`.
    The deployed artifact uses the best ONNX-exportable candidate.
-3. Graviton latency numbers in `model/latency_t4g_micro.json` are from the
-   previous deployment; live AWS measurements are pending.
+3. Graviton latency numbers in `model/latency_t4g_micro.json` were refreshed
+   during Phase 6 from the live AWS endpoint.
 4. Calibration was fit on the held-out synthetic test set; real-world calibration
    may differ.
 

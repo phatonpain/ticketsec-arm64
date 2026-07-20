@@ -7,7 +7,7 @@
     "status": "Resolved",
     "assignedTo": "Auto",
     "minutesAgo": 3,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   },
   {
     "id": "TKT-8502",
@@ -17,7 +17,7 @@
     "status": "Escalated",
     "assignedTo": "Security Team",
     "minutesAgo": 6,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   },
   {
     "id": "TKT-8503",
@@ -27,7 +27,7 @@
     "status": "Pending",
     "assignedTo": "NOC",
     "minutesAgo": 9,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   },
   {
     "id": "TKT-8504",
@@ -37,7 +37,7 @@
     "status": "Resolved",
     "assignedTo": "Auto",
     "minutesAgo": 12,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   },
   {
     "id": "TKT-8505",
@@ -47,7 +47,7 @@
     "status": "Escalated",
     "assignedTo": "Security Team",
     "minutesAgo": 15,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   },
   {
     "id": "TKT-8506",
@@ -57,6 +57,6 @@
     "status": "Pending",
     "assignedTo": "NOC",
     "minutesAgo": 18,
-    "generatedAt": "2026-07-19T22:09:32.330854+00:00"
+    "generatedAt": "2026-07-20T00:34:14.342354+00:00"
   }
 ]

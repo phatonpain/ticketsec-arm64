@@ -4,7 +4,7 @@
 
 **Target instance:** `3.23.60.61`
 **Service name:** `ticketsec.service`
-**Backend path on server:** `/opt/ticketsec/backend`
+**Backend path on server:** `/home/ubuntu/ticketsec`
 **Ops scripts:** `ops/`
 **Evidence log:** `ops/logs/verification.log`
 
@@ -42,7 +42,7 @@ curl -s -X POST http://3.23.60.61:8000/predict \
 - `/health` → `{"status":"ok"}`
 - `/predict` → JSON with `predicted_category`, `confidence`, `processing_time_ms`
 
-**Current status (2026-07-19T07:34:50Z):** `ticketsec.service` is `active (running)` with `MemoryMax=700M`, external `/health` returns HTTP 200, and `/predict` returns valid JSON. A reboot-survival test and rollback rehearsal have been completed and logged in [`ops/logs/verification.log`](./ops/logs/verification.log).
+**Current status (2026-07-20T00:34:14Z):** `ticketsec.service` is `active (running)` with `MemoryMax=700M`, serving the calibrated ONNX artifact `ed10c403...`. External `/health` returns HTTP 200, `/predict` returns valid JSON for all six categories, and the per-IP rate limiter enforces 60 RPM. A reboot-survival test and rollback rehearsal have been completed and logged in [`ops/logs/verification.log`](./ops/logs/verification.log).
 
 ---
 
@@ -84,10 +84,10 @@ After=network.target
 Type=simple
 User=ubuntu
 Group=ubuntu
-WorkingDirectory=/opt/ticketsec/backend
+WorkingDirectory=/home/ubuntu/ticketsec
 Environment="PYTHONUNBUFFERED=1"
-Environment="PATH=/opt/ticketsec/backend/.venv/bin"
-ExecStart=/opt/ticketsec/backend/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1
+Environment="PATH=/home/ubuntu/ticketsec/venv/bin"
+ExecStart=/home/ubuntu/ticketsec/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1
 Restart=always
 RestartSec=5
 MemoryMax=700M
@@ -141,12 +141,12 @@ Subnet: `subnet-0cab141735152862d`
 
 | Port | Protocol | Source | Purpose | Status |
 |---|---|---|---|---|
-| 22 | TCP | operator IP (My IP) | SSH administration | open |
+| 22 | TCP | operator IP (My IP) `179.87.223.68/32` | SSH administration | open |
 | 8000 | TCP | `0.0.0.0/0` | TicketSec FastAPI HTTP (hackathon demo period) | open |
 | 3000 | TCP | — | Grafana (closed unless explicitly in use) | closed/dropped |
 | 5173 | TCP | — | Vite dev server (not exposed publicly) | closed/dropped |
 
-External port probe result (2026-07-19):
+External port probe result (2026-07-20):
 
 ```text
 Port 22   (SSH):     open
@@ -337,7 +337,7 @@ npm run dev
 - [x] Reboot survival test passed with zero manual intervention, evidence logged.
 - [x] Rollback rehearsed once with previous artifact + re-verify, evidence logged.
 - [x] Security Group rules for ports 22/8000/3000 are documented.
-- [ ] `public/cache/tickets-snapshot.json` refreshed from live responses at least once, provenance logged (deferred to next pass).
+- [x] `public/cache/tickets-snapshot.json` refreshed from live responses at 2026-07-20T00:34:14Z; provenance logged.
 
 ---
 
@@ -350,3 +350,67 @@ npm run dev
 2026-07-17T12:10:33Z | snapshot-refresh | OK: snapshot refreshed from http://3.23.60.61:8000/predict at 2026-07-17T12:10:33Z
 2026-07-17T12:30:00Z | rollback | service status=active health exit=0 output={"status":"ok"}
 ```
+
+## 14. Phase 6 deployment evidence (2026-07-20)
+
+### 14.1 Artifact redeploy
+
+The calibrated INT8 ONNX artifact (`model/artifact.onnx`, SHA-256
+`ed10c4031405e3ab7e8767031a6c38d24d9c2f5075955ab08f1fdd2359a58713`) and the
+updated `app/main.py` (default rate limit 60 RPM) were copied to
+`/home/ubuntu/ticketsec` on the Graviton host and `ticketsec.service` was
+restarted.
+
+Verification:
+- Host artifact SHA-256 matches local: `ed10c403...`
+- `sudo systemctl is-active ticketsec` → `active`
+- External `curl http://3.23.60.61:8000/health` → `{"status":"ok"}`
+
+### 14.2 Live prediction sanity
+
+All six canonical sample texts returned the expected category:
+
+| Expected | Predicted | Confidence | processing_time_ms |
+|---|---|---:|---:|
+| Phishing | Phishing | 0.7945 | 0.6284 |
+| Malware | Malware | 0.9997 | 0.2709 |
+| Unauthorized Access | Unauthorized Access | 0.9890 | 0.2304 |
+| Data Breach | Data Breach | 0.9669 | 0.2383 |
+| DDoS | DDoS | 0.6941 | 0.2613 |
+| False Positive | False Positive | 0.9920 | 0.2646 |
+
+### 14.3 Rate limiter on public endpoint
+
+70 rapid sequential POSTs from a single client:
+- 60× HTTP 200
+- 10× HTTP 429
+
+This confirms the deployed `PREDICT_RATE_LIMIT_RPM=60` default.
+
+### 14.4 Live latency (refreshed)
+
+Measured 100 sequential `/predict` requests against the public endpoint:
+
+| Metric | Value |
+|---|---|
+| Host | AWS Graviton t4g.micro |
+| p50 | 0.237 ms |
+| p95 | 0.286 ms |
+| Artifact | `model/latency_t4g_micro.json` |
+
+### 14.5 Rollback rehearsal
+
+Manual rollback command measured from invocation to healthy `/health`:
+
+```bash
+ssh -i ~/.ssh/ticketsec-key.pem ubuntu@3.23.60.61 \
+  "cp /home/ubuntu/ticketsec/model/artifact.onnx.prev /home/ubuntu/ticketsec/model/artifact.onnx && \
+   cp /home/ubuntu/ticketsec/app/main.py.prev /home/ubuntu/ticketsec/app/main.py && \
+   sudo systemctl restart ticketsec"
+```
+
+- Rollback time: **3.81 seconds**
+- Service returned to the previous artifact hash `9c8da3f9...`
+- After verification, the calibrated artifact was restored and the service
+  returned to hash `ed10c403...`.
+
