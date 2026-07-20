@@ -102,6 +102,7 @@ export const ModelPerformancePanel: React.FC = () => {
   const [latencyValue, setLatencyValue] = useState<string>('—');
   const [latencyDetail, setLatencyDetail] = useState<string>('—');
   const [throughputValue, setThroughputValue] = useState<string>('—');
+  const [throughputDetail, setThroughputDetail] = useState<string>('—');
   const [latencyHistory, setLatencyHistory] = useState<number[]>([]);
   const [throughputHistory, setThroughputHistory] = useState<number[]>([]);
   const [accuracyHistory, setAccuracyHistory] = useState<number[]>([]);
@@ -126,7 +127,15 @@ export const ModelPerformancePanel: React.FC = () => {
         setLatencyDetail(cached ? 'No offline benchmark' : 'Awaiting probe');
       }
 
+      const hasThroughput = latest?.throughput != null;
       setThroughputValue(formatThroughput(latest?.throughput));
+      setThroughputDetail(
+        hasLivePerformance && hasThroughput
+          ? 'Requests / sec'
+          : cached
+            ? 'No data — metric not instrumented in cached snapshot'
+            : 'No data — metric not instrumented in this source',
+      );
       setLatencyHistory(extractLatencySeries(hasLivePerformance ? performance : []));
       setThroughputHistory(extractThroughputSeries(hasLivePerformance ? performance : []));
       setAccuracyHistory(hasLivePerformance ? performance.map(p => p.int8) : []);
@@ -140,12 +149,12 @@ export const ModelPerformancePanel: React.FC = () => {
   return (
     <div
       id="model-performance"
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        transition: 'border-color 150ms ease',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -191,10 +200,10 @@ export const ModelPerformancePanel: React.FC = () => {
           icon={Activity}
           label="Throughput"
           value={throughputValue}
-          detail={cached ? 'Last known · cached snapshot' : 'Requests / sec'}
+          detail={throughputDetail}
           sparklineData={throughputHistory}
           sparklineColor={chartColors.int8}
-          muted={cached}
+          muted={throughputValue === '—'}
         />
       </div>
       <div

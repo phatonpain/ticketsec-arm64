@@ -47,7 +47,7 @@ describe('ModelPerformancePanel offline fallback', () => {
   it('renders throughput as unavailable with honest caption', async () => {
     render(<ModelPerformancePanel />);
     expect(await screen.findByText('—')).toBeInTheDocument();
-    expect(screen.getByText('Last known · cached snapshot')).toBeInTheDocument();
+    expect(screen.getByText('No data — metric not instrumented in cached snapshot')).toBeInTheDocument();
   });
 
   it('mentions every artifact source in the footer', async () => {

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { renderHook, act } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { useEventLog, useEventLogActions, logEvent } from '../../src/hooks/useEventLog';
 
 describe('useEventLogActions', () => {

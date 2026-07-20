@@ -35,8 +35,9 @@ describe('TimelineChart empty state', () => {
     render(<TimelineChart tickets={[]} />);
     expect(screen.getByText('Collecting live detections')).toBeInTheDocument();
     expect(
-      screen.getByText('Submit a ticket on Live Predictions to populate this chart.'),
+      screen.getByText('Submit a ticket to populate this chart.'),
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Open Live Predictions →' })).toBeInTheDocument();
   });
 
   it('renders the EmptyState for a single-day series (invisible symbol-less point)', () => {

@@ -39,7 +39,7 @@ export const Dashboard: React.FC = () => {
         <Suspense fallback={<ChartSkeleton height={240} />}>
           <SeverityMixDonut tickets={tickets} source={analyticsSource} />
         </Suspense>
-        <Suspense fallback={<ChartSkeleton height={280} />}>
+        <Suspense fallback={<ChartSkeleton height={240} />}>
           <ModelHealthDonut />
         </Suspense>
         <ModelPerformancePanel />

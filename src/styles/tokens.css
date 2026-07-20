@@ -152,6 +152,7 @@
 
   /* ---------- Density ---------- */
   --density-row-h: 40px;          /* spec */
+  --density-table-row-h: 36px;    /* compact triage table */
   --density-card-pad: 16px;       /* spec */
   --density-card-gap: 14px;
   --density-kpi-h: 128px;
@@ -184,6 +185,7 @@
 
   /* ---------- Elevation shadow (no glows) ---------- */
   --shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.40);
+  --shadow-card-hover: 0 4px 8px rgba(0, 0, 0, 0.24);
 
   /* ---------- Motion ---------- */
   --transition-duration-instant: 150ms;
@@ -298,6 +300,7 @@
   --badge-max-width: 100%;
   --badge-count-size: 16px;      /* bell count badge */
   --badge-count-font-size: 10px; /* documented floor exception, white on --color-badge-alert-bg */
+  --badge-severity-font-size: 10px; /* severity label inside dense table rows */
 
   /* ---------- Charts (ECharts canvas cannot resolve var() in JS option
      strings — mirror in src/lib/chartTokens.ts; see TOKENS_ROOTCAUSE.md D2) -- */
@@ -397,6 +400,7 @@ html[data-reduced-motion="true"] *::after {
 /* Compact density toggle (F-02). Applied via data-density="compact" on <html>. */
 html[data-density="compact"] {
   --density-row-h: 32px;
+  --density-table-row-h: 28px;
   --density-card-pad: 12px;
   --density-card-gap: 10px;
   --density-kpi-h: 108px;
@@ -440,5 +444,41 @@ html[data-density="compact"] {
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--tint-row) 0%,
+      var(--tint-track) 50%,
+      var(--tint-row) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* Classification table: severity rail expands on row hover. */
+  tr:hover .severity-rail {
+    width: 6px !important;
+  }
+
+  /* Panel/card hover lift — used on dashboard analytics and table panels. */
+  .panel-hover {
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+  }
+  .panel-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--border-hover);
+  }
+
+  /* Button active press feedback. */
+  button:active:not(:disabled) {
+    transform: scale(0.98);
   }
 }

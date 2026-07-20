@@ -41,7 +41,7 @@ describe('PerformanceLineChart empty state', () => {
     render(<PerformanceLineChart />);
     expect(await screen.findByText('No performance data available')).toBeInTheDocument();
     expect(screen.getByText(/Accuracy history is served by the inference API/)).toBeInTheDocument();
-    expect(screen.getByText('Offline eval results live in Model Registry →.')).toBeInTheDocument();
+    expect(screen.getByText('Offline eval results live in Model Registry.')).toBeInTheDocument();
     expect(screen.queryByTestId('echart-stub')).not.toBeInTheDocument();
   });
 });

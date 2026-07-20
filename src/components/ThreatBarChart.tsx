@@ -30,6 +30,7 @@ import { categoryChartColors, chartColors } from '../lib/chartTokens';
 import { ProvenanceBadge, type DataSource } from './ProvenanceBadge';
 import { SnapshotFooter } from './SnapshotFooter';
 import { EmptyState } from './EmptyState';
+import { useActiveView } from '../hooks/useActiveView';
 import { BarChart2 } from 'lucide-react';
 
 /**
@@ -57,6 +58,7 @@ interface BarTooltipParam {
 
 export const ThreatBarChart: React.FC = () => {
   const { status, getStats } = useApi();
+  const { setView } = useActiveView();
   const [data, setData] = useState<CategoryStats[]>([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -194,20 +196,19 @@ export const ThreatBarChart: React.FC = () => {
             <EmptyState
               icon={BarChart2}
               title="Collecting live detections"
-              description="Submit a ticket on Live Predictions to populate this chart."
-              minHeight={180}
+              description="Submit a ticket to populate this chart."
+              action={{ label: 'Open Live Predictions →', onClick: () => setView('predictions') }}
             />
           ) : (
             <EmptyState
               icon={BarChart2}
               title="No category data available"
-              description="Detections are computed by the inference API. The API is currently offline and the cache holds no category counts."
+              description="Detections are computed by the inference API. The API is offline and the cache holds no category counts."
               nextStep="Populates automatically when the inference API reconnects."
-              minHeight={180}
             />
           )
         ) : (
-          <ECharts option={option} style={{ width: '100%', height: '320px' }} />
+          <ECharts option={option} style={{ width: '100%', height: '240px' }} />
         )}
       </div>
       <SnapshotFooter source={panelSource} />

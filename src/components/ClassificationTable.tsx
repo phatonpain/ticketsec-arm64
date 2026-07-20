@@ -24,7 +24,7 @@ import {
 } from '../lib/utils';
 import { filterByTimeRange } from '../lib/timeRange';
 import { paginate, pageSummary } from '../lib/paginate';
-import { formatRelativeTime } from '../lib/formatRelativeTime';
+import { formatCompactTime } from '../lib/formatRelativeTime';
 import { exportTicketsToCsv } from '../lib/exportCsv';
 import { ProvenanceBadge, type DataSource } from './ProvenanceBadge';
 import { SnapshotFooter } from './SnapshotFooter';
@@ -244,14 +244,14 @@ export const ClassificationTable: React.FC = () => {
   };
 
   const tdStyle: React.CSSProperties = {
-    padding: '0 12px',
-    fontSize: 'var(--font-size-sm)',
+    padding: '0 10px',
+    fontSize: 'var(--font-size-micro)',
     color: 'var(--text-primary)',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     maxWidth: 0,
-    height: 'var(--density-row-h)',
+    height: 'var(--density-table-row-h)',
     boxSizing: 'border-box',
   };
 
@@ -317,12 +317,12 @@ export const ClassificationTable: React.FC = () => {
   return (
     <div
       id="classifications-table"
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        transition: 'border-color 150ms ease',
       }}
     >
       <div
@@ -436,7 +436,7 @@ export const ClassificationTable: React.FC = () => {
                   {allVisibleSelected ? <CheckSquare size={14} /> : someVisibleSelected ? <CheckSquare size={14} style={{ opacity: 0.6 }} /> : <Square size={14} />}
                 </button>
               </th>
-              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 3, padding: 0 }}>
+              <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 4, padding: 0 }}>
                 <span style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>Severity</span>
               </th>
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 28, padding: '6px 4px' }}>
@@ -445,12 +445,12 @@ export const ClassificationTable: React.FC = () => {
               <SortableHeader label="Ticket ID" colKey="id" width={92} />
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 'auto', minWidth: 220 }}>Subject</th>
               <SortableHeader label="Category" colKey="category" width={160} />
-              <SortableHeader label="Severity" colKey="severity" width={96} />
-              <SortableHeader label="Confidence" colKey="confidence" width={120} />
-              <SortableHeader label="Status" colKey="status" width={96} />
+              <SortableHeader label="Severity" colKey="severity" width={84} />
+              <SortableHeader label="Confidence" colKey="confidence" width={112} />
+              <SortableHeader label="Status" colKey="status" width={100} />
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 120 }}>Assigned To</th>
               <th scope="col" aria-sort="none" style={{ ...thBaseStyle, width: 96 }}>Source</th>
-              <SortableHeader label="Time" colKey="time" width={84} />
+              <SortableHeader label="Time" colKey="time" width={56} />
             </tr>
           </thead>
           <tbody>
@@ -470,12 +470,20 @@ export const ClassificationTable: React.FC = () => {
                 return (
                   <React.Fragment key={row.id}>
                     <tr
-                      style={{ height: 'var(--density-row-h)', borderBottom: '1px solid var(--tint-row)' }}
+                      onClick={() => toggleExpanded(row.id)}
+                      style={{
+                        height: 'var(--density-table-row-h)',
+                        borderBottom: '1px solid var(--tint-row)',
+                        cursor: 'pointer',
+                        transition: 'background-color 150ms ease',
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.03)'; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
                     >
                       <td style={{ ...tdStyle, width: 40, padding: '0 8px', textAlign: 'center' }}>
                         <button
                           type="button"
-                          onClick={() => toggleRow(row.id)}
+                          onClick={(e) => { e.stopPropagation(); toggleRow(row.id); }}
                           aria-label={selectedIds.has(row.id) ? `Deselect ${row.id}` : `Select ${row.id}`}
                           style={{
                             background: 'transparent',
@@ -488,14 +496,18 @@ export const ClassificationTable: React.FC = () => {
                             justifyContent: 'center',
                           }}
                         >
-                          {selectedIds.has(row.id) ? <CheckSquare size={14} /> : <Square size={14} />}
+                          {selectedIds.has(row.id) ? <CheckSquare size={16} /> : <Square size={16} />}
                         </button>
                       </td>
-                      <td style={{ ...tdStyle, width: 3, padding: 0, backgroundColor: severityColor }} aria-hidden="true" />
+                      <td
+                        style={{ ...tdStyle, width: 4, padding: 0, backgroundColor: severityColor, transition: 'width 150ms ease' }}
+                        aria-hidden="true"
+                        className="severity-rail"
+                      />
                       <td style={{ ...tdStyle, width: 28, padding: '0 4px' }}>
                         <button
                           type="button"
-                          onClick={() => toggleExpanded(row.id)}
+                          onClick={(e) => { e.stopPropagation(); toggleExpanded(row.id); }}
                           aria-expanded={expanded}
                           aria-controls={`expanded-row-${row.id}`}
                           aria-label={expanded ? 'Collapse row details' : 'Expand row details'}
@@ -517,7 +529,7 @@ export const ClassificationTable: React.FC = () => {
                       <td style={{ ...tdStyle, width: 92 }}>
                         <button
                           type="button"
-                          onClick={() => toggleExpanded(row.id)}
+                          onClick={(e) => { e.stopPropagation(); toggleExpanded(row.id); }}
                           style={{
                             background: 'transparent',
                             border: 'none',
@@ -525,7 +537,7 @@ export const ClassificationTable: React.FC = () => {
                             cursor: 'pointer',
                             fontFamily: 'var(--font-numeric)',
                             fontVariantNumeric: 'tabular-nums',
-                            fontSize: 'var(--font-size-sm)',
+                            fontSize: 'var(--font-size-micro)',
                             color: 'var(--text-secondary)',
                             textAlign: 'left',
                           }}
@@ -536,7 +548,7 @@ export const ClassificationTable: React.FC = () => {
                       </td>
                       <td
                         onClick={() => toggleExpanded(row.id)}
-                        style={{ ...tdStyle, width: 'auto', minWidth: 220, maxWidth: 'none', fontSize: 'var(--font-size-base)', fontWeight: 500, cursor: 'pointer' }}
+                        style={{ ...tdStyle, width: 'auto', minWidth: 220, maxWidth: 'none', fontWeight: 500, cursor: 'pointer' }}
                         title={row.subject}
                       >
                         {truncate(row.subject, 36)}
@@ -549,7 +561,7 @@ export const ClassificationTable: React.FC = () => {
                             alignItems: 'center',
                             gap: 'var(--badge-gap)',
                             borderRadius: 'var(--radius-badge)',
-                            fontSize: 'var(--font-size-sm)',
+                            fontSize: 'var(--font-size-micro)',
                             fontWeight: 600,
                             letterSpacing: '0.2px',
                             backgroundColor: categoryBg,
@@ -574,40 +586,48 @@ export const ClassificationTable: React.FC = () => {
                           {row.category}
                         </span>
                       </td>
-                      <td style={{ ...tdStyle, width: 96 }}>
+                      <td style={{ ...tdStyle, width: 84 }}>
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }} title={`Severity: ${SEVERITY_LABEL[severity]}`}>
                           <span
                             style={{
-                              width: 8,
-                              height: 8,
+                              width: 6,
+                              height: 6,
                               borderRadius: '50%',
                               backgroundColor: severityColor,
                               flexShrink: 0,
                             }}
                             aria-hidden="true"
                           />
-                          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)' }}>
+                          <span
+                            style={{
+                              fontSize: 'var(--badge-severity-font-size)',
+                              fontWeight: 600,
+                              letterSpacing: '0.05em',
+                              textTransform: 'uppercase',
+                              color: 'var(--text-secondary)',
+                            }}
+                          >
                             {SEVERITY_LABEL[severity]}
                           </span>
                         </span>
                       </td>
-                      <td style={{ ...tdStyle, width: 120 }}>
+                      <td style={{ ...tdStyle, width: 112 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <span
                             style={{
                               fontFamily: 'var(--font-numeric)',
                               fontVariantNumeric: 'tabular-nums',
-                              fontSize: 'var(--font-size-base)',
+                              fontSize: 'var(--font-size-micro)',
                               color: 'var(--text-primary)',
-                              minWidth: 32,
+                              minWidth: 28,
                             }}
                           >
                             {(row.confidence * 100).toFixed(0)}%
                           </span>
                           <span
                             style={{
-                              width: 48,
-                              height: 2,
+                              width: 60,
+                              height: 3,
                               background: 'var(--tint-track)',
                               borderRadius: 2,
                               overflow: 'hidden',
@@ -619,28 +639,36 @@ export const ClassificationTable: React.FC = () => {
                                 display: 'block',
                                 height: '100%',
                                 borderRadius: 2,
-                                background: 'var(--accent-emerald)',
+                                background: severityColor,
                                 width: `${row.confidence * 100}%`,
                               }}
                             />
                           </span>
                         </div>
                       </td>
-                      <td style={{ ...tdStyle, width: 96 }}>
-                        <span
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            padding: 'var(--badge-pad-y) var(--badge-pad-x)',
-                            borderRadius: 'var(--radius-badge)',
-                            fontSize: 'var(--badge-font-size)',
-                            fontWeight: 'var(--badge-font-weight)',
-                            backgroundColor: STATUS_COLORS[row.status].bg,
-                            color: STATUS_COLORS[row.status].text,
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {row.status}
+                      <td style={{ ...tdStyle, width: 100, overflow: 'visible' }}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                          <span
+                            style={{
+                              width: 6,
+                              height: 6,
+                              borderRadius: '50%',
+                              backgroundColor: STATUS_COLORS[row.status].text,
+                              flexShrink: 0,
+                            }}
+                            aria-hidden="true"
+                          />
+                          <span
+                            style={{
+                              fontSize: 'var(--badge-severity-font-size)',
+                              fontWeight: 600,
+                              letterSpacing: '0.05em',
+                              textTransform: 'uppercase',
+                              color: STATUS_COLORS[row.status].text,
+                            }}
+                          >
+                            {row.status}
+                          </span>
                         </span>
                       </td>
                       <td style={{ ...tdStyle, width: 120 }} title={row.assignedTo}>
@@ -687,14 +715,15 @@ export const ClassificationTable: React.FC = () => {
                       <td
                         style={{
                           ...tdStyle,
-                          width: 84,
+                          width: 56,
                           fontFamily: 'var(--font-numeric)',
                           fontVariantNumeric: 'tabular-nums',
+                          fontSize: 'var(--font-size-micro)',
                           color: 'var(--text-muted)',
                         }}
                         title={formatFullTimestamp(row.createdAt)}
                       >
-                        {formatRelativeTime(row.createdAt)}
+                        {formatCompactTime(row.createdAt)}
                       </td>
                     </tr>
                     {expanded && (

@@ -29,7 +29,7 @@ import { chartColors } from '../lib/chartTokens';
 import { ProvenanceBadge, type DataSource } from './ProvenanceBadge';
 import { SnapshotFooter } from './SnapshotFooter';
 import { EmptyState } from './EmptyState';
-import { Activity } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 function hexToRgba(hex: string, alpha: number): string {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -185,23 +185,21 @@ export const PerformanceLineChart: React.FC = () => {
         {loaded && data.length === 0 ? (
           status === 'live' ? (
             <EmptyState
-              icon={Activity}
+              icon={TrendingUp}
               title="No accuracy history this session"
               description="Accuracy points accumulate as classifications run."
               nextStep="Run a classification to populate this chart."
-              minHeight={180}
             />
           ) : (
             <EmptyState
-              icon={Activity}
+              icon={TrendingUp}
               title="No performance data available"
-              description="Accuracy history is served by the inference API. The API is currently offline and the cache holds no performance points."
-              nextStep="Offline eval results live in Model Registry →."
-              minHeight={180}
+              description="Accuracy history is served by the inference API. The API is offline and the cache holds no performance points."
+              nextStep="Offline eval results live in Model Registry."
             />
           )
         ) : (
-          <ECharts option={option} style={{ width: '100%', height: '300px' }} />
+          <ECharts option={option} style={{ width: '100%', height: '240px' }} />
         )}
       </div>
       <SnapshotFooter source={panelSource} />

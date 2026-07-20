@@ -26,6 +26,7 @@ import {
 import { useActiveView, type View } from '../hooks/useActiveView';
 import { openSettingsDrawer } from '../hooks/useSettingsDrawer';
 import { useSettings } from '../hooks/useSettings';
+import { useApi } from '../hooks/useApi';
 
 interface NavItem {
   icon: React.ComponentType<{ size?: number; color?: string; 'aria-hidden'?: boolean }>;
@@ -68,6 +69,7 @@ const SECTIONS: NavSection[] = [
 export const Sidebar: React.FC = () => {
   const { activeView, setView } = useActiveView();
   const { settings, updateSidebarCollapsed } = useSettings();
+  const { status } = useApi();
   const collapsed = settings.sidebarCollapsed;
 
   return (
@@ -154,6 +156,11 @@ export const Sidebar: React.FC = () => {
             {section.items.map(item => {
               const Icon = item.icon;
               const isActive = item.view === activeView;
+              const isPredictions = item.view === 'predictions';
+              const isHealth = item.view === 'system-health';
+              const healthColor =
+                status === 'live' ? 'var(--accent-emerald)' : status === 'cached' ? 'var(--accent-amber)' : 'var(--accent-rose)';
+              const iconColor = isActive ? 'var(--accent-indigo)' : isHealth ? healthColor : 'var(--text-muted)';
               return (
                 <button
                   key={item.label}
@@ -172,8 +179,8 @@ export const Sidebar: React.FC = () => {
                     fontSize: 'var(--font-size-base)',
                     fontWeight: isActive ? 600 : 500,
                     color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
-                    backgroundColor: isActive ? 'var(--color-accent-indigo-bg)' : 'transparent',
-                    borderLeft: isActive ? '3px solid var(--accent-indigo)' : '3px solid transparent',
+                    backgroundColor: isActive ? 'rgba(99, 102, 241, 0.05)' : 'transparent',
+                    borderLeft: isActive ? '2px solid var(--accent-indigo)' : '2px solid transparent',
                     borderTop: 'none',
                     borderRight: 'none',
                     borderBottom: 'none',
@@ -182,6 +189,7 @@ export const Sidebar: React.FC = () => {
                     marginBottom: 2,
                     textAlign: 'left',
                     fontFamily: 'inherit',
+                    position: 'relative',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--color-control-ghost-bg)';
@@ -190,8 +198,23 @@ export const Sidebar: React.FC = () => {
                     if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
                   }}
                 >
-                  <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <Icon size={18} color={isActive ? 'var(--accent-indigo)' : 'var(--text-muted)'} aria-hidden />
+                  <span style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                    <Icon size={18} color={iconColor} aria-hidden />
+                    {isPredictions && isActive && (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: -1,
+                          right: -1,
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          background: 'var(--accent-emerald)',
+                          animation: 'pulse 1.2s ease-in-out infinite',
+                        }}
+                        aria-hidden="true"
+                      />
+                    )}
                   </span>
                   {!collapsed && item.label}
                 </button>
@@ -237,7 +260,7 @@ export const Sidebar: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: 10,
-              padding: 12,
+              padding: 8,
               background: 'var(--bg-card)',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-md)',
@@ -245,23 +268,22 @@ export const Sidebar: React.FC = () => {
           >
             <div
               style={{
-                width: 32,
-                height: 32,
+                width: 24,
+                height: 24,
                 borderRadius: '50%',
                 background: 'var(--bg-input)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'var(--text-secondary)',
-                fontSize: 'var(--font-size-sm)',
+                fontSize: 'var(--font-size-micro)',
                 fontWeight: 600,
               }}
             >
               SO
             </div>
             <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--text-primary)' }}>SecOps Analyst</div>
-              <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-muted)', marginTop: 2 }}>SOC L1</div>
+              <div style={{ fontSize: 'var(--font-size-micro)', fontWeight: 600, color: 'var(--text-primary)' }}>SecOps Analyst</div>
             </div>
           </div>
         </div>

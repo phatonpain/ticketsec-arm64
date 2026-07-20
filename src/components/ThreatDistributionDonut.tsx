@@ -13,9 +13,19 @@ import { chartColors, categoryChartColors } from '../lib/chartTokens';
 import { EmptyState } from './EmptyState';
 import { ProvenanceBadge, type DataSource } from './ProvenanceBadge';
 import { SnapshotFooter } from './SnapshotFooter';
+import { SmallSampleBars } from './SmallSampleBars';
 import type { Ticket } from '../hooks/useTickets';
 
 const CATEGORIES = ['Phishing', 'Malware', 'Data Breach', 'Unauthorized Access', 'DDoS', 'False Positive'];
+
+const CATEGORY_BAR_COLORS: Record<string, string> = {
+  Phishing: 'var(--color-cat-1)',
+  Malware: 'var(--color-cat-2)',
+  'Data Breach': 'var(--color-cat-3)',
+  'Unauthorized Access': 'var(--color-cat-4)',
+  DDoS: 'var(--color-cat-5)',
+  'False Positive': 'var(--color-cat-6)',
+};
 
 interface DonutTooltipParam {
   name: string;
@@ -124,12 +134,12 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
   return (
     <div
       id="threat-distribution"
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        transition: 'border-color 150ms ease',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -160,8 +170,14 @@ export const ThreatDistributionDonut: React.FC<ThreatDistributionDonutProps> = (
             title="No threat data"
             description={source === 'none' ? 'The API is offline and no cached classifications are available.' : 'Submit or load classifications to populate this chart.'}
             nextStep={source === 'none' ? 'Wait for the API to come back or refresh the cached snapshot.' : 'Open the Live Prediction panel and submit a ticket.'}
-            minHeight={180}
           />
+        ) : total < 10 ? (
+          <div style={{ height: 240, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <SmallSampleBars
+              data={data.map(item => ({ name: item.name, value: item.value, color: CATEGORY_BAR_COLORS[item.name] ?? 'var(--text-muted)' }))}
+              total={total}
+            />
+          </div>
         ) : (
           <ECharts option={option} style={{ width: '100%', height: '240px' }} />
         )}

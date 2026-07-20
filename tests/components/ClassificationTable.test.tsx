@@ -115,7 +115,7 @@ describe('rendering details', () => {
   it('rows are 40px-token height (density contract)', async () => {
     render(<ClassificationTable />);
     await screen.findByText('TKT-8471');
-    expect(dataRows()[0]?.style.height).toBe('var(--density-row-h)');
+    expect(dataRows()[0]?.style.height).toBe('var(--density-table-row-h)');
   });
 
   it('severity dots carry accessible labels derived from category', async () => {

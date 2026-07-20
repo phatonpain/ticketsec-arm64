@@ -14,9 +14,17 @@ import { CATEGORY_SEVERITY, SEVERITY_LABEL } from '../lib/utils';
 import { EmptyState } from './EmptyState';
 import { ProvenanceBadge, type DataSource } from './ProvenanceBadge';
 import { SnapshotFooter } from './SnapshotFooter';
+import { SmallSampleBars } from './SmallSampleBars';
 import type { Ticket } from '../hooks/useTickets';
 
 const SEVERITY_KEYS: Array<'critical' | 'high' | 'medium' | 'info'> = ['critical', 'high', 'medium', 'info'];
+
+const SEVERITY_BAR_COLORS: Record<string, string> = {
+  Critical: 'var(--color-sev-critical)',
+  High: 'var(--color-sev-high)',
+  Medium: 'var(--color-sev-medium)',
+  Low: 'var(--color-sev-low)',
+};
 
 interface DonutTooltipParam {
   name: string;
@@ -126,12 +134,12 @@ export const SeverityMixDonut: React.FC<SeverityMixDonutProps> = ({ tickets, sou
   return (
     <div
       id="severity-mix"
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        transition: 'border-color 150ms ease',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -162,8 +170,14 @@ export const SeverityMixDonut: React.FC<SeverityMixDonutProps> = ({ tickets, sou
             title="No severity data"
             description={source === 'none' ? 'The API is offline and no cached classifications are available.' : 'Classifications will populate this chart as they arrive.'}
             nextStep={source === 'none' ? 'Wait for the API to come back or refresh the cached snapshot.' : 'Open the Live Prediction panel and submit a ticket.'}
-            minHeight={180}
           />
+        ) : total < 10 ? (
+          <div style={{ height: 240, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <SmallSampleBars
+              data={data.map(item => ({ name: item.name, value: item.value, color: SEVERITY_BAR_COLORS[item.name] ?? 'var(--text-muted)' }))}
+              total={total}
+            />
+          </div>
         ) : (
           <ECharts option={option} style={{ width: '100%', height: '240px' }} />
         )}

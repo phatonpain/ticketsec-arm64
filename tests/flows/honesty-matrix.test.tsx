@@ -107,17 +107,15 @@ async function navigateTo(label: string, user: ReturnType<typeof userEvent.setup
 }
 
 describe('Honesty Matrix — live state', () => {
-  it('shows LIVE status, Last sync, and no cached suffix in every view', async () => {
+  it('shows LIVE status, no cached suffix, and no offline claims in every view', async () => {
     const user = await renderSettledApp(liveHandler());
-    const pills = screen.queryAllByText('LIVE');
+    const pills = screen.queryAllByText(/\bLIVE\b/);
     expect(pills.length).toBeGreaterThan(0);
-    expect(screen.getByText(/Last sync:/)).toBeInTheDocument();
     expect(screen.queryByText(/· cached data/)).not.toBeInTheDocument();
 
     for (const label of VIEWS) {
       await navigateTo(label, user);
-      await waitFor(() => expect(screen.queryAllByText('LIVE').length).toBeGreaterThan(0), { timeout: 3_000 });
-      expect(screen.getByText(/Last sync:/)).toBeInTheDocument();
+      await waitFor(() => expect(screen.queryAllByText(/\bLIVE\b/).length).toBeGreaterThan(0), { timeout: 3_000 });
       expect(screen.queryAllByText('API OFFLINE')).toHaveLength(0);
     }
   });

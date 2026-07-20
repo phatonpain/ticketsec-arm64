@@ -4,6 +4,7 @@ import { ECharts } from './ECharts';
 import type { EChartsCoreOption } from '../lib/echarts';
 import { chartColors } from '../lib/chartTokens';
 import { EmptyState } from './EmptyState';
+import { useActiveView } from '../hooks/useActiveView';
 import type { Ticket } from '../hooks/useTickets';
 
 interface TimelineTooltipParam {
@@ -21,6 +22,7 @@ function formatDateLabel(iso: string): string {
 }
 
 export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
+  const { setView } = useActiveView();
   const { categories, values, hasData } = useMemo(() => {
     const counts = new Map<string, number>();
     for (const ticket of tickets) {
@@ -117,13 +119,13 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ tickets }) => {
       </div>
       <div style={{ padding: '0 var(--density-card-pad) var(--density-card-pad)', flex: 1, position: 'relative' }}>
         {hasData ? (
-          <ECharts option={option} style={{ width: '100%', height: '260px' }} />
+          <ECharts option={option} style={{ width: '100%', height: '240px' }} />
         ) : (
           <EmptyState
             icon={Activity}
             title="Collecting live detections"
-            description="Submit a ticket on Live Predictions to populate this chart."
-            minHeight={180}
+            description="Submit a ticket to populate this chart."
+            action={{ label: 'Open Live Predictions →', onClick: () => setView('predictions') }}
           />
         )}
       </div>

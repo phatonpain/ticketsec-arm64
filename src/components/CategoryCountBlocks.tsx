@@ -16,8 +16,10 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
       category,
       count: map.get(category) ?? 0,
       color: CATEGORY_COLORS[category] ?? 'var(--text-muted)',
-    }));
+    })).filter(({ count }) => count > 0);
   }, [tickets]);
+
+  if (counts.length === 0) return null;
 
   return (
     <div
@@ -30,6 +32,7 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
       {counts.map(({ category, count, color }) => (
         <div
           key={category}
+          className="panel-hover"
           style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-default)',
@@ -38,7 +41,6 @@ export const CategoryCountBlocks: React.FC<CategoryCountBlocksProps> = ({ ticket
             display: 'flex',
             flexDirection: 'column',
             gap: 6,
-            transition: 'border-color 150ms ease',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

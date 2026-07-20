@@ -184,6 +184,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({
 
   return (
     <div
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
@@ -194,11 +195,8 @@ export const KpiCard: React.FC<KpiCardProps> = ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         position: 'relative',
-        transition: 'border-color 150ms ease',
         boxSizing: 'border-box',
       }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-hover)'; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-default)'; }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <span

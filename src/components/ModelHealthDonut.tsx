@@ -126,12 +126,12 @@ export const ModelHealthDonut: React.FC = () => {
   return (
     <div
       id="model-health"
+      className="panel-hover"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-default)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        transition: 'border-color 150ms ease',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -156,7 +156,7 @@ export const ModelHealthDonut: React.FC = () => {
         {/* Static, verifiable facts — no provenance badge by design (FIX-04). */}
       </div>
       <div style={{ padding: '0 var(--density-card-pad) var(--density-card-pad)', flex: 1 }}>
-        <ECharts option={option} style={{ width: '100%', height: '280px' }} />
+        <ECharts option={option} style={{ width: '100%', height: '240px' }} />
       </div>
       <div
         style={{

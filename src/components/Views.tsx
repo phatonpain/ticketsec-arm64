@@ -94,15 +94,15 @@ export const ThreatAnalyticsView: React.FC = () => {
   return (
     <ErrorBoundary title="Threat Analytics">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
-        <Suspense fallback={<ChartSkeleton height={260} />}>
+        <Suspense fallback={<ChartSkeleton height={240} />}>
           <TimelineChart tickets={tickets} />
         </Suspense>
         <CategoryCountBlocks tickets={tickets} />
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 7fr) minmax(0, 5fr)', gap: 'var(--density-card-gap)' }}>
-          <Suspense fallback={<ChartSkeleton height={320} />}>
+          <Suspense fallback={<ChartSkeleton height={240} />}>
             <ThreatBarChart />
           </Suspense>
-          <Suspense fallback={<ChartSkeleton height={280} />}>
+          <Suspense fallback={<ChartSkeleton height={240} />}>
             <PerformanceLineChart />
           </Suspense>
         </div>

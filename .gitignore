@@ -46,6 +46,8 @@ lint_output.txt
 KIMI_ADVANCED_ARSENAL.pdf
 /advanced-arsenal/
 generate_arsenal.py
+ticketsec-source.pdf
+ticketsec-source.zip
 
 # Kimi project skills ship with the repo (ignore session state, keep skills)
 .kimi-code/*

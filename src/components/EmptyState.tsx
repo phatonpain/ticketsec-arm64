@@ -1,11 +1,17 @@
 import React from 'react';
 import type { LucideIcon } from 'lucide-react';
 
+interface EmptyStateAction {
+  label: string;
+  onClick: () => void;
+}
+
 interface EmptyStateProps {
   icon: LucideIcon;
   title: string;
   description: string;
   nextStep?: string;
+  action?: EmptyStateAction;
   minHeight?: number;
 }
 
@@ -14,7 +20,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   title,
   description,
   nextStep,
-  minHeight = 240,
+  action,
+  minHeight = 120,
 }) => (
   <div
     style={{
@@ -23,32 +30,49 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 8,
+      gap: 6,
       textAlign: 'center',
-      padding: '24px',
+      padding: '16px',
       color: 'var(--text-muted)',
       border: '1px dashed var(--border-default)',
       borderRadius: 'var(--radius-md)',
       backgroundColor: 'var(--bg-body)',
     }}
   >
-    <Icon size={28} style={{ opacity: 0.35 }} aria-hidden="true" />
+    <Icon size={20} style={{ opacity: 0.4 }} aria-hidden="true" />
     <span
       style={{
         fontWeight: 600,
         color: 'var(--text-secondary)',
-        fontSize: 'var(--font-size-base)',
+        fontSize: 'var(--font-size-sm)',
       }}
     >
       {title}
     </span>
-    <span style={{ fontSize: 'var(--font-size-sm)', lineHeight: 1.5, maxWidth: 320 }}>
+    <span style={{ fontSize: 'var(--font-size-sm)', lineHeight: 1.4, maxWidth: 360 }}>
       {description}
     </span>
-    {nextStep && (
-      <span style={{ fontSize: 'var(--font-size-micro)', lineHeight: 1.5, maxWidth: 320 }}>
+    {nextStep && !action && (
+      <span style={{ fontSize: 'var(--font-size-micro)', lineHeight: 1.4, maxWidth: 360 }}>
         {nextStep}
       </span>
+    )}
+    {action && (
+      <button
+        type="button"
+        onClick={action.onClick}
+        style={{
+          fontSize: 'var(--font-size-micro)',
+          fontWeight: 600,
+          color: 'var(--color-link)',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          padding: 0,
+        }}
+      >
+        {action.label}
+      </button>
     )}
   </div>
 );

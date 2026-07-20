@@ -27,9 +27,12 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Bell, Settings, RefreshCw, ChevronDown, Search } from 'lucide-react';
+import { Bell, Settings, RefreshCw, ChevronDown, Search, Calendar } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
+import { useTickets, getSnapshotLoadedAt } from '../hooks/useTickets';
+import { useProbeHistory } from '../hooks/useProbeHistory';
 import { useEventLog } from '../hooks/useEventLog';
+import { Sparkline } from './Sparkline';
 import { useTimeRange } from '../hooks/useTimeRange';
 import { openSettingsDrawer } from '../hooks/useSettingsDrawer';
 import { openCommandPalette } from '../hooks/useCommandPalette';
@@ -38,12 +41,30 @@ import { VIEW_CONFIG } from '../lib/viewConfig';
 import { formatRelativeTime } from '../lib/formatRelativeTime';
 import { useActiveView } from '../hooks/useActiveView';
 
+function formatSnapshotTime(date: Date): string {
+  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
 export const Header: React.FC = () => {
   const { activeView } = useActiveView();
   const { breadcrumb } = VIEW_CONFIG[activeView];
   const { status, checkHealth, checking, diagnostics, lastSync } = useApi();
+  const { tickets } = useTickets();
+  const hasLiveTicket = tickets.some(t => t.source === 'live');
+  const hasCachedTicket = tickets.some(t => t.source === 'cache');
+  const snapshotLoadedAt = getSnapshotLoadedAt();
+  /* Honesty: the API may report LIVE while the only data visible to the user is
+   * a cached snapshot. In that case the header must not claim a live sync. */
+  const dataIsSnapshotOnly = status === 'live' && !hasLiveTicket && hasCachedTicket;
+  const displayStatus: 'live' | 'cached' | 'offline' = dataIsSnapshotOnly ? 'cached' : status;
+
+  const syncTimestamp = displayStatus === 'cached'
+    ? (dataIsSnapshotOnly ? snapshotLoadedAt : lastSync)
+    : lastSync;
+
   const healthProbe = diagnostics.endpoints.find(e => e.url.endsWith('/health') && e.ok);
   const probeLatency = healthProbe ? `${healthProbe.latencyMs} ms` : checking ? '…' : '—';
+  const latencyHistory = useProbeHistory();
   const { logs, unreadCount, markAllRead } = useEventLog();
   const { range, setRange } = useTimeRange();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -125,7 +146,7 @@ export const Header: React.FC = () => {
         dot: 'var(--text-muted)',
         spinning: true,
       }
-    : status === 'live'
+    : displayStatus === 'live'
       ? {
           label: 'LIVE',
           color: 'var(--color-status-ok-text)',
@@ -134,7 +155,7 @@ export const Header: React.FC = () => {
           dot: 'var(--accent-emerald)',
           spinning: false,
         }
-      : status === 'cached'
+      : displayStatus === 'cached'
         ? {
             label: 'CACHED',
             color: 'var(--badge-cached-fg)',
@@ -151,6 +172,9 @@ export const Header: React.FC = () => {
             dot: 'var(--accent-rose)',
             spinning: false,
           };
+  const pillLabel = checking || probeLatency === '—'
+    ? statusConfig.label
+    : `${statusConfig.label} · ${probeLatency}`;
 
   const iconButtonStyle: React.CSSProperties = {
     width: 34,
@@ -236,7 +260,7 @@ export const Header: React.FC = () => {
                 animation: statusConfig.spinning ? 'pulse 1.2s ease-in-out infinite' : 'none',
               }}
             />
-            {statusConfig.label}
+            {pillLabel}
           </div>
           {statusTooltipOpen && (
             <div
@@ -262,14 +286,49 @@ export const Header: React.FC = () => {
                 <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
                   Status: <span style={{ color: statusConfig.color, fontWeight: 500 }}>{statusConfig.label}</span>
                 </div>
-                {lastSync && (
+                {syncTimestamp && (
                   <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
-                    Last sync: {formatRelativeTime(lastSync)}
+                    {displayStatus === 'cached' ? 'Snapshot' : 'Last sync'}: {displayStatus === 'cached' ? formatSnapshotTime(syncTimestamp) : formatRelativeTime(syncTimestamp)}
                   </div>
                 )}
                 {diagnostics.lastProbe && (
                   <div style={{ fontSize: 'var(--font-size-micro)', color: 'var(--text-secondary)' }}>
                     Probed: {formatRelativeTime(diagnostics.lastProbe)}
+                  </div>
+                )}
+                {latencyHistory.length >= 2 && (
+                  <div style={{ marginTop: 6 }}>
+                    <div
+                      style={{
+                        fontSize: 'var(--font-size-micro)',
+                        color: 'var(--text-muted)',
+                        marginBottom: 4,
+                        textTransform: 'uppercase',
+                        letterSpacing: 'var(--tracking-caps)',
+                      }}
+                    >
+                      Latency trend
+                    </div>
+                    <Sparkline
+                      data={latencyHistory.slice(-10)}
+                      color={statusConfig.dot}
+                      fillColor="transparent"
+                      height={32}
+                    />
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontFamily: 'var(--font-numeric)',
+                        fontVariantNumeric: 'tabular-nums',
+                        fontSize: 'var(--font-size-micro)',
+                        color: 'var(--text-muted)',
+                        marginTop: 2,
+                      }}
+                    >
+                      <span>{latencyHistory[latencyHistory.length - 1]}ms</span>
+                      <span>{latencyHistory.length} probes</span>
+                    </div>
                   </div>
                 )}
                 {diagnostics.lastError && (
@@ -335,27 +394,6 @@ export const Header: React.FC = () => {
           )}
         </div>
 
-        {/* Probe latency + last sync (folded in from the old Dashboard rail). */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span>Probe</span>
-            <span
-              style={{
-                fontFamily: 'var(--font-numeric)',
-                fontVariantNumeric: 'tabular-nums',
-                color: 'var(--text-secondary)',
-              }}
-            >
-              {probeLatency}
-            </span>
-          </div>
-          {lastSync && (
-            <span>
-              Synced {formatRelativeTime(lastSync)}
-            </span>
-          )}
-        </div>
-
         {/* Command palette trigger (F-01) */}
         <button
           type="button"
@@ -418,7 +456,8 @@ export const Header: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 6,
+              justifyContent: 'space-between',
+              gap: 8,
               padding: '6px 12px',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-default)',
@@ -426,10 +465,14 @@ export const Header: React.FC = () => {
               color: 'var(--text-secondary)',
               fontSize: 'var(--font-size-base)',
               cursor: 'pointer',
+              minWidth: 160,
             }}
           >
-            {TIME_RANGE_LABEL[range]}
-            {status === 'cached' && <span style={{ color: 'var(--text-muted)' }}>· cached data</span>}
+            <Calendar size={14} />
+            <span style={{ flex: 1, textAlign: 'left' }}>
+              {TIME_RANGE_LABEL[range]}
+              {status === 'cached' && <span style={{ color: 'var(--text-muted)' }}> · cached data</span>}
+            </span>
             <ChevronDown size={14} />
           </button>
           {dropdownOpen && (
