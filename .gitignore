@@ -22,6 +22,7 @@ audit/*
 !audit/HANDOFF_P3.md
 !audit/HANDOFF_P4.md
 !audit/HANDOFF_P5.md
+!audit/HANDOFF_P6.md
 !audit/RUBRIC_P1.md
 !audit/HANDOFF_v4.md
 !audit/STATE_MAP_v4.md
@@ -38,3 +39,6 @@ model/decision_threshold.json
 working_tree.diff
 lint_output.txt
 .env
+KIMI_ADVANCED_ARSENAL.pdf
+advanced-arsenal/
+generate_arsenal.py
