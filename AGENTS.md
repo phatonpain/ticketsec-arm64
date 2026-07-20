@@ -55,3 +55,34 @@ contrast 23/23 · honesty matrix pass · tree clean & committed.
 6. **Commit the model that runs, not the model that scores highest.** If the
    accuracy winner cannot be exported to the target runtime, document the
    winner and deploy the best exportable candidate.
+
+## Skills do projeto
+
+Project-level Kimi skills live in `.kimi/skills/` and ship with the repo.
+Invoke them with `/skill:<name>`:
+
+| Skill | Purpose | Invocation |
+|---|---|---|
+| `ui-splunk-dashboard` | Enforce token-driven SOC density UI, no hex literals, honest data states. | `/skill:ui-splunk-dashboard` |
+| `security-review` | Structured AppSec review for public `/predict`, secrets, CORS, rate limits. | `/skill:security-review` |
+| `qa-gates` | Run and interpret `scripts/gates.sh`; no gate reinterpretation. | `/skill:qa-gates` |
+| `demo-script` | Build a 60–90 s honest demo script with Branch A/B and fallback narration. | `/skill:demo-script` |
+| `honesty-contract` | Verify live/cached/offline states and artifact traceability on any surface. | `/skill:honesty-contract` |
+
+## Regras aprendidas (v4) — Phase 8
+
+1. **Empty-state conditions must cover zero AND single-point series.** Charts and
+   KPI cards that handle `[]` but fail on `[x]` will break during honest cached
+   mode or after a single live inference. Test both.
+2. **Artifact status parsing is centralized in `src/lib/artifacts.ts` and
+   accepts `OK|COMPLETE`.** Never add a third status check in a component; route
+   every artifact-readiness decision through `isArtifactReady()`.
+3. **`scripts/gates.sh` uses `awk` (no `bc`) and the G6 allowlist.** The script
+   must run on Git Bash on Windows; keep regex scans identical between local and
+   CI.
+4. **Evidence flushes AFTER the G8 tree check.** `TEST_RESULTS_v4.md` is written
+   only after `git status --porcelain` is verified clean, otherwise the gate run
+   can never pass its own tree check.
+5. **Never trust a phase report without before/after screenshots or command
+   output.** Every claim needs file:line + command + raw output + artifact path;
+   screenshots at 1366 px are required evidence for UI phases.

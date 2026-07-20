@@ -41,5 +41,10 @@ working_tree.diff
 lint_output.txt
 .env
 KIMI_ADVANCED_ARSENAL.pdf
-advanced-arsenal/
+/advanced-arsenal/
 generate_arsenal.py
+
+# Kimi project skills ship with the repo (ignore session state, keep skills)
+.kimi/*
+!.kimi/skills/
+!.kimi/skills/**
