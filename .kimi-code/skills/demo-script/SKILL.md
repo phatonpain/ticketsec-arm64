@@ -1,9 +1,7 @@
 ---
 name: demo-script
-description: |
-  Build or review a 60–90 second demo script for TicketSec Arm64. Use this skill
-  when preparing a Devpost video, live demo, or screenshot gallery. It enforces
-  traceability: every spoken number must link to a committed artifact.
+description: Roteiro de demo de 90 segundos para jurados, com o Honesty Contract como diferencial demonstrável
+whenToUse: Quando preparar demo, pitch, README de submissão ou material para banca
 ---
 
 # demo-script

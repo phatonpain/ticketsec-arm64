@@ -1,10 +1,7 @@
 ---
 name: honesty-contract
-description: |
-  Enforce the TicketSec Arm64 Honesty Contract on any feature, UI surface, test,
-  or document. Use this skill whenever data provenance could be ambiguous:
-  dashboards, tables, charts, event logs, model metrics, screenshots, or
-  submission claims.
+description: Aplica o contrato de honestidade — todo número rastreia, todo estado é declarado, nada é fingido
+whenToUse: Quando adicionar números/métricas à UI, estados de carregamento/erro, ou claims de modelo
 ---
 
 # honesty-contract

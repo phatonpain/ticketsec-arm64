@@ -1,10 +1,7 @@
 ---
 name: ui-splunk-dashboard
-description: |
-  Apply the TicketSec Arm64 enterprise SOC density design language (Splunk ES /
-  CrowdStrike Falcon class). Use this skill for any UI change that affects layout,
-  spacing, color, typography, charts, or component structure. It enforces the
-  token-driven system and the Honesty Contract for live/cached/offline states.
+description: Constrói UI de dashboard SOC no estilo Splunk/Datadog/CrowdStrike — denso, profissional, com estados honestos
+whenToUse: Quando criar ou revisar views, componentes de dashboard, KPIs, tabelas de triagem ou charts do TicketSec
 ---
 
 # ui-splunk-dashboard

@@ -1,9 +1,7 @@
 ---
 name: qa-gates
-description: |
-  Run and interpret the TicketSec Arm64 quality gate suite. Use this skill
-  whenever a phase claims it is done, before any commit that touches tests,
-  build, lint, or the gate script itself.
+description: Executa e interpreta os gates machine-checkable G1–G8 (scripts/gates.sh) com protocolo de falha
+whenToUse: Quando rodar gates, investigar gate vermelho, ou validar fechamento de fase
 ---
 
 # qa-gates

@@ -1,9 +1,9 @@
 ---
 name: security-review
-description: |
-  Run a structured AppSec review for the TicketSec Arm64 public inference
-  endpoint and repository. Use this skill before any change that touches
-  `app/main.py`, authentication, CORS, rate limiting, input handling, or secrets.
+description: Revisão adversarial de segurança — OWASP Web Top 10 + OWASP-LLM 2025, com foco no /predict
+whenToUse: Quando revisar diffs, endpoints FastAPI, componentes com input do usuário, ou preparar release
+arguments:
+  - escopo
 ---
 
 # security-review
