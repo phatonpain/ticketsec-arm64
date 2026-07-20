@@ -4,58 +4,29 @@ description: Constrói UI de dashboard SOC no estilo Splunk/Datadog/CrowdStrike 
 whenToUse: Quando criar ou revisar views, componentes de dashboard, KPIs, tabelas de triagem ou charts do TicketSec
 ---
 
-# ui-splunk-dashboard
+## Missão
 
-## Purpose
+Implementar UI seguindo `DESIGN_BRIEF.md` e `src/styles/tokens.css` (leia ambos antes de codar).
 
-Keep the React dashboard visually consistent with an enterprise SOC density bar:
-40 px table rows, 16 px card padding, Inter + JetBrains Mono fonts, tabular
-numerals, WCAG 2.2 AA contrast, and lazy-loaded ECharts. Every UI number must
-trace to a committed artifact or an honest store state.
+## Regras
 
-## When to use
+- CSS exclusivamente via `tokens.css` — zero hex literals em componentes; nenhum número mágico de spacing/typography.
+- ECharts lazy-chunked; charts sempre com estados `loading`/`empty`/`error`/`offline` honestos.
+- KPI stat blocks com fonte do número declarada em comentário ou proveniência (rastreabilidade G7).
+- Tabelas de triagem com severity rail; densidade compacta de console SOC (40 px row, 16 px card padding, Inter + JetBrains Mono).
+- Proibido: sombras grandes, badges pastel, empty states genéricos, skeleton decorativo.
+- Estados de honestidade obrigatórios:
+  - `live` → badge `LIVE` verde, dados da API.
+  - `cached` → badge `CACHED` âmbar, dados de `public/cache/tickets-snapshot.json`.
+  - `offline` → "Unavailable — API offline", sem entradas fabricadas.
 
-- Adding, removing, or resizing a widget/card/chart.
-- Changing colors, spacing, typography, or density.
-- Adding a new view or route.
-- Fixing axe/contrast findings.
-- Any change that could affect the main JS chunk size.
+## Verificação
 
-## Exact steps
+```bash
+npm run build        # G1: 0 erros, chunk <600 KB
+npm run lint         # G2: 0 errors / 0 warnings
+npx axe http://localhost:5173/#/<route>  # G4: 0 violações por rota
+```
 
-1. Read `src/styles/tokens.css` and confirm the token exists before inventing a
-   value. If a token is missing, add it to `tokens.css` first with a one-line
-   justification in the commit message.
-2. Read the relevant component(s) and `src/lib/artifacts.ts` if the surface
-   displays model metrics.
-3. Make the smallest possible change using CSS variables from `tokens.css`. No
-   hex literals in components; no magic numbers.
-4. If the surface displays data, decide its honesty state:
-   - `live` → green `LIVE` badge, data from the API.
-   - `cached` → amber `CACHED` badge, data from `public/cache/tickets-snapshot.json`.
-   - `offline` → "Unavailable — API offline" and no fabricated entries.
-5. Run the verification stack:
-   ```bash
-   npm run build        # must pass, main chunk <600 KB
-   npm run lint         # 0 errors / 0 warnings
-   npx axe http://localhost:5173/#/<route>  # 0 violations per route
-   ```
-6. Capture a screenshot at 1366 px width if the change is visible.
-
-## Negative constraints
-
-- **Never** use `dangerouslySetInnerHTML`.
-- **Never** hardcode a metric in JSX. Load it from `model/*.json` via
-  `src/lib/artifacts.ts` or mark it `PENDING`/`Unavailable`.
-- **Never** invent a live Event Log entry. The log records only real API events.
-- **Never** add a new dependency without a one-line justification.
-- **Never** leave unused imports or console logs.
-
-## Verifiable acceptance criteria
-
-- [ ] `npm run build` passes and `scripts/gates.sh` G1 chunk size <600 KB.
-- [ ] `npm run lint` reports 0 errors and 0 warnings.
-- [ ] `npx axe` reports 0 violations on every changed route.
-- [ ] Contrast sweep (`scripts/contrast_sweep.py` or equivalent) is 23/23 AA.
-- [ ] No hex literals or magic spacing numbers outside `tokens.css`.
-- [ ] Screenshots at 1366 px show the intended change.
+- Screenshot @1366px da mudança visível (WebBridge quando configurado).
+- Auto-avaliação 1–10 nos 10 critérios do `DESIGN_BRIEF`; nota <9 exige correção.
