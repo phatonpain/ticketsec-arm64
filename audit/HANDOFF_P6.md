@@ -278,3 +278,20 @@ G4 axe 0 violações nas 5 rotas. (G5/G7 rodam no próximo gates.sh completo.)
   OFFLINE (copy vs. estado) — `TimelineChart` empty copy.
 - CategoryCountBlocks mostra contagens do snapshot sem badge de
   proveniência (já listado nos open items da FASE 1).
+
+## Addendum — FASE 5: submissions preparadas, NÃO submetidas (2026-07-23)
+
+Spec pedia `HANDOFF_P5.md`; P5 já existe da v4 — registro aqui.
+
+- `audit/SUBMISSIONS.md` criado: tracker com os textos finais mapeados por
+  campo de plataforma, screenshots da FASE 4 designados, regras de processo
+  (freeze 4h, submit ≥30min antes) e tabela de confirmação vazia.
+- **Nenhuma submissão foi feita** — ação manual do usuário (contas nas
+  plataformas + aprovação explícita do texto final, regra da própria FASE 5).
+- Blockers duros abertos (detalhes em SUBMISSIONS.md): B1 repo não público
+  (sem remote — FASE 0 ainda parada), B2 vídeo não gravado/YouTube,
+  B3 docker build nunca executado, B4 nome do autor, B5 drill de produção
+  na Graviton sem autorização.
+- Texts prontos para revisão: `docs/DEVPOST_SUBMISSION.md` Part A (Arm) e
+  Part B (NeuralSprint), ambos com números já corrigidos na FASE 2
+  ($0.0084/h, 401,872 B, sem CI falso).

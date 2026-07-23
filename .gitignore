@@ -39,6 +39,7 @@ audit/*
 !audit/DEFECT_REPORT_D1_D7.md
 !audit/HANDOFF_P0.md
 !audit/CORRECTION_*.md
+!audit/SUBMISSIONS.md
 model/decision_threshold.json
 *.log
 .vitest_*.log
