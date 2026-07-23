@@ -76,3 +76,30 @@ o blocker #1 declarado no CURRENT STATE da Master Mission.
 - `scripts/g7_orphan_allowlist.txt` — 4 exceções justificadas.
 - Audit de superfícies (explore subagent): relatório na sessão; achados
   consolidados nos Open items acima.
+
+## Addendum — FASE 1 close-out (2026-07-23, commit `0661c08`)
+
+A FASE 1 formal da Master Mission pediu exatamente este trabalho (G5/G7
+reais). O grosso já estava neste HANDOFF; o addendum registra o delta:
+
+- **H8 adicionada** (`scripts/honesty_check.sh`): detecção de dados
+  hardcoded em componentes — arrays literais tipo-ticket, confianças
+  literais (`confidence: 0.x`), timestamps ISO fabricados. src/ estava
+  limpo (0 violações); sonda de teste reprovou e foi removida. Spec pedia
+  também skeleton-sem-loading (coberto por H4: único skeleton do projeto é
+  `ChartSkeleton`, só como fallback de Suspense) e LIVE-badge-vs-provenance
+  (coberto comportamentalmente por `tests/flows/honesty-matrix.test.tsx`
+  sob G3; estaticamente por H3).
+- **G3 flake eliminado** (`vitest.config.ts:16-21`): root cause da FASE 0
+  — `EnvironmentTeardownError: Closing rpc while "onUserConsoleLog" was
+  pending`, rc=1 com 178/178 verdes. `disableConsoleIntercept: true`;
+  2/2 repros `build+vitest` sem o erro fantasma. Efeito colateral:
+  warnings `act()` do React agora aparecem crus no stderr (antes eram
+  engolidos pela interceptação); nenhum teste depende de console
+  interceptado.
+- **Violações encontradas e corrigidas na fase (file:line)**: 1 systemic
+  (G3 flake, vitest.config.ts) + 0 órfãos novos (T3 estável com 4
+  exceções allowlisted < 10 — condição de stop não acionada).
+- **Gate run final: 8/8 PASS, GATES_RC=0** (2026-07-23 08:59:23Z,
+  `TEST_RESULTS_v4.md`) — primeira integralidade de gates com G5/G7 reais
+  e G3 endurecido.
