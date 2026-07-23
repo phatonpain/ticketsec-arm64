@@ -40,6 +40,7 @@ audit/*
 !audit/HANDOFF_P0.md
 !audit/CORRECTION_*.md
 !audit/SUBMISSIONS.md
+!audit/STATE_MAP_v5.md
 model/decision_threshold.json
 *.log
 .vitest_*.log
