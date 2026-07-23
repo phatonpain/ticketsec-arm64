@@ -22,13 +22,19 @@
 
 import React, { useMemo } from 'react';
 import { ECharts } from './ECharts';
+import { EmptyState } from './EmptyState';
+import { Database } from 'lucide-react';
 import type { EChartsCoreOption } from '../lib/echarts';
 import { chartColors } from '../lib/chartTokens';
 import { loadArtifactMeta } from '../lib/artifacts';
 
 const modelMeta = loadArtifactMeta();
-const MODEL_INT8_MB = modelMeta.sizeMb ?? 0.38;
-const MEMORY_MAX_MB = modelMeta.memoryMaxMb ?? 700;
+// A3: no duplicated artifact numbers. When the committed artifact_meta.json
+// is missing/incomplete the panel renders an honest pending state — never a
+// hardcoded copy of the current values that would silently drift.
+const META_READY = modelMeta.ready && modelMeta.sizeMb != null && modelMeta.memoryMaxMb != null;
+const MODEL_INT8_MB = modelMeta.sizeMb ?? 0;
+const MEMORY_MAX_MB = modelMeta.memoryMaxMb ?? 0;
 const HEADROOM_MB = MEMORY_MAX_MB - MODEL_INT8_MB;
 const TOTAL_MB = MEMORY_MAX_MB;
 
@@ -122,6 +128,18 @@ export const ModelHealthDonut: React.FC = () => {
       },
     ],
   }), []);
+
+  if (!META_READY) {
+    return (
+      <EmptyState
+        icon={Database}
+        title="Model metadata pending"
+        description="artifact_meta.json is missing or incomplete, so the memory budget cannot be shown honestly."
+        nextStep="Run the ONNX export pipeline and commit model/artifact_meta.json."
+        minHeight={240}
+      />
+    );
+  }
 
   return (
     <div

@@ -18,6 +18,7 @@ scripts/*
 !scripts/honesty_check.sh
 !scripts/trace_check.sh
 !scripts/burst_test_tiered.py
+!scripts/g7_orphan_allowlist.txt
 audit/*
 !audit/HANDOFF_TEMPLATE.md
 !audit/HANDOFF_P1.md

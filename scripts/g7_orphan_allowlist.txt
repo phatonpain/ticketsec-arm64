@@ -1,0 +1,8 @@
+# G7 orphan-literal allowlist — one TAB-separated entry per line:
+#   file <TAB> literal <TAB> justification
+# Every entry is a deliberate exception to "every UI number traces to a
+# committed artifact or live/store source". Stale entries fail the gate.
+src/components/LivePrediction.tsx	70%	Decision-threshold marker mirroring the backend default TIERED_CONFIDENCE_THRESHOLD=0.70 (app/main.py). Drift risk: backend env var is not exposed to the frontend — tracked as open item in audit/HANDOFF_P6.md.
+src/components/ModelHealthDonut.tsx	1 GB	Static t4g.micro host fact in the caption (FIX-04: intentional static fact, no provenance badge by design).
+src/components/SystemMonitor.tsx	2 vCPUs	Static t4g.micro host configuration tile (documented intentional static fact).
+src/components/SystemMonitor.tsx	1 GB	Static t4g.micro host configuration tile (documented intentional static fact).
