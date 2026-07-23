@@ -52,9 +52,8 @@ public remote until 2026-07-23. State below was re-verified, not assumed.
 3. **Public endpoint is anonymous + CORS-wildcard** (demo period): a burst
    during judging is unmitigated beyond in-app rate limits; the SECURITY_REVIEW
    hardening plan (TLS, explicit origins) is post-hackathon.
-4. **Repo default branch** still points to the unrelated Grafana prototype
-   until flipped — judges landing on the repo root would see the wrong
-   project (user action: Settings → Branches → mission/v5).
+4. **~~Repo default branch~~** — RESOLVED 2026-07-23: default is now
+   `mission/v5` and GitHub detects LICENSE MIT. Remaining repo risk: none.
 5. **LLM tier never measured live** — Ollama offline in all v5 runs; the
    `local_llm_q4` latency cell is honestly empty, but the demo should not
    promise LLM fallback behavior on camera unless rehearsed with Ollama up.
