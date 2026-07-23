@@ -1,127 +1,78 @@
-# HANDOFF — Phase 6 (DevOps / SRE) → Close-out
+# HANDOFF P6 — G5/G7 reais (mission/v5)
 
-Date: 2026-07-20  
-Branch: `mission/v4`  
-Phase 5 final commit: `0dca304`  
-Phase 6 final commit: `54c3e7a`
+Data: 2026-07-23 · Branch: mission/v5 · Baseline: tag `baseline-v5`
+Fase: implementação das assertions reais de G5 (honesty) e G7 (traceability),
+o blocker #1 declarado no CURRENT STATE da Master Mission.
 
-## Done
+## Done (file:line)
 
-### 1. Redeploy calibrated artifact to Graviton
+- `scripts/honesty_check.sh` — G5 real, 7 assertions estáticas (H1–H7):
+  sem `setInterval` em src/, `Math.random` confinado a
+  `useEventLog.ts`/`backoff.ts`, `source: 'live'` só em `App.tsx`,
+  fallbacks Suspense só `ChartSkeleton`/`null`, `ProvenanceBadge` nas 5
+  superfícies cache-able, copy offline "Unavailable" presente, zero
+  `dangerouslySetInnerHTML`. Runtime matrix (live/cached/offline + silêncio
+  de 60 s) permanece em `scripts/qa_honesty_matrix.mjs` como evidência QA.
+- `scripts/trace_check.sh` — G7 real: T1 readiness dos 7 artefatos via
+  JSON (node), T2 `src/lib/artifacts.ts` como único importador de `model/*`,
+  T3 scan de literais órfãos (`%|MB|GB|vCPU|RPM`) com allowlist justificada
+  `scripts/g7_orphan_allowlist.txt`; entradas stale da allowlist reprovam.
+- `src/components/ModelHealthDonut.tsx:29-37,126-138` — fix A3: removidos
+  fallbacks hardcoded `0.38`/`700`; artefato ausente agora rende
+  `EmptyState` "Model metadata pending" (sem duplicar valores do artefato).
+- Teste negativo de ambos os gates: arquivo-sonda com `setInterval` +
+  literal `42 GB` → G5 e G7 vermelhos; removido → verdes. Um gate que não
+  falha é inválido (A5).
+- Gate run final: **G1–G8 8/8 PASS, GATES_RC=0** (2026-07-23 05:39:51Z),
+  evidência em `TEST_RESULTS_v4.md`.
+- Commit: `fcf83f6 test(gates): real G5/G7 assertions replacing stubs`.
+- `.gitignore`: exceção `!scripts/g7_orphan_allowlist.txt`.
 
-- Copied local `model/artifact.onnx` (SHA-256 `ed10c403...`) to
-  `/home/ubuntu/ticketsec/model/artifact.onnx`.
-- Copied updated `app/main.py` (default 60 RPM rate limit) to
-  `/home/ubuntu/ticketsec/app/main.py`.
-- Copied `model/calibration.json` to `/home/ubuntu/ticketsec/model/calibration.json`
-  for traceability (serving layer does not read it at runtime).
-- Restarted `ticketsec.service`.
-- Verified host artifact SHA-256 matches local:
-  `ed10c4031405e3ab7e8767031a6c38d24d9c2f5075955ab08f1fdd2359a58713`.
+## Open items (achados do audit, não corrigidos nesta fase — cirúrgico)
 
-### 2. External verification
+1. **Backend fabrica confiança "live"**: `app/main.py:507-531`
+   (`/api/v1/classifications`) gera `confidence = 0.75 + 0.24*rng.random()`
+   e status/assignee aleatórios; `src/App.tsx:57-68` marca essas linhas como
+   `source: 'live'`, então números RNG aparecem sob badge Live. Viola o
+  espírito do Honesty Contract. Opções: (A) marcar essas linhas como
+   snapshot/sintéticas na UI; (B) backend persistir scores reais de
+   inferência. Precisa de decisão — Fase seguinte.
+2. **`/api/v1/performance/history` sempre retorna `[]`**
+   (`app/main.py:494-499`): `PerformanceLineChart`/`ModelPerformancePanel`
+   nunca têm série live real. Honesto porém vazio — decidir se instrumenta
+   de verdade ou remove a superfície.
+3. **Drift do threshold 70%**: `src/components/LivePrediction.tsx:417-428`
+   espelha `TIERED_CONFIDENCE_THRESHOLD` (app/main.py:55) sem ler do backend.
+   `model/decision_threshold.json` está no `.gitignore:41` — ou se commita
+   esse artefato e a UI lê via `artifacts.ts`, ou o backend expõe o valor.
+   Allowlisted no G7 com justificativa.
+4. **Superfícies sem badge de proveniência** (achado do audit):
+   `TimelineChart`, `CategoryCountBlocks` e `ModelPerformancePanel` rendem
+   dados de snapshot sem `ProvenanceBadge`; donuts derivam `source` do
+   status global (`Dashboard.tsx:25-30`) e podem omitir CACHED quando a API
+   está live mas as linhas são snapshot. H5 do G5 cobre só as 5 superfícies
+   originais — ampliar se decidido.
+5. **Duplicata de copy de backoff**: "5s–60s" em `Header.tsx:390` e
+   `SystemMonitor.tsx:149` duplica `useApi.ts:124`. Não coberto pelo scan
+   de unidades do G7 (unidade `s`).
+6. `tests/README.md:7` menciona "27 expected-fails" — stale; suíte tem 0.
 
-- `curl http://3.23.60.61:8000/health` → `{"status":"ok"}`.
-- Live `/predict` for all six canonical samples returned expected categories
-  with calibrated confidences:
+## Next-phase warnings
 
-| Category | Confidence | processing_time_ms |
-|---|---|---:|
-| Phishing | 0.7945 | 0.6284 |
-| Malware | 0.9997 | 0.2709 |
-| Unauthorized Access | 0.9890 | 0.2304 |
-| Data Breach | 0.9669 | 0.2383 |
-| DDoS | 0.6941 | 0.2613 |
-| False Positive | 0.9920 | 0.2646 |
+- G5/G7 agora reprovam de verdade: qualquer literal novo com unidade
+  métrica em src/ quebra o build de gates — justificar na allowlist ou
+  wire no artefato. Não contornar (A6/E3).
+- `run_script_gate` em `scripts/gates.sh:32` marca STUB se o script
+  contiver `# TODO: implement` — não reintroduzir esse marker.
+- A matriz runtime (`qa_honesty_matrix.mjs`) mata o processo na porta 8000
+  via PowerShell — nunca rodar com o backend de produção acessível localmente.
+- Veredito A10: fase com mudança mensurável real (2 gates STUB→reais,
+  1 fix A3, 8/8 verde). Sem vitória vazia.
 
-- Rate limiter test: 70 rapid POSTs → 60× HTTP 200, 10× HTTP 429.
+## Evidence paths
 
-### 3. Live latency re-measurement
-
-- Command:
-  ```bash
-  TICKETSEC_API_URL=http://3.23.60.61:8000/predict python -m model.measure_latency \
-    --samples 100 --output model/latency_t4g_micro.json --host "AWS Graviton t4g.micro"
-  ```
-- Result: **p50 = 0.237 ms**, **p95 = 0.286 ms**.
-- Committed `model/latency_t4g_micro.json` (new SHA-256 and timestamp).
-- Note: the server-side rate limiter was temporarily raised to 500 RPM during
-  measurement to avoid throttling the 100 sequential requests; it was restored
-  to 60 RPM immediately afterwards and re-verified.
-
-### 4. Reboot survival
-
-- Restarted `ticketsec.service` remotely via SSH.
-- `/health` returned HTTP 200 after **2.72 seconds** (restart command latency
-  1.69s).
-- Logged to `ops/logs/verification.log`:
-  ```
-  2026-07-20T00:29:46Z | reboot-survival | restart_cmd=ssh ubuntu@3.23.60.61 sudo systemctl restart ticketsec restart_seconds=1.69 healthy_seconds=2.72 health={"status":"ok"}
-  ```
-
-### 5. Security Group review
-
-- Instance: `3.23.60.61`
-- Security Group: `sg-0293de1eace5d362c` (`launch-wizard-1`)
-- Operator public IP observed during this phase: `179.87.223.68`
-- External port probe (2026-07-20):
-  - Port 22 (SSH): open
-  - Port 8000 (FastAPI): open
-  - Port 3000 (Grafana): closed/dropped
-  - Port 5173 (Vite): closed/dropped
-- Review conclusion and recommendations recorded in `DEVOPS_RUNBOOK.md` §4:
-  - Port 22 should remain scoped to the operator IP (`My IP`).
-  - Port 8000 is intentionally `0.0.0.0/0` during the hackathon demo period.
-  - Port 3000 and other non-essential ports should remain closed.
-
-### 6. Rollback rehearsal
-
-- Kept previous artifact on host as `/home/ubuntu/ticketsec/model/artifact.onnx.prev`
-  and `/home/ubuntu/ticketsec/app/main.py.prev`.
-- Documented rollback command in `DEVOPS_RUNBOOK.md` §14.5.
-- Measured rollback time: **3.81 seconds** from command invocation to healthy
-  `/health` response.
-- After verification, the calibrated artifact was restored and the service
-  returned to the new artifact hash.
-
-### 7. Documentation updates
-
-- `DEVOPS_RUNBOOK.md` updated with Phase 6 evidence, corrected backend path
-  (`/home/ubuntu/ticketsec`), SG review, latency, and rollback metrics.
-- `MODEL_CARD.md` and `model/MODEL_CARD.md` updated with refreshed Graviton
-  latency numbers.
-- `audit/ML_TRACEABILITY.md` updated with the new `latency_t4g_micro.json`
-  SHA-256.
-- `public/cache/tickets-snapshot.json` refreshed from live `/predict` responses.
-
-## Gate Status
-
-- `bash scripts/gates.sh` → **11/11 PASS** at `2026-07-20 00:55:48Z`
-  (recorded in `TEST_RESULTS_v4.md`; gate-evidence commit `f566e1b`).
-
-## Open Items
-
-- Replace CORS wildcard with explicit origin list post-demo (see
-  `SECURITY_REVIEW.md` §4).
-- Add authentication/authorization before production anonymous exposure.
-- Replace in-memory rate limiter with Redis or API-gateway throttling
-  post-hackathon.
-- Enable HTTPS/TLS termination on the production load balancer.
-- Record the final Phase 6 commit hash at the top of this file after
-  `git commit`.
-
-## Warnings / Honesty Notes
-
-- Live latency measurement temporarily raised the server-side rate limit to
-  avoid throttling; this was documented and the limit was restored and
-  re-verified.
-- The public `/predict` endpoint remains anonymous and CORS-wildcarded for the
-  demo period.
-
-## Context Notes for Compaction
-
-- Preserve: `audit/HANDOFF_P1.md`, `audit/HANDOFF_P2.md`,
-  `audit/HANDOFF_P3.md`, `audit/HANDOFF_P4.md`, `audit/HANDOFF_P5.md`, this
-  file, `audit/ML_TRACEABILITY.md`, `SECURITY_REVIEW.md`, `DEVOPS_RUNBOOK.md`,
-  `model/MODEL_CARD.md`, root `MODEL_CARD.md`, `TEST_RESULTS_v4.md`, Honesty
-  Contract.
+- `TEST_RESULTS_v4.md` — dois gate runs desta fase (05:36:41Z com G8 red
+  pré-commit; 05:39:51Z 8/8 verde).
+- `scripts/g7_orphan_allowlist.txt` — 4 exceções justificadas.
+- Audit de superfícies (explore subagent): relatório na sessão; achados
+  consolidados nos Open items acima.
