@@ -36,6 +36,7 @@ import onnxruntime as ort
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from model.categories import CATEGORIES
@@ -275,11 +276,6 @@ app.add_middleware(
 
 @app.get("/health")
 async def health() -> dict[str, str]:
-    return {"status": "ok"}
-
-
-@app.get("/")
-async def root() -> dict[str, str]:
     return {"status": "ok"}
 
 
@@ -557,3 +553,13 @@ async def generic_exception_handler(request: Request, exc: Exception) -> JSONRes
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={"detail": "Internal server error"},
     )
+
+
+# ---------------------------------------------------------------------------
+# Optional static frontend mount (Docker all-in-one image). Registered LAST so
+# API routes always win; hash-routed SPA needs no server-side fallback. Absent
+# dist/ (plain backend deploy) simply skips the mount.
+# ---------------------------------------------------------------------------
+DIST_PATH = PROJECT_ROOT / "dist"
+if DIST_PATH.is_dir():
+    app.mount("/", StaticFiles(directory=DIST_PATH, html=True), name="static")

@@ -69,6 +69,7 @@ flowchart TB
 - **CSS-variable design tokens** in `src/styles/tokens.css` drive spacing, color, density, and typography from one file.
 - **Inline-style components** keep styling explicit and avoid Tailwind runtime bloat in production.
 - **Calibration-aware inference:** the model card exposes both raw and temperature-scaled confidences; ECE was reduced from 0.3946 to 0.0172 on the held-out test set.
+- **Tiered inference (optional):** `POST /predict/tiered` tries the ONNX INT8 model first; below the confidence threshold it falls back to a local quantized LLM via Ollama, and every response declares its `inference_tier` (`onnx_int8` / `local_llm_q4` / `unavailable`) — the UI badges it green/amber/red. See [`docs/PERFORMANCE.md`](./docs/PERFORMANCE.md).
 
 ---
 
@@ -92,7 +93,7 @@ flowchart TB
 
 The goal was to run a useful classifier on the cheapest ARM64 instance that still supports a full Linux stack:
 
-- **AWS Graviton `t4g.micro`:** ARM64, 2 vCPU, 1 GB RAM. On-demand cost in `us-east-2` is approximately **$0.0042/hour** (≈ $3/month).
+- **AWS Graviton `t4g.micro`:** ARM64, 2 vCPU, 1 GB RAM. On-demand cost in `us-east-2` is approximately **$0.0084/hour** (≈ $6/month).
 - **INT8 quantization:** Keeps the ONNX artifact at roughly **0.38 MB**, which fits comfortably in memory on a 1 GB host and leaves headroom under the 700 MB `MemoryMax` systemd cap.
 - **ONNX Runtime:** Provides a single inference engine that runs unchanged on x86 dev machines and ARM64 production hosts.
 
@@ -101,6 +102,19 @@ The trade-off is accuracy delta vs FP32. That delta is measured and recorded in 
 ---
 
 ## Quickstart
+
+### Docker (all-in-one: UI + API on port 8000)
+
+```bash
+docker build -t ticketsec .
+docker run --rm -p 8000:8000 ticketsec
+# Open http://localhost:8000
+```
+
+The multi-stage [`Dockerfile`](./Dockerfile) builds the Vite frontend and serves
+it from the same FastAPI/ONNX Runtime process (`app/main.py` mounts `dist/`
+only when present, so the plain backend deploy is unchanged). The image builds
+natively on amd64 and arm64 — ONNX Runtime ships wheels for both.
 
 ### Windows development setup
 
@@ -169,12 +183,14 @@ Model evaluation follows the methodology in [`model/train.py`](./model/train.py)
 | Dataset size | 3,058 (2,449 train / 609 test) | [`model/eval_results.json`](./model/eval_results.json) |
 | Train / test split | `GroupShuffleSplit(test_size=0.2, groups=seed_id)`, seed 42 | [`model/eval_results.json`](./model/eval_results.json) |
 | Overall accuracy (INT8 ONNX) | 92.94% | [`model/eval_results.json`](./model/eval_results.json) |
+| Accuracy 95% CI (Wilson, n=609) | [90.63%, 94.72%] — ±2.05 pp | derived from [`model/eval_results.json`](./model/eval_results.json) (n, accuracy) |
 | Accuracy winner (not exportable) | 93.60% (`C2_char3-5_word1-2_LR_C2.0`) | [`model/eval_results.json`](./model/eval_results.json) |
-| Deployed artifact accuracy | 92.94% (`C1_word_1-2_LR_C2.0`) | [`model/eval_results.json`](./model/eval_results.json) |
+| Deployed artifact accuracy | 92.94% (`C1_word_1-2_LR_C2.0` — 0.9278 as sklearn, 0.9294 as exported INT8 ONNX) | [`model/eval_results.json`](./model/eval_results.json) |
 | Per-class precision/recall/F1 | see source | [`model/eval_results.json`](./model/eval_results.json) |
 | Confusion matrix | see source | [`model/confusion_matrix.json`](./model/confusion_matrix.json) |
 | Adversarial probe results | 14 probes, 0 mismatches, 0 HTTP 5xx | [`model/probe_results.json`](./model/probe_results.json) |
 | Latency p50/p95 on t4g.micro | 0.237 ms / 0.286 ms (n=100, 2026-07-20) | [`model/latency_t4g_micro.json`](./model/latency_t4g_micro.json) |
+| Multi-tier inference | `/predict/tiered`: ONNX INT8 → optional local LLM (Ollama) → honest `unavailable` | [`docs/PERFORMANCE.md`](./docs/PERFORMANCE.md), [`model/latency_tiers.json`](./model/latency_tiers.json) |
 | INT8 size / accuracy delta | 0.38 MB / +0.16 pp vs sklearn baseline | [`model/quantization.md`](./model/quantization.md) |
 | Calibration (ECE before / after) | 0.3946 / 0.0172 (temperature T=0.271) | [`model/calibration.json`](./model/calibration.json) |
 | Calibration assessment | `WELL_CALIBRATED` | [`model/calibration.json`](./model/calibration.json) |
@@ -233,6 +249,8 @@ ticketsec-arm64-dashboard/
 │   ├── quantization.md         # INT8 notes
 │   └── requirements.txt        # Python evaluation dependencies
 ├── ops/                        # Deploy / health-check / rollback scripts
+├── docs/                       # Migration guide, performance, submissions
+├── Dockerfile                  # All-in-one image (UI + API on :8000)
 ├── DEVOPS_RUNBOOK.md           # Graviton operations runbook
 ├── MODEL_CARD.md               # Model card
 ├── SECURITY_REVIEW.md          # OWASP / AppSec review
@@ -245,22 +263,28 @@ ticketsec-arm64-dashboard/
 
 ## Quality bars
 
-- `npm run build` — passing, main chunk 315.86 KB < 600 KB ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+Current gate run: **G1–G8 8/8 PASS** (2026-07-23, [`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+
+- `npm run build` — passing, main chunk 321.29 KB < 600 KB ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
 - `npm run lint` — 0 warnings, 0 errors ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
 - `npx vitest run` — 178 tests, 0 failed, 0 skipped ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
 - `npx axe http://localhost:5173` — 0 violations per route ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
-- `bash scripts/gates.sh` — 11/11 PASS ([`TEST_RESULTS_v4.md`](./TEST_RESULTS_v4.md)).
+- `bash scripts/gates.sh` — G1 build/chunk · G2 lint · G3 vitest · G4 axe · G5 honesty assertions (H1–H8) · G6 secrets scan · G7 number traceability · G8 clean tree ([`scripts/gates.sh`](./scripts/gates.sh)).
 
 ---
 
 ## Links
 
+- **DEMO video**: TBD — recorded after final deploy
 - [Model Card](./MODEL_CARD.md)
+- [Migration Guide: sklearn → ONNX on Arm64](./docs/MIGRATION_GUIDE.md)
+- [Performance methodology & results](./docs/PERFORMANCE.md)
+- [Devpost submissions (Arm Challenge + NeuralSprint)](./docs/DEVPOST_SUBMISSION.md)
 - [DevOps Runbook](./DEVOPS_RUNBOOK.md)
 - [Security Review](./SECURITY_REVIEW.md)
 - [Hackathon Strategy & Demo Runbook](./STRATEGY.md)
 - [QA Test Results](./TEST_RESULTS_v4.md)
-- [Devpost Submission Draft](./DEVPOST_SUBMISSION.md)
+- [Devpost Submission Draft (v4)](./DEVPOST_SUBMISSION.md)
 - [Demo Script](./DEMO_SCRIPT.md)
 - Live API: `http://3.23.60.61:8000/health`
 - API Docs: `http://3.23.60.61:8000/docs`

@@ -186,7 +186,7 @@ The INT8 artifact uses ONNX Runtime dynamic quantization: weights are INT8,
 activations remain FP32.  It is loaded once at startup in the FastAPI serving
 layer and runs on the CPUExecutionProvider.
 
-The target deployment is an AWS Graviton `t4g.micro` (ARM64, 1 vCPU, 1 GB RAM).
+The target deployment is an AWS Graviton `t4g.micro` (ARM64, 2 vCPU, 1 GB RAM).
 The systemd unit caps memory at `MemoryMax=700M`, leaving headroom for the OS
 and ONNX Runtime workspace.
 

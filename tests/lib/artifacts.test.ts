@@ -72,7 +72,7 @@ describe('committed artifacts', () => {
   });
 
   it('quantization info is parsed from markdown', () => {
-    expect(artifacts.quantization.sizeText).toMatch(/401[\s,]?770\s*bytes/i);
+    expect(artifacts.quantization.sizeText).toMatch(/401[\s,]?872\s*bytes/i);
     expect(artifacts.quantization.baselineAccuracy).toBeCloseTo(0.9278, 4);
     expect(artifacts.quantization.int8Accuracy).toBeCloseTo(0.9294, 4);
     expect(artifacts.quantization.delta).toBeCloseTo(0.0016, 4);

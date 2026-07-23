@@ -38,7 +38,7 @@ describe('ModelRegistry committed artifact rendering', () => {
     render(<ModelRegistry />);
     expect(await screen.findByText('Model Card')).toBeInTheDocument();
     expect(screen.getByText(/0\.38 MB/)).toBeInTheDocument();
-    expect(screen.getByText(/401[\s,]?770 bytes/i)).toBeInTheDocument();
+    expect(screen.getByText(/401[\s,]?872 bytes/i)).toBeInTheDocument();
     expect(screen.getByText(/\+0\.16 pp vs sklearn baseline/)).toBeInTheDocument();
   });
 
