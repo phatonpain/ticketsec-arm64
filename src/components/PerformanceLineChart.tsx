@@ -196,6 +196,7 @@ export const PerformanceLineChart: React.FC = () => {
               title="No performance data available"
               description="Accuracy history is served by the inference API. The API is offline and the cache holds no performance points."
               nextStep="Offline eval results live in Model Registry."
+              art
             />
           )
         ) : (

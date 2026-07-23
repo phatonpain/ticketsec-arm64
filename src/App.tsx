@@ -28,6 +28,8 @@ import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { HelpModal } from './components/HelpModal';
+import heroBgArt from './assets/hero-bg.webp';
+import modelHeaderArt from './assets/model-header.webp';
 import { SettingsDrawer } from './components/SettingsDrawer';
 import { useCommandPalette, openCommandPalette } from './hooks/useCommandPalette';
 const CommandPalette = React.lazy(() => import('./components/CommandPalette').then(m => ({ default: m.CommandPalette })));
@@ -188,6 +190,15 @@ export const App: React.FC = () => {
   };
   const { title: viewTitle, subtitle: viewSubtitle } = viewConfig[activeView];
 
+  /* FASE 4 — decorative ComfyUI art on view title strips. Decoration only:
+   * never behind data panels, opacity capped, solid --bg-body fallback if
+   * the image fails to load (onError hides the img). */
+  const TITLE_ART: Partial<Record<View, { src: string; opacity: number }>> = {
+    dashboard: { src: heroBgArt, opacity: 0.06 },
+    'model-registry': { src: modelHeaderArt, opacity: 0.08 },
+  };
+  const titleArt = TITLE_ART[activeView];
+
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-body)', overflow: 'hidden' }}>
       <Sidebar />
@@ -208,8 +219,35 @@ export const App: React.FC = () => {
         {/* Content */}
         <div style={{ flex: 1, padding: '20px var(--layout-page-px)', display: 'flex', flexDirection: 'column', gap: 'var(--density-card-gap)' }}>
           {/* Page Title */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
+          <div
+            style={{
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--bg-body)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {titleArt && (
+              <img
+                src={titleArt.src}
+                alt=""
+                aria-hidden="true"
+                onError={e => { e.currentTarget.style.display = 'none'; }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: titleArt.opacity,
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+            <div style={{ position: 'relative', padding: '4px 8px' }}>
               <h1
                 ref={titleRef}
                 tabIndex={-1}
@@ -229,7 +267,7 @@ export const App: React.FC = () => {
               </p>
             </div>
             {lastSync && (
-              <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
+              <div style={{ position: 'relative', padding: '4px 8px', fontSize: 'var(--font-size-sm)', color: 'var(--text-muted)' }}>
                 Last sync: {lastSync.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
               </div>
             )}

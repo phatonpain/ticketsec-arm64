@@ -213,3 +213,68 @@ Spec pedia `HANDOFF_P3.md`; P3 já existe da v4 — registro aqui.
 - Órfãos de vite após TaskStop voltaram a segurar :5173 duas vezes;
   mortos por PID via PowerShell. Regra permanente: confirmar porta livre
   antes de gate runs/ensaios.
+
+## Addendum — FASE 4: visual polish + asset integration (2026-07-23)
+
+Spec pedia `HANDOFF_P4.md`; P4 já existe da v4 — registro aqui.
+
+### Done (com evidência)
+
+- WebP q80 via Pillow: `src/assets/hero-bg.webp` (68.6KB),
+  `model-header.webp` (87.8KB), `empty-state.webp` (41.7KB) — **198.1KB
+  total < 200KB**. Emitidos como assets separados (chunk JS não cresceu:
+  321.88KB < 600KB).
+- hero-bg: title strip do dashboard, opacity 6%, overlay `--bg-body`,
+  fallback sólido via `onError` hide (`src/App.tsx:191-200,225-257`).
+- model-header: title strip do Model Registry, opacity 8% (mesmo bloco).
+- empty-state: prop opt-in `art` no `EmptyState.tsx` (crop quadrado,
+  opacity 40%, max-height 120px), habilitada só nos EmptyState genuínos de
+  `ThreatBarChart` e `PerformanceLineChart`. Nunca sobre dados.
+- Before/after @1366px das 6 rotas em `screenshots/v5/before|after/` +
+  `empty-state-art.png` (offline, prova do estado genuíno).
+
+### Premissas do spec que já estavam implementadas (A10 — sem vitória vazia)
+
+Os 4 "visual refinements" já existiam no código: rows 36px
+(`tokens.css:155`), severity rail 4px (`ClassificationTable.tsx:503`),
+tabular-nums em todos os displays numéricos (25 usos), EmptyState 120px +
+CTA. Verificado e reportado — nenhum diff foi fabricado para parecer
+trabalho. A mudança mensurável desta fase é a integração de assets.
+
+### Conflitos A1 surfados (não resolvidos em silêncio)
+
+- **"Subtle glow for Critical" NÃO aplicado**: DESIGN_BRIEF §2 bane
+  glows ("No gradients, no glows, no neon"). Rail ficou em 4px sem glow.
+- FASE 4 pedia rows "48→36px": atual já era 36px (premissa stale).
+
+### Rubrica §5 do DESIGN_BRIEF (self-grade honesto)
+
+| # | Critério | Nota | Evidência |
+|---|---|---|---|
+| 1 | Token purity | **8** | specs do usuário mandaram literais (opacity 6/8/40%, max-h 120px); sem hex novo |
+| 2 | Density 40/16/14 | 9 | ritmo mantido; row-h via token |
+| 3 | Type discipline | 10 | tabular-nums verificado |
+| 4 | State honesty | 9 | screenshots live+offline |
+| 5 | Empty states | 9 | compactos, next-step, arte sutil |
+| 6 | Chart craft | **8** | PRÉ-EXISTENTE: legendas dos donuts sobrepõem texto a 1366px (visível no BEFORE) |
+| 7 | Alignment | 9 | baselines consistentes |
+| 8 | Contrast | 9 | axe 0 nas 5 rotas |
+| 9 | Keyboard | 9 | ordem/focus inalterados; imgs aria-hidden |
+| 10 | Dead ends | 10 | arte não-interativa |
+
+Dois <9: (1) literais mandados pelo próprio spec da fase — justificados;
+(6) overlap de legenda dos donuts é **pré-existente** (BEFORE screenshot
+prova), fora do escopo cirúrgico — recomendo como item da próxima fase
+(aumentar raio/afastar legenda ou reduzir fonte da legenda a 1366px).
+
+### Gates
+
+G1 build 0 erros + chunk 321.88KB<600KB · G2 lint 0/0 · G3 vitest 178/178 ·
+G4 axe 0 violações nas 5 rotas. (G5/G7 rodam no próximo gates.sh completo.)
+
+### Nits pré-existentes notados (não corrigidos — escopo)
+
+- "Detections Over Time" mostra "Collecting live detections" com pill API
+  OFFLINE (copy vs. estado) — `TimelineChart` empty copy.
+- CategoryCountBlocks mostra contagens do snapshot sem badge de
+  proveniência (já listado nos open items da FASE 1).

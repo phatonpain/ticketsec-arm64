@@ -205,6 +205,7 @@ export const ThreatBarChart: React.FC = () => {
               title="No category data available"
               description="Detections are computed by the inference API. The API is offline and the cache holds no category counts."
               nextStep="Populates automatically when the inference API reconnects."
+              art
             />
           )
         ) : (

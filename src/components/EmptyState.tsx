@@ -1,5 +1,6 @@
 import React from 'react';
 import type { LucideIcon } from 'lucide-react';
+import emptyStateArt from '../assets/empty-state.webp';
 
 interface EmptyStateAction {
   label: string;
@@ -13,6 +14,9 @@ interface EmptyStateProps {
   nextStep?: string;
   action?: EmptyStateAction;
   minHeight?: number;
+  /* FASE 4: decorative square art (opacity 40%, max-height 120px) — opt-in,
+   * only for genuine empty states with room; never over data. */
+  art?: boolean;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
@@ -22,6 +26,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   nextStep,
   action,
   minHeight = 120,
+  art = false,
 }) => (
   <div
     style={{
@@ -39,6 +44,23 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       backgroundColor: 'var(--bg-body)',
     }}
   >
+    {art && (
+      <img
+        src={emptyStateArt}
+        alt=""
+        aria-hidden="true"
+        onError={e => { e.currentTarget.style.display = 'none'; }}
+        style={{
+          width: 'min(120px, 40%)',
+          aspectRatio: '1',
+          objectFit: 'cover',
+          borderRadius: 'var(--radius-md)',
+          opacity: 0.4,
+          maxHeight: 120,
+          pointerEvents: 'none',
+        }}
+      />
+    )}
     <Icon size={20} style={{ opacity: 0.4 }} aria-hidden="true" />
     <span
       style={{
