@@ -18,6 +18,9 @@
 #   H6  Offline honesty copy ("Unavailable") exists in the table and the
 #       system monitor — guards against "empty but looks live".
 #   H7  Zero dangerouslySetInnerHTML — model/LLM output renders as data only.
+#   H8  No hardcoded fixture data in components: ticket-like literal arrays,
+#       confidence literals, fabricated ISO timestamps. Derived values
+#       computed from real inputs are fine; typed fake data is not.
 #
 # Exit 0 = all assertions hold. Exit 1 = at least one violated (gate red).
 set -uo pipefail
@@ -84,6 +87,18 @@ if grep -rn 'dangerouslySetInnerHTML' src/ --include='*.ts' --include='*.tsx' | 
   fail "H7 no dangerouslySetInnerHTML" "found in src/"
 else
   pass "H7 zero dangerouslySetInnerHTML"
+fi
+
+# H8 — no hardcoded fixture data in components (ticket-like literal arrays,
+# confidence literals, fabricated ISO timestamps). Derived values computed
+# from real inputs (e.g. useTickets.computeTicketProbabilities) are fine —
+# what is banned is typing fake data into the source.
+H8_HITS=$(grep -rnE 'confidence:[[:space:]]*0\.[0-9]|new Date\(['"'"'"]20[0-9]{2}|\[[[:space:]]*\{[[:space:]]*(id|subject|text|createdAt):' \
+  src/ --include='*.ts' --include='*.tsx')
+if [ -z "$H8_HITS" ]; then
+  pass "H8 no hardcoded fixture data in src/"
+else
+  fail "H8 hardcoded fixture data" "$H8_HITS"
 fi
 
 exit $RED
