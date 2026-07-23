@@ -103,3 +103,64 @@ reais). O grosso já estava neste HANDOFF; o addendum registra o delta:
 - **Gate run final: 8/8 PASS, GATES_RC=0** (2026-07-23 08:59:23Z,
   `TEST_RESULTS_v4.md`) — primeira integralidade de gates com G5/G7 reais
   e G3 endurecido.
+
+## Addendum — FASE 2 close-out: documentation pack (2026-07-23, commit `26b2b23`)
+
+Spec pedia `HANDOFF_P2.md`; P2 já existe da v4 — registro aqui (mesma regra
+da FASE 1). Gate run final: **8/8 PASS, GATES_RC=0** (15:12:07Z,
+`TEST_RESULTS_v4.md`).
+
+### Done (file:line)
+
+- `README.md` — quickstart Docker (all-in-one :8000), linha Wilson 95% CI
+  derivada [90.63%, 94.72%] ±2.05pp, linha multi-tier, quality bars
+  atualizados (G1–G8, chunk 321.32KB), links novos, layout com Dockerfile.
+- `docs/MIGRATION_GUIDE.md` — guia reutilizável sklearn→ONNX→Arm64
+  (subagent coder, fatos conferidos): pipeline real, pitfall char_wb C2→C1,
+  tamanho paridade, checklist de 10 pontos.
+- `docs/PERFORMANCE.md` — metodologia (n=100, processing_time_ms server-side,
+  RTT excluído) + resultados + design multi-tier com custo honesto do tier
+  `unavailable` (p50 ≈4s = timeout de conexão, não inferência; LLM tier
+  n=0 — Ollama offline, célula vazia em vez de estimativa).
+- `docs/DEVPOST_SUBMISSION.md` — draft duplo (Arm Cloud AI / NeuralSprint).
+- `Dockerfile` + `.dockerignore` — multi-stage node22→python3.12-slim;
+  `app/main.py` monta `dist/` só quando presente (mount registrado por
+  último; rotas API vencem). Rota `GET /` JSON removida (nada consumia —
+  verificado em ops/, src/) para o mount servir index.html.
+
+### Correções de fatos encontradas na fase (reviewer A7 + verificação)
+
+1. `model/quantization.md` estava STALE: bytes 401,542/401,770 → real
+   401,864/401,872 (stat + sha256 + `artifact_meta.json` conferem), hashes
+   atualizados, "-0.1% smaller" → "same size (+8 bytes, +0.002%)",
+   1→2 vCPU. `model/export_onnx.py:189` (template) corrigido também.
+2. Custo do host errado desde a v4: $0.0042/h é preço do t4g.nano;
+   t4g.micro on-demand = **$0.0084/h ≈ $6/mês** (verificado em fontes AWS
+   externas). Corrigido em 6 lugares.
+3. Dois testes pinavam o byte count stale (`artifacts.test.ts:75`,
+   `ModelRegistry.test.tsx:41`) — expectations atualizadas para o valor
+   medido (fato corrigido, não teste dobrado).
+
+### Verificações executadas
+
+- Quickstart local testado: `uvicorn app.main:app` → `/` serve index.html,
+  `/health` ok, `/predict` ok, asset 200. Frontend `npm run dev` ok.
+- Revisão A7 por explore agent independente: rubric R1–R7; 2 HIGH
+  corrigidos, nice-to-haves aplicados.
+- Re-run vitest pós-correção: 16/16 nos dois arquivos tocados; gate final
+  178/178.
+
+### Open items / warnings
+
+- **Docker build NÃO testado** — docker CLI não existe nesta máquina. O
+  Dockerfile foi revisado estaticamente (todos os COPY conferem contra a
+  tree; stage-1 cobre os 7 imports de artifacts.ts), mas `docker build`
+  precisa rodar numa máquina com Docker antes da submissão. Não há evidência
+  de que a imagem constrói — claim limitado a isso.
+- nit do reviewer rejeitado com evidência: `model/test_set.jsonl` FICA no
+  stage runtime — `app/main.py:228` carrega test_records para
+  `/api/v1/classifications` e `/api/v1/stats/categories`.
+- Prazos/prêmios dos hackathons no DEVPOST são do enunciado do usuário —
+  não verificáveis por artefato; confirmar antes de submeter.
+- FASE 0 pendente: `audit/STATE_MAP_v5.md` bloqueado até repo público
+  (sem remote configurado).
