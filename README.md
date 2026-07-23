@@ -285,7 +285,8 @@ Current gate run: **G1–G8 8/8 PASS** (2026-07-23, [`TEST_RESULTS_v4.md`](./TES
 - [Hackathon Strategy & Demo Runbook](./STRATEGY.md)
 - [QA Test Results](./TEST_RESULTS_v4.md)
 - [Devpost Submission Draft (v4)](./DEVPOST_SUBMISSION.md)
-- [Demo Script](./DEMO_SCRIPT.md)
+- [Demo Script (v4, 60–90 s)](./DEMO_SCRIPT.md)
+- [Demo Script (v5, 3 min, both hackathons)](./docs/DEMO_SCRIPT.md)
 - Live API: `http://3.23.60.61:8000/health`
 - API Docs: `http://3.23.60.61:8000/docs`
 

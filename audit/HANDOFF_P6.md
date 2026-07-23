@@ -164,3 +164,52 @@ da FASE 1). Gate run final: **8/8 PASS, GATES_RC=0** (15:12:07Z,
   não verificáveis por artefato; confirmar antes de submeter.
 - FASE 0 pendente: `audit/STATE_MAP_v5.md` bloqueado até repo público
   (sem remote configurado).
+
+## Addendum — FASE 3 parcial: roteiro + ensaios do chaos drill (2026-07-23)
+
+Spec pedia `HANDOFF_P3.md`; P3 já existe da v4 — registro aqui.
+
+### Done
+
+- `docs/DEMO_SCRIPT.md` — shot list de 3:00 para os dois hackathons, com
+  regras de honestidade para gravação (número falado = número na tela ou
+  artefato). Link adicionado ao README.
+- **Correções de claims do spec antes de gravar (A4)**:
+  1. "92% of alerts are noise" — sem fonte; removido do roteiro.
+  2. "95% CIs no Model Registry" — **não existe** (verificado: nem
+     `ModelRegistry.tsx` nem `eval_results.json` têm CI; o único CI do
+     projeto é o Wilson derivado no README/PERFORMANCE). Roteiro não
+     menciona CI no Registry. O CURRENT STATE da mission estava impreciso.
+- **Ensaio do chaos drill 2× PASS** (evidência: `qa/proof/honesty-matrix.json`
+  + 15 screenshots por run em `qa/proof/`): transições live→cached→offline
+  nas 5 views + silêncio de 60 s do EventLog (0 entradas fabricadas, 0
+  novas entradas) nos DOIS ensaios.
+
+### Achado de ensaio (diagnóstico, não bug)
+
+- O primeiro ensaio falhou em OFFLINE porque a UI **default aponta para a
+  API de produção** (`useSettings.ts:4`: `DEFAULT_API_BASE =
+  'http://3.23.60.61:8000'`) — matar o backend local não afeta a UI.
+  Comportamento honesto correto (pill CACHED via `dataIsSnapshotOnly`,
+  `Header.tsx:58`). Para ensaiar a mecânica sem tocar na produção:
+  `VITE_API_BASE_URL=http://127.0.0.1:8000 npm run dev` (localStorage
+  limpo no perfil headless → env vira default).
+- O pill pode mostrar `CACHED · 142ms` com API live quando só há linhas de
+  snapshot — é o design, não um bug. Narrar assim no vídeo se acontecer.
+
+### MANUAL (bloqueado para o usuário — B4/outward-facing)
+
+1. **Ensaio + gravação do drill na Graviton**: `systemctl stop ticketsec`
+   no host de produção é ação outward-facing — não executada por mim.
+   Me autorize explicitamente ou rode você mesmo antes de gravar.
+2. **Gravação OBS** (1366×768, 2 takes) — ação de desktop, manual.
+3. **Upload YouTube (unlisted)** — conta do usuário. Depois substituir o
+   placeholder "TBD" em `README.md` e `docs/DEVPOST_SUBMISSION.md`.
+4. Nota de produção: enquanto o drill roda na Graviton, o endpoint público
+   do hackathon fica fora — coordenar janela curta.
+
+### Housekeeping
+
+- Órfãos de vite após TaskStop voltaram a segurar :5173 duas vezes;
+  mortos por PID via PowerShell. Regra permanente: confirmar porta livre
+  antes de gate runs/ensaios.
