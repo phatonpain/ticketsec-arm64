@@ -48,6 +48,19 @@ export interface PredictionResult {
   probabilities?: Record<string, number>;
 }
 
+/** Inference tier reported by POST /predict/tiered (backend honesty field). */
+export type InferenceTier = 'onnx_int8' | 'local_llm_q4' | 'unavailable';
+
+export interface TieredPredictionResult {
+  predicted_category: string | null;
+  confidence: number;
+  processing_time_ms?: number;
+  probabilities?: Record<string, number>;
+  inference_tier: InferenceTier;
+  llm_explanation: string | null;
+  llm_model: string | null;
+}
+
 export interface CategoryStats {
   category: string;
   count: number;
@@ -399,6 +412,44 @@ export async function predict(text: string): Promise<PredictionResult | null> {
   }
 }
 
+/**
+ * Tiered prediction (ONNX first, optional local-LLM fallback). Mirrors
+ * predict()'s timeout/honesty behaviour; the original predict() is untouched.
+ * The response's inference_tier is rendered as a green/amber/red badge — the
+ * UI never upgrades an 'unavailable' tier into a fake result.
+ */
+export async function predictTiered(text: string): Promise<TieredPredictionResult | null> {
+  setState({ loading: true, error: null });
+  try {
+    const res = await fetchWithTimeout(
+      `${getApiBase()}/predict/tiered`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      },
+      PREDICT_TIMEOUT_MS,
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data: TieredPredictionResult = await res.json();
+    // User-action evidence is fresher than any scheduled probe.
+    reportApiOutcome(true, null);
+    return data;
+  } catch (err) {
+    const message =
+      err instanceof DOMException && err.name === 'AbortError'
+        ? `timeout after ${PREDICT_TIMEOUT_MS} ms`
+        : err instanceof Error
+          ? err.message
+          : 'Unknown error';
+    setState({ error: message });
+    reportApiOutcome(false, message);
+    return null;
+  } finally {
+    setState({ loading: false });
+  }
+}
+
 export async function getStats(): Promise<CategoryStats[]> {
   try {
     const res = await fetchWithTimeout(`${getApiBase()}/api/v1/stats/categories`, { method: 'GET' }, PROBE_TIMEOUT_MS);
@@ -482,6 +533,7 @@ export function useApi() {
     consecutiveErrors: offlineBackoff.attempt(),
     checkHealth,
     predict,
+    predictTiered,
     getStats,
     getPerformance,
     getClassifications,

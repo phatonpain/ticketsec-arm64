@@ -1,0 +1,111 @@
+{
+  "status": "COMPLETE",
+  "generated_at": "2026-07-23T04:27:23.564445+00:00",
+  "host": "local development machine",
+  "endpoint": "http://127.0.0.1:8000/predict/tiered",
+  "sample_count": 30,
+  "tiers": {
+    "onnx_int8": {
+      "n": 18,
+      "p50_ms": 0.217,
+      "p95_ms": null
+    },
+    "local_llm_q4": {
+      "n": 0,
+      "p50_ms": null,
+      "p95_ms": null
+    },
+    "unavailable": {
+      "n": 12,
+      "p50_ms": 4066.1,
+      "p95_ms": null
+    }
+  },
+  "measurement_protocol": {
+    "per_request": "Sequential 30 POST /predict/tiered calls mixing canonical and ambiguous ticket texts. Responses grouped by the honesty field inference_tier; p50/p95 computed from processing_time_ms. HTTP 429 responses are honored via Retry-After backoff.",
+    "interpretation": "processing_time_ms is server-side tier latency reported by /predict/tiered (ONNX inference or ONNX+Ollama round trip; excludes network RTT). Tiers with n<20 report p95_ms=null. Tiers with n=0 were not exercised in this run."
+  },
+  "raw_responses_sample": [
+    {
+      "predicted_category": "Phishing",
+      "confidence": 0.991355,
+      "processing_time_ms": 0.2644,
+      "probabilities": {
+        "Phishing": 0.9913551090322008,
+        "Malware": 0.0015053907225516332,
+        "Unauthorized Access": 0.00022192098278622574,
+        "Data Breach": 0.0003214123095725528,
+        "DDoS": 5.8060904139520444e-05,
+        "False Positive": 0.006538106048749309
+      },
+      "inference_tier": "onnx_int8",
+      "llm_explanation": null,
+      "llm_model": null
+    },
+    {
+      "predicted_category": "Malware",
+      "confidence": 0.957418,
+      "processing_time_ms": 0.1835,
+      "probabilities": {
+        "Phishing": 0.008768706576361758,
+        "Malware": 0.9574177258479751,
+        "Unauthorized Access": 0.00338285672242088,
+        "Data Breach": 0.009364582591668296,
+        "DDoS": 0.016054369498006277,
+        "False Positive": 0.005011758763567713
+      },
+      "inference_tier": "onnx_int8",
+      "llm_explanation": null,
+      "llm_model": null
+    },
+    {
+      "predicted_category": "Unauthorized Access",
+      "confidence": 0.941951,
+      "processing_time_ms": 0.1454,
+      "probabilities": {
+        "Phishing": 0.005353843583152149,
+        "Malware": 0.031624143589974715,
+        "Unauthorized Access": 0.9419508429942473,
+        "Data Breach": 0.0033824638681032447,
+        "DDoS": 0.006607137470148313,
+        "False Positive": 0.011081568494374291
+      },
+      "inference_tier": "onnx_int8",
+      "llm_explanation": null,
+      "llm_model": null
+    },
+    {
+      "predicted_category": "Data Breach",
+      "confidence": 0.995088,
+      "processing_time_ms": 0.2453,
+      "probabilities": {
+        "Phishing": 0.0004606940601443168,
+        "Malware": 0.0008874387319441227,
+        "Unauthorized Access": 0.0020655637537588096,
+        "Data Breach": 0.9950883656375982,
+        "DDoS": 0.0010836532814584713,
+        "False Positive": 0.0004142845350961075
+      },
+      "inference_tier": "onnx_int8",
+      "llm_explanation": null,
+      "llm_model": null
+    },
+    {
+      "predicted_category": "DDoS",
+      "confidence": 0.99282,
+      "processing_time_ms": 0.2756,
+      "probabilities": {
+        "Phishing": 0.0003587147932995307,
+        "Malware": 0.00431570670744592,
+        "Unauthorized Access": 0.0005399484410550083,
+        "Data Breach": 0.0005396323734704419,
+        "DDoS": 0.9928203971380755,
+        "False Positive": 0.0014256005466536839
+      },
+      "inference_tier": "onnx_int8",
+      "llm_explanation": null,
+      "llm_model": null
+    }
+  ],
+  "honesty_contract": "Every datum shown is either live (from the API), cached (amber CACHED badge, sourced from public/cache/tickets-snapshot.json), or shown as 'Unavailable — API offline'. Nothing is ever fabricated and presented as live."
+}

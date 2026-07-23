@@ -24,10 +24,13 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
   const statusColors = STATUS_COLORS[ticket.status];
   const sourceLabel = ticket.source === 'live' ? 'LIVE session' : 'CACHED snapshot';
   const timestamp = formatFullTimestamp(ticket.createdAt);
+  const llmTier = ticket.inferenceTier === 'local_llm_q4';
 
-  const explanation = ticket.source === 'live'
-    ? `Classified as ${ticket.category} by ONNX Runtime INT8 model · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`
-    : `Classified as ${ticket.category} by cached snapshot · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`;
+  const explanation = llmTier
+    ? `Classified as ${ticket.category} by local quantized LLM · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`
+    : ticket.source === 'live'
+      ? `Classified as ${ticket.category} by ONNX Runtime INT8 model · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`
+      : `Classified as ${ticket.category} by cached snapshot · confidence ${ticket.confidence.toFixed(2)} · source ${ticket.source}`;
 
   return (
     <div style={{ padding: '12px var(--density-widget-pad-x)', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -194,6 +197,44 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ ticket }) => {
       >
         {explanation}
       </div>
+
+      {llmTier && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 6,
+            background: 'var(--color-status-warn-bg)',
+            border: '1px solid var(--color-status-warn-text)',
+            borderRadius: 'var(--radius-md)',
+            padding: 10,
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-flex',
+              alignSelf: 'flex-start',
+              padding: 'var(--badge-pad-y) var(--badge-pad-x)',
+              borderRadius: 'var(--radius-badge)',
+              fontSize: 'var(--badge-font-size)',
+              fontWeight: 'var(--badge-font-weight)',
+              background: 'var(--color-status-warn-bg)',
+              color: 'var(--color-status-warn-text)',
+            }}
+          >
+            LOCAL LLM Q4
+          </span>
+          {ticket.llmExplanation && (
+            /* LLM output rendered as plain text data only — never HTML. */
+            <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-primary)', lineHeight: 1.5 }}>
+              {ticket.llmExplanation}
+            </span>
+          )}
+          <span style={{ fontSize: 'var(--font-size-micro)', color: 'var(--color-status-warn-text)' }}>
+            classificação por LLM local quantizado — precisão reduzida
+          </span>
+        </div>
+      )}
     </div>
   );
 };

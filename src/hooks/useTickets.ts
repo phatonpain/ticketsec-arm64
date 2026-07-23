@@ -42,6 +42,14 @@ export interface Ticket {
    * This field is visualization-only and never invents external data.
    */
   probabilities?: Record<string, number>;
+  /**
+   * Inference tier reported by /predict/tiered for live-classified rows.
+   * Drives the green/amber/red tier badge and the local-LLM disclaimer in
+   * the expanded ticket detail. Absent on snapshot rows (honest: unknown).
+   */
+  inferenceTier?: 'onnx_int8' | 'local_llm_q4' | 'unavailable';
+  /** One-sentence rationale from the local LLM tier; rendered as plain text. */
+  llmExplanation?: string;
 }
 
 interface SnapshotTicket {

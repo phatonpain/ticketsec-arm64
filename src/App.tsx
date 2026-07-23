@@ -49,6 +49,9 @@ import {
 type EnrichedResult = Omit<PredictionResult, 'processing_time_ms'> & {
   category: string;
   processing_time_ms: string;
+  /** Present only when the tiered endpoint (/predict/tiered) produced the row. */
+  inference_tier?: 'onnx_int8' | 'local_llm_q4' | 'unavailable';
+  llm_explanation?: string | null;
 };
 
 function mapClassificationToTicket(c: Classification): Ticket {
@@ -114,8 +117,13 @@ export const App: React.FC = () => {
       confidence: result.confidence,
       status: 'Resolved',
       assignedTo: 'Auto',
+      // Tiered-provenance fields ride along only when the tiered endpoint
+      // answered; plain /predict rows stay untouched.
+      ...(result.inference_tier ? { inferenceTier: result.inference_tier } : {}),
+      ...(result.llm_explanation ? { llmExplanation: result.llm_explanation } : {}),
     });
-    addInfo(`Inference OK · ${ticket.id} · ${result.category} · ${result.processing_time_ms}ms`);
+    const tierNote = result.inference_tier ? ` · tier ${result.inference_tier}` : '';
+    addInfo(`Inference OK · ${ticket.id} · ${result.category} · ${result.processing_time_ms}ms${tierNote}`);
   }, [add, addInfo]);
 
   const handleClassifyError = useCallback((_text: string, errorMessage: string) => {
