@@ -10,9 +10,9 @@ below.
 | # | Blocker | Status | Owner |
 |---|---|---|---|
 | B1 | Repo not public — no git remote configured; GitHub repo must be created public with LICENSE visible (FASE 0 stop condition, still open) | **CLEARED 2026-07-23** — `github.com/phatonpain/ticketsec-arm64` public, default branch `mission/v5`, LICENSE MIT detected by GitHub | user |
-| B2 | DEMO video not recorded/uploaded — FASE 3 script + 2 rehearsals done (`docs/DEMO_SCRIPT.md`, `qa/proof/`), but OBS recording + YouTube unlisted upload are manual | **OPEN** | user |
-| B3 | `docker build` never executed — no Docker on the dev machine; quickstart claims it works (statically reviewed only) | **OPEN** | user (any Docker host) |
-| B4 | Author name for the solo team field — not known to the agent | **OPEN** | user |
+| B2 | DEMO video not recorded/uploaded — FASE 3 script + 2 rehearsals done (`docs/DEMO_SCRIPT.md`, `qa/proof/`), but OBS recording + YouTube unlisted upload are manual | **PLACEHOLDER accepted by user 2026-07-23** — submissions ship with the TBD line until the video exists | user |
+| B3 | `docker build` never executed — no Docker on the dev machine; quickstart claims it works (statically reviewed only) | **CLEARED 2026-07-23** — README Docker section now explicitly marked untested | user (any Docker host) |
+| B4 | Author name for the solo team field — not known to the agent | **CLEARED 2026-07-23** — Felipe Inacio | user |
 | B5 | Production chaos drill on Graviton (`systemctl stop ticketsec`) for the video — outward-facing, needs explicit authorization + maintenance window (public endpoint goes down) | **OPEN** | user (or authorize agent) |
 
 ## Submission 1 — NeuralSprint (submit first, deadline 2026-08-24)
@@ -27,7 +27,7 @@ below.
   `screenshots/v5/after/empty-state-art.png` (honest offline state).
 - **Video:** TBD — YouTube unlisted URL (B2).
 - **Repo:** TBD — public GitHub URL (B1).
-- **Team:** solo — TBD name (B4).
+- **Team:** solo — Felipe Inacio
 
 ## Submission 2 — Arm Create AI Optimization Challenge, Cloud AI track (deadline 2026-08-23)
 

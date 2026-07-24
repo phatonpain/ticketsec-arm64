@@ -105,6 +105,11 @@ The trade-off is accuracy delta vs FP32. That delta is measured and recorded in 
 
 ### Docker (all-in-one: UI + API on port 8000)
 
+> **Untested build:** this Dockerfile was statically reviewed (every `COPY`
+> verified against the repo tree) but `docker build` has **not** been
+> executed yet — no Docker host was available during development. Use the
+> local setup below for a guaranteed path.
+
 ```bash
 docker build -t ticketsec .
 docker run --rm -p 8000:8000 ticketsec
